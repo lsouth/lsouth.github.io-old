@@ -412,7 +412,7 @@ button:focus,
 
 @media (max-width: 768px) {
     .progress-wrapper{
-        margin-bottom: 50px;
+        margin-bottom: 15px;
         }
     }
 
@@ -441,7 +441,7 @@ button:focus,
     background : -webkit-linear-gradient(
             top,
             transparent 0%,
-            rgba(0, 0, 0, 0.5) 100%
+            rgba(0, 0, 0, 0.2) 100%
     );
     }
 
@@ -467,7 +467,7 @@ button:focus,
 .portfolio-item .portfolio-info h3 {
     margin         : 0;
     line-height    : 1;
-    color          : #ffffff;
+    color          : #444444;
     font-weight    : 500;
     text-transform : uppercase;
     }
@@ -476,6 +476,17 @@ button:focus,
     color : rgba(255, 255, 255, .5);
     }
 
+.skill {
+	border: 1px solid #01A9DB;
+	border-radius: 8px;
+	display: inline-block;
+	font-size: 11px;
+	margin-right: 10px;
+	margin-top: 1em;
+	padding: 7px 18px;
+	text-transform: uppercase;
+	width: auto;	
+}
 
 /*-----------------
  * Review
