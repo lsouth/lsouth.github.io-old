@@ -1,5 +1,4 @@
 .profile-img {
-  padding : 35px;
   margin-left: 30px;
 }
 .jumbotron h1{
@@ -8,7 +7,6 @@
 
 .jumbotron {
   border-radius: 25px;
-  background-color: #8de0cd;
 }
 
 body{
@@ -17,4 +15,27 @@ body{
 
 p {
   font-family: sans-serif;
+}
+
+.card {
+  margin-left: 30px;
+  margin-right: 40px;
+  margin-top: 30px;
+}
+
+.tool {
+  border: solid #2F4F4F 1px;
+  border-radius: 5px;
+  background: #2F4F4F;
+  width: 80px;
+  margin: 3px 7px;
+  color: white;
+  text-align: center;
+}
+
+.tools {
+  border:solid #66CDAA 3px;
+  border-radius: 5px;
+  width: auto;
+  padding: 10px;
 }
