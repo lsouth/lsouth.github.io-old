@@ -1,6 +1,16 @@
 .profile-img {
   margin-left: 30px;
 }
+
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}
+
+.card-text{
+    text-size: 12pt;
+}
+
 .jumbotron h1{
   text-align: center;
 }
@@ -36,6 +46,6 @@ p {
 }
 
 .tools {
-  width: auto;
+  width: 40%;
   padding: 10px;
 }
