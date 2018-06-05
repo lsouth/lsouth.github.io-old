@@ -1,7 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Laura South personal website">
+    <meta name="author" content="Laura South">
     <title>Laura South</title>
     <link href="favicon.ico" rel=icon>
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -12,38 +15,55 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="index.html">Laura South</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="projects.html">Recent Projects</a>
-          <a class="nav-item nav-link" href="blog.html">Blog</a>
+    <header>
+      <div class="container.fluid">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Laura South</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="projects.html">Recent Projects</a>
+            <a class="nav-item nav-link" href="blog.html">Blog</a>
+          </div>
+          <form class="navbar-form" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search"/>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">Submit</button>
+              </span>
+            </div>
+          </form>
         </div>
-      </div>
-   </nav>
+     </nav>
+   </div>
+</header>
 
    <div class="container">
      <div class="row"style="margin-top: 30px;">
-        <div class="col-sm-4">
+        <div class="col-lg-4">
           <div class="profile-img">
-            <img class="img-fluid" src="img/profile-picture.jpg"/>
+            <img class="img-fluid" src="img/profile-picture.jpg" width="40%"/>
           </div>
         </div>
-      <div class="col-sm-4">
+      <div class="col-lg-4">
         <div class="jumbotron" >
           <h1 class="display-3">Laura South</h1>
         </div>
       </div>
-      <div class="col-sm-4">
-        <p>Hello everyone! My name is Laura South. I am a senior at Colorado State University studying Computer Science and Statistics. I am passionate about the ethical use of data science, math, and software engineering.</p>
+      <div class="col-lg-4">
+        <p>Hello! My name is Laura South. I like computer science, math, music, and writing. Welcome to my website!</p>
         <p>Click <a href="projects.html">here</a> to view some of my recent projects.</p>
       </div>
     </div>
   </div>
+
+  <footer>
+   <div class="container">
+   </div>
+  </footer>
 
   </body>
 </html>
