@@ -7,6 +7,17 @@ img .profile-img{
   border-radius: 20%;
 }
 
+.album-art{
+  padding-bottom: 15px;
+  padding-top: 15px;
+  cursor: url('banana-icon.PNG'), auto;
+}
+
+.oi{
+  padding-right: 4px;
+  padding-left: 3px;
+}
+
 .padding-0{
     padding-right:0;
     padding-left:0;
