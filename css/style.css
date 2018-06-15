@@ -3,6 +3,11 @@
   margin-bottom: 30px;
 }
 
+.lyrics{
+  font-style: italic;
+  text-align: center;
+}
+
 img .profile-img{
   border-radius: 20%;
 }

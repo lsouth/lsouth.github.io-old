@@ -1,0 +1,31 @@
+{
+  "posts": [{
+    "title": "Album Review: Reputation by Taylor Swift",
+    "author": "Laura South",
+    "date": "June 6, 2018",
+    "lead": "This album took a while to grow on me, but I think that I can safely say that it is now my favorite Taylor Swift album.",
+    "intro":"That's perhaps less impressive than it might seem if you consider the fact that I haven't been an active fan of hers since the Fearless era. However, this album accomplished the difficult task of making me an avid T. Swift fan once again, just like back in the golden days of 2009."
+    "body": "I've been trying to put my finger on what about this album made it so different for me, and I think there are two main factors at play here. First, I adore Jack Antonoff and everything he does, and he is more present on this album than ever before in their collaborative history. Second, I think Taylor is far more honest and straightforward on this album than she has ever been before. It feels like she is less reliant on cliches and fairytales now -- she's simply telling it like it is and I love it. My favorite song is Call It What You Want, but I enjoy pretty much every track (except for End Game, which I cannot stand. Sorry Tay!).",
+    "tags": ["Taylor Swift"],
+    "category": "Album Reviews",
+    "id": 1
+    },
+    {
+      "title": "Album Review: Melodrama by Lorde",
+      "author": "Laura South",
+      "date": "June 4, 2018",
+      "lead": "I adore this album.",
+      "intro":"When I first listened to it in June 2017, I remember thinking that I'd been living this album for the past six months without even realizing it. It's been on pretty much constant replay on my Spotify since it came out on June 15, 2017.",
+      "body": "<p>Every song felt so familiar to me that I couldn't pick a favorite for months. But now I can say with confidence that my favorite song on Melodrama is Hard Feelings. The last verse is so sad and beautiful:</p>
+      <i>Three years, loved you every single day, made me weak, it was real for me <br>
+        Now I'll fake it every single day til I don't need fantasy, til I feel you leave <br>
+        But I still remember everything, how we'd drift buying groceries, how you'd dance for me<br>
+        I'll start letting go of little things til I'm so far away from you, far away from you, yeah. </i>
+       <br>
+      <p>That said, I can see how this album could be seen as underwhelming to someone who didn't go through an experience similar to what Lorde discusses over and over in this album. It's definitely thematically very different from Pure Heroine. PH was very detached, and that gave it a certain cool feeling. Any chill that Lorde had when she was 16 is gone now -- which I support. Lorde is living her life now, she's not just sitting on the sidelines making erudite observations about her surroundings. I think in an interview she said Pure Heroine was like watching people get drunk and Melodrama is about jumping into the fray and getting wasted yourself. So at least Lorde and I are on the same page here.</p>",
+      "tags": ["Lorde"],
+      "category": "Album Reviews",
+      "id": 2
+    }
+  ]
+}
