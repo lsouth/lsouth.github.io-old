@@ -1,3 +1,79 @@
+function renderBarChart(albumID){
+
+  d3.csv("albums.csv", function(data){
+    albumData = [];
+    data.forEach(function(d){
+      if(d["Album"] === albumID){
+        albumData.push(d);
+      }
+    });
+    var margin = {top: 20, right: 20, bottom: 20, left: 20};
+
+    var fullWidth = 500;
+    var fullHeight = 200;
+    var width = fullWidth - margin.right - margin.left;
+    var height = fullHeight - margin.top - margin.bottom;
+
+    var xValues = [];
+    for(i = 0; i < albumData.length; i++){
+      xValues.push(i);
+    }
+
+    var xScale = d3.scaleBand() //scaleBand is used for categorical data.
+                    .domain(xValues)
+                    .range([0, width])
+                    .paddingInner(0.1);
+
+    var yScale = d3.scaleLinear()
+                    .domain([0,4])
+                    .range([height, 0])
+                    .nice();
+
+    var albums = ['Gone Now', 'Strange Desire','Melodrama','Masseduction','Some Nights','Aim and Ignite','reputation','St Vincent','Steel Train'];
+    var colors = ['#e53b19',  '#047bd6',       '#6c46c4',  '#ff3877',     '#ffd396',    '#e2db04',       '#737773',   '#fceaf8',   '#b1d8d8'];
+    var color = d3.scaleOrdinal().domain(albums).range(colors);
+
+    var tip = d3.tip()
+                .attr('class','d3-tip')
+                .direction('s')
+                .html(function(d){
+                  return d["Track Title"] + "<br> Rating: " + d["Rating"];
+                });
+
+    var xAxis = d3.axisBottom(xScale);
+    var yAxis = d3.axisLeft(yScale).ticks(4);
+
+    svg = d3.select("#album-vis").append('svg').attr('width',fullWidth).attr('height', fullHeight);
+    //svg.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
+    svg.append('g').attr('transform', 'translate(20,10)').call(yAxis);
+    svg.call(tip);
+
+    svg.selectAll('rect')
+        .data(albumData)
+        .enter()
+        .append("rect")
+        .attr('x',function(d,i){
+          return 30 + xScale(i);
+        })
+        .attr('y', function(d){
+          if(d["Rating"] == 0){
+            return yScale(d["Rating"]) + 5;
+          }
+          return yScale(d["Rating"]) + 10;
+        })
+        .attr('height', function(d){
+          if(d["Rating"] == 0){
+            return height - yScale(d["Rating"]) + 5;
+          }
+          return height - yScale(d["Rating"]);
+        })
+        .attr('width', xScale.bandwidth())
+        .style('fill',color(albumID))
+        .on('mouseover', tip.show)
+        .on('mouseout',tip.hide);
+  });
+}
+
 function addTags(){
   $("#tag-list").append("<h4>Tags</h4>");
 

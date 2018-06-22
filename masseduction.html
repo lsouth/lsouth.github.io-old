@@ -25,6 +25,8 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
   </head>
 
   <body>
@@ -68,7 +70,7 @@
           <span class="oi oi-clock"></span>June 6th, 2018
         </div>
       </div>
-      <img class="album-art" src="img/masseduction.png" width="100%" alt="reputation cover art"></img>
+      <img class="album-art" src="img/masseduction.png" width="100%" alt="masseduction cover art"></img>
       <p>Annie Clark, the mastermind behind St Vincent, has never struggled with originality, creativity, or playing the guitar insanely well, and her latest release makes that more clear than ever. MASSEDUCTION is my favorite St Vincent record because it is her most brutally honest, unapologetic work thus far. It's a beautiful and sad meditation on power, loss, and lust.</p>
 
       <p>Clark strikes me as someone who chooses to hide her vulnerability behind meticulously crafted production and complex lyrics, rather than displaying it openly. I have no problem with that approach -- I think that's how I would probably write music if I had chosen a different path in life -- but it's refreshing to see Clark work from a more emotionally direct perspective on MASSEDUCTION.
@@ -76,7 +78,7 @@
       <p>
       I confess that I feel slightly unprepared to write about MASSEDUCTION and Annie Clark as an artist because I am a very new fan, but I'm going to carry on with the confidence of a mediocre man and pretend that I am very knowledgeable. Annie, I am very sorry if I get any facts wrong. I still love you. Let's do this.
       </p>
-
+      <div id="tracks">
       <h4>Track Listing:</h4>
       <p>
         <b>1. Hang On Me</b>
@@ -98,6 +100,10 @@
         <b>12. Slow Disco</b>
         <b>13. Smoking Section</b>
       </p>
+      </div>
+      <div id="album-vis">
+        <h4>Visualization</h4>
+      </div>
     </div> <!-- end masseduction entry -->
     <br>
      <ul class="pagination justify-content-center">
@@ -124,4 +130,7 @@
    </div>
 </footer>
 <script type="text/javascript" src="js/main.js"></script>
+<script>
+  renderBarChart("Masseduction");
+</script>
 </body>

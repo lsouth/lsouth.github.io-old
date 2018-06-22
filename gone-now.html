@@ -25,6 +25,8 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
   </head>
 
   <body>
@@ -161,6 +163,9 @@
     <ul>
       <li>What does the red dot on the album art mean? Jack's teased its meaning in several interviews, but he's always said he's going to reveal everything at a later date. Well, the Gone Now era is nearing its end and we still haven't gotten a firm answer. The time is now, Jack Antonoff.</li>
     </ul>
+    <div id="album-vis">
+      <h4>Visualization</h4>
+    </div>
     </div> <!-- end gone now entry -->
     <br>
      <ul class="pagination justify-content-center">
@@ -187,4 +192,7 @@
    </div>
 </footer>
 <script type="text/javascript" src="js/main.js"></script>
+<script>
+  renderBarChart("Gone Now");
+</script>
 </body>
