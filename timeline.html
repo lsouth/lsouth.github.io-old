@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <!-- load Javascript libraries -->
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+  <div class="col-md-10" id="timeline"></div>
+  <script>
+    var elem = "#timeline";
+
+    var props = {
+      width: 1000,
+      height: 600,
+      class: "timeline-point",
+      marginTop: 100,
+      marginRight: 100,
+      marginBottom: 100,
+      marginLeft: 100,
+      xTicks: 10,
+      yTicks: 0
+    }
+
+    // component start
+    var Timeline = {};
+
+    Timeline.create = function(elem, props){
+      props.width = window.innerWidth * 0.9;
+      props.height = window.innerHeight;
+      // build chart foundation
+      var svg = d3.select(elem).selectAll("svg").data([null])
+
+      svg = svg.enter().append("svg")
+                    .attr("id","svg-elem")
+                    .attr("width", props.width)
+                    .attr("height", props.height)
+                    .merge(svg);
+
+      var g = svg.selectAll(".point-container").data([null]);
+      g = g.enter()
+           .append("g")
+           .attr("class","point-container")
+           .merge(g)
+           .attr("transform", "translate(" + props.marginLeft + "," + props.marginTop + ")");
+
+      var g = svg.selectAll("line-container").data([null]);
+      g = g.enter()
+           .append('g')
+           .attr('class', 'line-container')
+           .merge(g)
+           .attr("transform", "translate(" + props.marginLeft + "," + props.marginTop + ")");
+
+      var xAxisG = g.append("g")
+                    .attr("class","x axis")
+                    .attr("transform", "translate(0," + (props.height - props.marginTop - props.marginBottom) + ")");
+      var yAxisG = g.append('g')
+                    .attr("class", "y axis");
+
+      xAxisG.exit().remove();
+      yAxisG.exit().remove();
+      g.exit().remove();
+      svg.exit().remove();
+
+      this.update(elem, props);
+    }
+
+    Timeline.update = function(elem, props){
+      d3.select("#svg-elem")
+          .attr("width", props.width)
+          .attr("height", props.height);
+      var domain = this.getDomain(props);
+      var scales = this.scales(elem, props, domain);
+
+      this.drawPoints(elem, props, scales);
+    }
+
+    var parseTime = d3.timeParse("%m/%d/%Y");
+
+    Timeline.getDomain = function(props) {
+      var domain = {};
+      domain.x = props.xDomain || d3.extent(props.data, function(d) { return d.date; });
+      return domain;
+    };
+
+    Timeline.scales = function(elem, props, domain) {
+
+      if (!domain) {
+        return null;
+      }
+
+      var width = props.width - props.marginRight - props.marginLeft;
+      var height = props.height - props.marginTop - props.marginBottom;
+
+      var x = d3.scaleTime()
+        .range([0, width])
+        .domain(domain.x);
+
+      var artists = [];
+      for (i in props.data){
+        var temp = props.data[i]["artist_id"];
+        if(!artists.includes(temp) && temp !== undefined && temp != "skip"){
+          artists.push(temp)
+        }
+      }
+      var y = d3.scaleBand()
+        .range([height, 0])
+        .domain(artists);
+
+      return {x: x, y: y};
+    };
+
+    var numTicks = function(width){
+      return width / 120;
+    }
+
+    Timeline.axes = function(props, scales) {
+
+      var xAxis = d3.axisBottom(scales.x)
+        .ticks(numTicks(props.width))
+        .tickFormat(d3.timeFormat("%B %Y"));
+
+      var yAxis = d3.axisLeft(scales.y);
+
+      return {
+        xAxis: xAxis,
+        yAxis: yAxis
+      }
+    };
+
+    Timeline.drawPoints = function(elem, props, scales, prevScales, dispatcher){
+      var g = d3.select(elem).selectAll(".point-container");
+      var artists = [];
+      for (i in props.data){
+          var name = props.data[i]["artist_id"];
+            if(!artists.includes(name) && name !== undefined && name != "skip"){
+              artists.push(name);
+            }
+      }
+
+      var line_data = {};
+      for(var i in artists){
+        for(var j in props.data){
+          var name = artists[i];
+          if(props.data[j]["artist_id"] == name){
+            if(line_data[name] === undefined){
+              line_data[name] = {"min": props.data[j]["date"], "max": props.data[j]["date"]}
+            }
+            else if(line_data[name]["min"] > props.data[j]["date"]){
+              line_data[name]["min"] = props.data[j]["date"];
+            }
+            else if(line_data[name]["max"] < props.data[j]["date"]){
+              line_data[name]["max"] = props.data[j]["date"];
+            }
+          }
+        }
+      }
+
+      var line = d3.line()
+                      .x(function(d) { return d.x; })
+                      .y(function(d) { return d.y; });
+
+      var artist_list = [];
+      var keys = Object.keys(line_data);
+      for(var i = 0; i < keys.length; i++){
+        artist_list.push({id : keys[i],values :[{x : scales.x(line_data[keys[i]]["min"]), y : scales.y(keys[i])},{x : scales.x(line_data[keys[i]]["max"]), y : scales.y(keys[i])}]});
+      }
+
+      var artist = g.selectAll(".artist")
+                      .data(artist_list)
+                      .enter()
+                      .append("g")
+                      .attr("class","artist");
+
+      var path = artist.append("path")
+              .attr("class","line")
+              .attr("d", function(d) { return line(d.values);})
+              .style("stroke", "black");
+
+      path.transition()
+              .attr("d", function(d) { return line(d.values);});
+
+      artist.exit().remove();
+      path.exit().remove();
+
+      var color = d3.scaleOrdinal(d3.schemeCategory10);
+      var image = g.selectAll('.image')
+                    .data(props.data);
+
+      image.enter()
+            .append("pattern")
+            .attr("id", function(d){return d.id})
+            .attr("class","svg-image")
+            .attr("x",0)
+            .attr("y",0)
+            .attr("height", 1)
+            .attr("width", 1)
+            .append("image")
+              .attr("x","-25")
+              .attr("y","-30")
+              .attr("height", "140px")
+              .attr("width","140px")
+              .attr("href", function(d){return d.image})
+
+     var point = g.selectAll('.point')
+                   .data(props.data);
+
+      var timeFormat = d3.timeFormat("%B %e, %Y");
+
+      point.enter()
+            .append("circle")
+              .attr("class","point")
+              .style("z-index","100")
+              .attr("cx", function(d){
+                return scales.x(d.date);
+              })
+              .attr("cy", function(d){
+                return scales.y(d.artist_id);
+              })
+              .attr("r", 40)
+              .style("fill", function(d){
+                return ("url(#" + d.id + ")");
+              })
+              .on("mouseover", function(d){
+                if(d.title == "skip"){
+                  return;
+                }
+                d3.select(this).attr("r",50);
+                d3.select("#svg-elem").append("text")
+                                       .attr("x", props.width / 2 - 30)
+                                       .attr("y", props.height - 30)
+                                       .attr("id", "t" + d.id)
+                                       .style("font-family","arial")
+                                       .style("font-size","14")
+                                       .style("font-weight","bold")
+                                       .text(d.title + ": " + timeFormat(d.date));
+              })
+              .on("mouseout", function(d){
+                d3.select("#t" + d.id).remove();
+                d3.select(this).attr("r", 40);
+              });
+
+     point.transition()
+          .attr("cx", function(d){
+            this.parentNode.appendChild(this);
+            return scales.x(d.date);
+          })
+          .attr("cy", function(d){
+            return scales.y(d.artist_id);
+          })
+          .attr("r", 40);
+
+     point.exit().remove();
+     image.exit().remove();
+
+     // update the axes
+     var axes = this.axes(props, scales);
+     d3.select(elem).selectAll('g.x.axis')
+           .transition()
+           .duration(1000)
+           .call(axes.xAxis);
+
+     d3.select(elem).selectAll('g.y.axis')
+           .transition()
+           .duration(1000)
+           .call(axes.yAxis);
+    };
+
+    var redraw = function(){
+      //$(".artist-line").remove();
+      $(".x.axis").remove();
+      $(".y.axis").remove();
+      $('.svg-image').remove();
+      $('.artist').remove();
+      $('.line-container').remove();
+      //$('.point').remove();
+      d3.csv('timeline.csv', function(d){
+        props.data = d;
+        props.data.forEach(function(d){
+          d.date = parseTime(d.date);
+        });
+        Timeline.create(elem, props);
+      });
+    }
+
+    $(document).ready(function(){
+        redraw();
+        window.addEventListener("resize",redraw);
+      });
+  </script>
+</body>
