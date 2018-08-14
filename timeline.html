@@ -1,22 +1,70 @@
 <!DOCTYPE html>
-<head>
-  <script src="js/jquery-2.1.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-</head>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120444378-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-120444378-1');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Laura South">
+    <meta name="author" content="Laura South">
+    <title>Laura South</title>
+    <link href="favicon.ico" rel=icon>
+    <!-- Bootstrap CSS file -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+  </head>
 
 <body>
-  <!-- load Javascript libraries -->
-  <script src="http://code.jquery.com/jquery.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-  <div class="col-md-10" id="timeline"></div>
+  <header>
+    <div class="container.fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">Laura South</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="projects.html">Recent Projects</a>
+          <a class="nav-item nav-link active" href="blog.html">Blog</a>
+        </div>
+        <form class="navbar-form" role="search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search"/>
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-default">Submit</button>
+            </span>
+          </div>
+        </form>
+      </div>
+   </nav>
+ </div>
+</header>
+<div class="container" style="padding-bottom: 20px;">
+<div class="row">
+  <div class="col-lg-10">
+  <div class="card" id="timeline"></div>
+  </div>
   <script>
     var elem = "#timeline";
 
     var props = {
       width: 1000,
-      height: 600,
+      height: 800,
       class: "timeline-point",
       marginTop: 100,
       marginRight: 100,
@@ -26,12 +74,15 @@
       yTicks: 0
     }
 
+    $(elem).bind("touchstart",function(){});
+
     // component start
     var Timeline = {};
 
     Timeline.create = function(elem, props){
       props.width = window.innerWidth * 0.9;
-      props.height = window.innerHeight;
+      //props.height = window.innerHeight;
+      props.width = $(elem).width();
       // build chart foundation
       var svg = d3.select(elem).selectAll("svg").data([null])
 
@@ -39,6 +90,7 @@
                     .attr("id","svg-elem")
                     .attr("width", props.width)
                     .attr("height", props.height)
+                    .style("background-color","white")
                     .merge(svg);
 
       var g = svg.selectAll(".point-container").data([null]);
@@ -59,7 +111,8 @@
                     .attr("class","x axis")
                     .attr("transform", "translate(0," + (props.height - props.marginTop - props.marginBottom) + ")");
       var yAxisG = g.append('g')
-                    .attr("class", "y axis");
+                    .attr("class", "y axis")
+                    .attr("transform","translate(20,0)");
 
       xAxisG.exit().remove();
       yAxisG.exit().remove();
@@ -107,6 +160,11 @@
           artists.push(temp)
         }
       }
+
+      artists.sort(function(a,b){
+        return a.toLowerCase() - b.toLowerCase();
+      });
+
       var y = d3.scaleBand()
         .range([height, 0])
         .domain(artists);
@@ -187,7 +245,6 @@
       artist.exit().remove();
       path.exit().remove();
 
-      var color = d3.scaleOrdinal(d3.schemeCategory10);
       var image = g.selectAll('.image')
                     .data(props.data);
 
@@ -200,11 +257,11 @@
             .attr("height", 1)
             .attr("width", 1)
             .append("image")
-              .attr("x","-25")
-              .attr("y","-30")
-              .attr("height", "140px")
-              .attr("width","140px")
-              .attr("href", function(d){return d.image})
+              .attr("x","-20")
+              .attr("y","-15")
+              .attr("height", props.width / 8)
+              .attr("width",props.width / 8)
+              .attr("href", function(d){return d.image});
 
      var point = g.selectAll('.point')
                    .data(props.data);
@@ -221,7 +278,7 @@
               .attr("cy", function(d){
                 return scales.y(d.artist_id);
               })
-              .attr("r", 40)
+              .attr("r", props.width / 25)
               .style("fill", function(d){
                 return ("url(#" + d.id + ")");
               })
@@ -229,7 +286,9 @@
                 if(d.title == "skip"){
                   return;
                 }
-                d3.select(this).attr("r",50);
+                if(d.review_link != "N/A"){
+                  d3.select(this).style("cursor","pointer");
+                }
                 d3.select("#svg-elem").append("text")
                                        .attr("x", props.width / 2 - 30)
                                        .attr("y", props.height - 30)
@@ -238,10 +297,31 @@
                                        .style("font-size","14")
                                        .style("font-weight","bold")
                                        .text(d.title + ": " + timeFormat(d.date));
+                if(d.color != "N/A"){
+                  d3.select(this).transition().attr("r", props.width / 20).style("stroke-width","5").style("stroke",function(d){return d.color});
+                  if(d.review_link != "N/A"){
+                    d3.select("#svg-elem").append("text")
+
+                                            .attr("x", props.width / 2 - 25)
+                                            .attr("y", props.height - 10)
+                                            .attr("id", "t2" + d.id)
+                                            .style("font-family","arial")
+                                            .style("font-size","14")
+                                            .style("font-weight","bold")
+                                            .text("Click to read my review!");
+                  }
+                }
               })
               .on("mouseout", function(d){
                 d3.select("#t" + d.id).remove();
-                d3.select(this).attr("r", 40);
+                d3.select("#t2" + d.id).remove();
+                d3.select(this).transition().attr("r", props.width / 25).style("stroke-width","0");
+              })
+              .on("click", function(d){
+                if(d.review_link == "N/A"){
+                  return;
+                }
+                window.location.href = d.review_link;
               });
 
      point.transition()
@@ -252,7 +332,7 @@
           .attr("cy", function(d){
             return scales.y(d.artist_id);
           })
-          .attr("r", 40);
+          .attr("r", props.width / 25);
 
      point.exit().remove();
      image.exit().remove();

@@ -1,24 +1,22 @@
 image,title,id,date,artist_id,review_link,color
 ,skip,0,6/1/2005,skip,N/A,N/A
-img/marryme.jpg,Marry Me,1,7/10/2007,St Vincent,N/A,#c7ddd6
+img/marryme.jpg,Marry Me,1,7/10/2007,St Vincent,N/A,N/A
 img/actor.jpg,Actor,2,5/4/2009,St Vincent,N/A,#ffaa72
 img/strangemercy.jpg,Strange Mercy,3,9/12/2011,St Vincent,strange-mercy.html,#ccd2dd
 img/stvincent-square.jpg,St Vincent,4,2/24/2014,St Vincent,st-vincent.html,#fceaf8
 img/masseduction-square.png,Masseduction,5,10/13/2017,St Vincent,masseduction.html,#ff3877
 img/taylorswift.png,Taylor Swift,6,10/24/2006,Taylor Swift,N/A,N/A
-img/fearless.png,Fearless,7,11/11/2008,Taylor Swift,N/A,#fff7bc
+img/fearless.png,Fearless,7,11/11/2008,Taylor Swift,N/A,N/A
 img/speaknow.png,Speak Now,8,10/25/2010,Taylor Swift,N/A,N/A
-img/red.png,Red,9,10/22/2012,Taylor Swift,N/A,#bc1818
-img/1989.png,1989,10,10/27/2014,Taylor Swift,N/A,#d7c7ea
+img/red.png,Red,9,10/22/2012,Taylor Swift,N/A,N/A
+img/1989.png,1989,10,10/27/2014,Taylor Swift,N/A,N/A
 img/reputation-square.jpg,reputation,11,11/10/2017,Taylor Swift,reputation.html,#737773
-img/trampoline.jpg,Trampoline,12,10/16/2007,Steel Train,N/A,#c1bc91
+img/trampoline.jpg,Trampoline,12,10/16/2007,Steel Train,N/A,N/A
 img/steeltrain-square.jpg,Steel Train,13,6/29/2010,Steel Train,steel-train.html,#b1d8d8
-img/pureheroine-square.png,Pure Heroine,14,9/27/2013,Lorde,N/A,#bcbcbc
+img/pureheroine-square.png,Pure Heroine,14,9/27/2013,Lorde,N/A,N/A
 img/melodrama-square.jpg,Melodrama,15,6/16/2017,Lorde,melodrama.html,#6c46c4
 img/aimandignite-square.jpg,Aim and Ignite,16,8/25/2009,fun.,aim-and-ignite.html,#e2db04
 img/somenights-square.jpg,Some Nights,17,2/21/2012,fun.,some-nights.html,#ffd396
 img/gonenow-square.jpg,Gone Now,18,6/2/2017,Bleachers,gone-now.html,#e53b19
 img/strangedesire-square.jpg,Strange Desire,19,7/10/2014,Bleachers,strange-desire.html,#047bd6
 img/lovemonster.jpg,Love Monster,20,7/13/2018,Amy Shark,love-monster.html,#d6bd00
-img/highashope-square.png,High As Hope,21,6/29/2018,Florence + the Machine,N/A,#bfc997
-img/turnoutthelights-square.jpg,Turn Out The Lights,22,10/27/2017,Julien Baker,N/A,#491149
