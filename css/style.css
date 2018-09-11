@@ -1,3 +1,35 @@
+.btn-group{
+  white-space: normal;
+}
+
+.order-btn:focus,.order-btn:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.rating-point{
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.rating-point:hover{
+  stroke-width: 3;
+}
+
+.rating-line {
+  fill: none;
+  stroke-width: 2
+}
+
+.rating-line-active{
+  fill: none;
+  stroke-width: 4
+}
+
+.x-axis-label {
+  font-size: 10pt;
+}
+
 .profile-img {
   text-align: center;
   margin-bottom: 30px;

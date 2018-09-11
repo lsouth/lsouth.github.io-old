@@ -1,200 +1,280 @@
-Album,Artist,Track Title,Track Number,rating_rel,rating_abs
-Gone Now,Bleachers,Dream of Mickey Mantle,1,4,9
-Gone Now,Bleachers,Goodmorning,2,4,9
-Gone Now,Bleachers,Hate That You Know Me,3,2,7
-Gone Now,Bleachers,Don't Take The Money,4,3,9
-Gone Now,Bleachers,Everybody Lost Somebody,5,4,9
-Gone Now,Bleachers,All My Heroes,6,4,10
-Gone Now,Bleachers,Let's Get Married,7,3,9
-Gone Now,Bleachers,Goodbye,8,4,10
-Gone Now,Bleachers,I Miss Those Days,9,2,8
-Gone Now,Bleachers,Nothing Is U,10,4,10
-Gone Now,Bleachers,I'm Ready To Move On/Mickey Mantle Reprise,11,4,10
-Gone Now,Bleachers,Foreign Girls,12,4,10
-Melodrama,Lorde,Green Light,1,4,10
-Melodrama,Lorde,Sober,2,4,10
-Melodrama,Lorde,Homemade Dynamite,3,2,7
-Melodrama,Lorde,The Louvre,4,4,10
-Melodrama,Lorde,Liability,5,4,9
-Melodrama,Lorde,Hard Feelings/Loveless,6,4,10
-Melodrama,Lorde,Sober II (Melodrama),7,4,9
-Melodrama,Lorde,Writer in the Dark,8,4,9
-Melodrama,Lorde,Supercut,9,4,8
-Melodrama,Lorde,Liability (Reprise),10,4,10
-Melodrama,Lorde,Perfect Places,11,3,8
-Masseduction,St. Vincent,Hang On Me,1,2,6
-Masseduction,St. Vincent,Pills,2,4,9
-Masseduction,St. Vincent,Masseduction,3,2,6
-Masseduction,St. Vincent,Sugarboy,4,1,5
-Masseduction,St. Vincent,Los Ageless,5,4,9
-Masseduction,St. Vincent,Happy Birthday Johnny,6,2,8
-Masseduction,St. Vincent,Savior,7,3,8
-Masseduction,St. Vincent,New York,8,3,8
-Masseduction,St. Vincent,Fear The Future,9,1,7
-Masseduction,St. Vincent,Young Lover,10,4,9
-Masseduction,St. Vincent,Dancing With A Ghost,11,1,5
-Masseduction,St. Vincent,Slow Disco,12,4,7
-Masseduction,St. Vincent,Smoking Section,13,4,10
-Strange Desire,Bleachers,Wild Heart,1,4,10
-Strange Desire,Bleachers,Rollercoaster,2,3,8
-Strange Desire,Bleachers,Shadow,3,2,8
-Strange Desire,Bleachers,I Wanna Get Better,4,4,10
-Strange Desire,Bleachers,Wake Me,5,4,9
-Strange Desire,Bleachers,Reckless Love,6,4,10
-Strange Desire,Bleachers,Take Me Away,7,3,9
-Strange Desire,Bleachers,Like a River Runs,8,4,10
-Strange Desire,Bleachers,You're Still a Mystery,9,4,9
-Strange Desire,Bleachers,I'm Ready to Move On/Wild Heart Reprise,10,4,10
-Strange Desire,Bleachers,Who I Want You to Love,11,4,10
-Some Nights,fun.,Some Nights (Intro),1,3,7
-Some Nights,fun.,Some Nights,2,4,10
-Some Nights,fun.,We Are Young,3,3,9
-Some Nights,fun.,Carry On,4,3,9
-Some Nights,fun.,It Gets Better,5,0,0
-Some Nights,fun.,Why Am I the One,6,3,9
-Some Nights,fun.,All Alone,7,2,8
-Some Nights,fun.,All Alright,8,2,9
-Some Nights,fun.,One Foot,9,4,9
-Some Nights,fun.,Stars,10,4,10
-Some Nights,fun.,Out On The Town,11,4,10
-Aim and Ignite,fun.,Be Calm,1,4,10
-Aim and Ignite,fun.,Benson Hedges,2,3,7
-Aim and Ignite,fun.,All The Pretty Girls,3,3,8
-Aim and Ignite,fun.,I Wanna Be The One,4,2,4
-Aim and Ignite,fun.,At Least I'm Not As Sad (As I Used To Be),5,3,8
-Aim and Ignite,fun.,Light A Roman Candle With Me,6,3,4
-Aim and Ignite,fun.,Walking The Dog,7,4,9
-Aim and Ignite,fun.,Barlights,8,4,8
-Aim and Ignite,fun.,The Gambler,9,4,7
-Aim and Ignite,fun.,Take Your Time (Coming Home),10,4,10
-Pure Heroine,Lorde,Tennis Court,1,4,9
-Pure Heroine,Lorde,400 Lux,2,4,9
-Pure Heroine,Lorde,Royals,3,3,9
-Pure Heroine,Lorde,Ribs,4,4,10
-Pure Heroine,Lorde,Buzzcut Season,5,3,9
-Pure Heroine,Lorde,Team,6,4,10
-Pure Heroine,Lorde,Glory and Gore,7,3,8
-Pure Heroine,Lorde,Still Sane,8,4,9
-Pure Heroine,Lorde,White Teeth Teens,9,3,8
-Pure Heroine,Lorde,A World Alone,10,4,9
-reputation,Taylor Swift,...Ready For It?,1,2,7
-reputation,Taylor Swift,End Game,2,0,0
-reputation,Taylor Swift,I Did Something Bad,3,4,6
-reputation,Taylor Swift,Don't Blame Me,4,3,7
-reputation,Taylor Swift,Delicate,5,4,9
-reputation,Taylor Swift,Look What You Made Me Do,6,3,9
-reputation,Taylor Swift,So It Goes...,7,3,8
-reputation,Taylor Swift,Gorgeous,8,1,5
-reputation,Taylor Swift,Getaway Car,9,3,8
-reputation,Taylor Swift,King Of My Heart,10,3,9
-reputation,Taylor Swift,Dancing With Our Hands Tied,11,3,9
-reputation,Taylor Swift,Dress,12,2,6
-reputation,Taylor Swift,This Is Why We Can't Have Nice Things,13,3,9
-reputation,Taylor Swift,Call It What You Want,14,4,10
-reputation,Taylor Swift,New Year's Day,15,3,9
-1989,Taylor Swift,Welcome To New York,1,2,6
-1989,Taylor Swift,Blank Space,2,3,7
-1989,Taylor Swift,Style,3,4,9
-1989,Taylor Swift,Out Of The Woods,4,4,10
-1989,Taylor Swift,All You Had To Do Was Stay,5,2,7
-1989,Taylor Swift,Shake It Off,6,1,7
-1989,Taylor Swift,I Wish You Would,7,2,7
-1989,Taylor Swift,Bad Blood,8,0,5
-1989,Taylor Swift,Wildest Dreams,9,4,9
-1989,Taylor Swift,How You Get The Girl,10,2,7
-1989,Taylor Swift,This Love,11,4,10
-1989,Taylor Swift,I Know Places,12,3,8
-1989,Taylor Swift,Clean,13,4,10
-St Vincent,St Vincent,Rattlesnake,1,2,7
-St Vincent,St Vincent,Birth In Reverse,2,3,8
-St Vincent,St Vincent,Prince Johnny,3,4,9
-St Vincent,St Vincent,Huey Newton,4,2,6
-St Vincent,St Vincent,Digital Witness,5,4,8
-St Vincent,St Vincent,I Prefer Your Love,6,3,6
-St Vincent,St Vincent,Regret,7,2,6
-St Vincent,St Vincent,Bring Me Your Loves,8,1,4
-St Vincent,St Vincent,Psychopath,9,2,8
-St Vincent,St Vincent,Every Tear Disappears,10,3,4
-St Vincent,St Vincent,Severed Crossed Finger,11,4,10
-Strange Mercy,St Vincent,Chloe In The Afternoon,1,3,6
-Strange Mercy,St Vincent,Cruel,2,4,8
-Strange Mercy,St Vincent,Cheerleader,3,4,10
-Strange Mercy,St Vincent,Surgeon,4,4,9
-Strange Mercy,St Vincent,Northern Lights,5,2,8
-Strange Mercy,St Vincent,Strange Mercy,6,4,10
-Strange Mercy,St Vincent,Neutered Fruit,7,2,9
-Strange Mercy,St Vincent,Champagne Year,8,2,8
-Strange Mercy,St Vincent,Dilettante,9,3,8
-Strange Mercy,St Vincent,Hysterical Strength,10,2,8
-Strange Mercy,St Vincent,Year of the Tiger,11,4,10
-Steel Train,Steel Train,Bullet,1,4,9
-Steel Train,Steel Train,Turnpike Ghost,2,3,10
-Steel Train,Steel Train,You and I Undercover,3,4,9
-Steel Train,Steel Train,You are Dangerous,4,2,7
-Steel Train,Steel Train,S.O.G. Burning in Hell,5,2,8
-Steel Train,Steel Train,Touch Me Bad,6,4,10
-Steel Train,Steel Train,Behavior,7,4,8
-Steel Train,Steel Train,Children of the 90's (I'm Not the Same),8,4,9
-Steel Train,Steel Train,Soldier in the Army,9,3,9
-Steel Train,Steel Train,Bloody Lips,10,2,8
-Steel Train,Steel Train,The Speedway Motor Racers Club,11,2,7
-Steel Train,Steel Train,Fall Asleep,12,4,10
-Trampoline,Steel Train,I Feel Weird,1,4,10
-Trampoline,Steel Train,Black Eye,2,2,8
-Trampoline,Steel Train,Kill Monsters In The Rain,3,3,8
-Trampoline,Steel Train,Dakota,4,3,8
-Trampoline,Steel Train,Alone On The Sea,5,2,8
-Trampoline,Steel Train,Firecracker,6,3,10
-Trampoline,Steel Train,A Magazine,7,3,8
-Trampoline,Steel Train,Diamonds In The Sky,8,2,7
-Trampoline,Steel Train,Leave You Traveling,9,4,6
-Trampoline,Steel Train,I've Let You Go,10,2,6
-Trampoline,Steel Train,School Is For Losers,11,1,4
-Trampoline,Steel Train,Women I Belong To,12,4,10
-Turn Out The Lights,Julien Baker,Over,1,2,5
-Turn Out The Lights,Julien Baker,Appointments,2,3,7
-Turn Out The Lights,Julien Baker,Turn Out The Lights,3,3,6
-Turn Out The Lights,Julien Baker,Shadowboxing,4,3,6
-Turn Out The Lights,Julien Baker,Sour Breath,5,4,8
-Turn Out The Lights,Julien Baker,Televangelist,6,2,5
-Turn Out The Lights,Julien Baker,Everything to Help You Sleep,7,2,5
-Turn Out The Lights,Julien Baker,Happy to Be Here,8,4,10
-Turn Out The Lights,Julien Baker,Hurt Less,9,4,9
-Turn Out The Lights,Julien Baker,Even,10,3,9
-Turn Out The Lights,Julien Baker,Claws in Your Back,11,3,7
-High As Hope,Florence + the Machine,June,1,3,6
-High As Hope,Florence + the Machine,Hunger,2,4,8
-High As Hope,Florence + the Machine,South London Forever,3,3,7
-High As Hope,Florence + the Machine,Big God,4,4,6
-High As Hope,Florence + the Machine,Sky Full of Song,5,4,7
-High As Hope,Florence + the Machine,Grace,6,3,6
-High As Hope,Florence + the Machine,Patricia,7,3,5
-High As Hope,Florence + the Machine,100 Years,8,3,5
-High As Hope,Florence + the Machine,The End of Love,9,3,6
-High As Hope,Florence + the Machine,No Choir,10,4,7
-Love Monster,Amy Shark,I Got You,1,3,
-Love Monster,Amy Shark,Adore,2,4,9
-Love Monster,Amy Shark,All Loved Up,3,4,9
-Love Monster,Amy Shark,I Said Hi,4,4,8
-Love Monster,Amy Shark,The Idiot,5,2,6
-Love Monster,Amy Shark,Never Coming Back,6,3,7
-Love Monster,Amy Shark,Leave Us Alone,7,3,7
-Love Monster,Amy Shark,Psycho,8,4,9
-Love Monster,Amy Shark,Don't Turn Around,9,4,8
-Love Monster,Amy Shark,Middle of the Night,10,2,6
-Love Monster,Amy Shark,Mess Her Up,11,3,7
-Love Monster,Amy Shark,The Slow Song,12,4,8
-Love Monster,Amy Shark,I'm A Liar,13,2,6
-Love Monster,Amy Shark,You Think I Think I Sound Like God,14,3,7
-Interventions & Lullabies,The Format,The First Single (You Know Me),1,4,8
-Interventions & Lullabies,The Format,"Wait, Wait, Wait",2,2,5
-Interventions & Lullabies,The Format,Give It Up,3,3,6
-Interventions & Lullabies,The Format,Tie The Rope,4,3,7
-Interventions & Lullabies,The Format,Tune Out,5,1,2
-Interventions & Lullabies,The Format,"I'm Ready, I Am",6,2,4
-Interventions & Lullabies,The Format,On Your Porch,7,4,10
-Interventions & Lullabies,The Format,Sore Thumb,8,1,2
-Interventions & Lullabies,The Format,A Mess To Be Made,9,4,9
-Interventions & Lullabies,The Format,Let's Make This Moment A Crime,10,1,2
-Interventions & Lullabies,The Format,Career Day,11,1,2
-Interventions & Lullabies,The Format,A Save Situation,12,1,2
+Album,Artist,Track Title,Track Number,track_num_scaled,rating_rel,rating_abs,comments
+Gone Now,Bleachers,Dream of Mickey Mantle,1,0,4,9,
+Gone Now,Bleachers,Goodmorning,2,0.090909091,4,9,
+Gone Now,Bleachers,Hate That You Know Me,3,0.181818182,2,7,
+Gone Now,Bleachers,Don't Take The Money,4,0.272727273,3,9,
+Gone Now,Bleachers,Everybody Lost Somebody,5,0.363636364,4,9,
+Gone Now,Bleachers,All My Heroes,6,0.454545455,4,10,
+Gone Now,Bleachers,Let's Get Married,7,0.545454545,3,9,
+Gone Now,Bleachers,Goodbye,8,0.636363636,4,10,
+Gone Now,Bleachers,I Miss Those Days,9,0.727272727,3,8,
+Gone Now,Bleachers,Nothing Is U,10,0.818181818,4,10,
+Gone Now,Bleachers,I'm Ready To Move On/Mickey Mantle Reprise,11,0.909090909,4,10,
+Gone Now,Bleachers,Foreign Girls,12,1,4,10,
+"Love, Simon",Bleachers,Keeping A Secret,1,N/A,4,9,
+Melodrama,Lorde,Green Light,1,0,4,10,
+Melodrama,Lorde,Sober,2,0.1,4,10,
+Melodrama,Lorde,Homemade Dynamite,3,0.2,2,7,
+Melodrama,Lorde,The Louvre,4,0.3,4,10,
+Melodrama,Lorde,Liability,5,0.4,4,9,
+Melodrama,Lorde,Hard Feelings/Loveless,6,0.5,4,10,
+Melodrama,Lorde,Sober II (Melodrama),7,0.6,4,9,
+Melodrama,Lorde,Writer in the Dark,8,0.7,4,9,
+Melodrama,Lorde,Supercut,9,0.8,4,8,
+Melodrama,Lorde,Liability (Reprise),10,0.9,4,10,
+Melodrama,Lorde,Perfect Places,11,1,3,8,
+Masseduction,St Vincent,Hang On Me,1,0,2,6,
+Masseduction,St Vincent,Pills,2,0.083333333,4,9,
+Masseduction,St Vincent,Masseduction,3,0.166666667,2,6,
+Masseduction,St Vincent,Sugarboy,4,0.25,1,5,
+Masseduction,St Vincent,Los Ageless,5,0.333333333,4,9,
+Masseduction,St Vincent,Happy Birthday Johnny,6,0.416666667,2,8,
+Masseduction,St Vincent,Savior,7,0.5,3,8,
+Masseduction,St Vincent,New York,8,0.583333333,3,8,
+Masseduction,St Vincent,Fear The Future,9,0.666666667,1,7,
+Masseduction,St Vincent,Young Lover,10,0.75,4,9,
+Masseduction,St Vincent,Dancing With A Ghost,11,0.833333333,1,5,
+Masseduction,St Vincent,Slow Disco,12,0.916666667,4,7,
+Masseduction,St Vincent,Smoking Section,13,1,4,10,
+Strange Desire,Bleachers,Wild Heart,1,0,4,10,
+Strange Desire,Bleachers,Rollercoaster,2,0.1,3,8,
+Strange Desire,Bleachers,Shadow,3,0.2,2,7,
+Strange Desire,Bleachers,I Wanna Get Better,4,0.3,4,10,
+Strange Desire,Bleachers,Wake Me,5,0.4,4,9,
+Strange Desire,Bleachers,Reckless Love,6,0.5,4,10,
+Strange Desire,Bleachers,Take Me Away,7,0.6,3,9,
+Strange Desire,Bleachers,Like a River Runs,8,0.7,4,10,
+Strange Desire,Bleachers,You're Still a Mystery,9,0.8,4,9,
+Strange Desire,Bleachers,I'm Ready to Move On/Wild Heart Reprise,10,0.9,4,10,
+Strange Desire,Bleachers,Who I Want You to Love,11,1,4,10,
+Some Nights,fun.,Some Nights (Intro),1,0,3,7,
+Some Nights,fun.,Some Nights,2,0.1,4,10,
+Some Nights,fun.,We Are Young,3,0.2,3,9,
+Some Nights,fun.,Carry On,4,0.3,3,9,
+Some Nights,fun.,It Gets Better,5,0.4,0,0,
+Some Nights,fun.,Why Am I the One,6,0.5,3,9,
+Some Nights,fun.,All Alone,7,0.6,2,8,
+Some Nights,fun.,All Alright,8,0.7,2,9,
+Some Nights,fun.,One Foot,9,0.8,4,9,
+Some Nights,fun.,Stars,10,0.9,4,10,
+Some Nights,fun.,Out On The Town,11,1,4,10,
+Aim and Ignite,fun.,Be Calm,1,0,4,10,"<p><i>Be Calm</i> opens the album with a bang, signalling the manic nature of the album to come.</p>"
+Aim and Ignite,fun.,Benson Hedges,2,0.111111111,3,7,
+Aim and Ignite,fun.,All The Pretty Girls,3,0.222222222,3,8,
+Aim and Ignite,fun.,I Wanna Be The One,4,0.333333333,2,4,
+Aim and Ignite,fun.,At Least I'm Not As Sad (As I Used To Be),5,0.444444444,3,8,
+Aim and Ignite,fun.,Light A Roman Candle With Me,6,0.555555556,3,4,
+Aim and Ignite,fun.,Walking The Dog,7,0.666666667,4,9,
+Aim and Ignite,fun.,Barlights,8,0.777777778,4,8,
+Aim and Ignite,fun.,The Gambler,9,0.888888889,4,7,
+Aim and Ignite,fun.,Take Your Time (Coming Home),10,1,4,10,
+Pure Heroine,Lorde,Tennis Court,1,0,4,9,
+Pure Heroine,Lorde,400 Lux,2,0.111111111,4,9,
+Pure Heroine,Lorde,Royals,3,0.222222222,3,9,
+Pure Heroine,Lorde,Ribs,4,0.333333333,4,10,
+Pure Heroine,Lorde,Buzzcut Season,5,0.444444444,3,9,
+Pure Heroine,Lorde,Team,6,0.555555556,4,10,
+Pure Heroine,Lorde,Glory and Gore,7,0.666666667,3,8,
+Pure Heroine,Lorde,Still Sane,8,0.777777778,4,9,
+Pure Heroine,Lorde,White Teeth Teens,9,0.888888889,3,8,
+Pure Heroine,Lorde,A World Alone,10,1,4,9,
+reputation,Taylor Swift,...Ready For It?,1,0,2,7,
+reputation,Taylor Swift,End Game,2,0.071428571,0,2,
+reputation,Taylor Swift,I Did Something Bad,3,0.142857143,4,6,
+reputation,Taylor Swift,Don't Blame Me,4,0.214285714,3,7,
+reputation,Taylor Swift,Delicate,5,0.285714286,4,9,
+reputation,Taylor Swift,Look What You Made Me Do,6,0.357142857,3,9,
+reputation,Taylor Swift,So It Goes...,7,0.428571429,3,8,
+reputation,Taylor Swift,Gorgeous,8,0.5,1,5,
+reputation,Taylor Swift,Getaway Car,9,0.571428571,3,8,
+reputation,Taylor Swift,King Of My Heart,10,0.642857143,3,9,
+reputation,Taylor Swift,Dancing With Our Hands Tied,11,0.714285714,3,9,
+reputation,Taylor Swift,Dress,12,0.785714286,2,6,
+reputation,Taylor Swift,This Is Why We Can't Have Nice Things,13,0.857142857,3,9,
+reputation,Taylor Swift,Call It What You Want,14,0.928571429,4,10,
+reputation,Taylor Swift,New Year's Day,15,1,3,9,
+1989,Taylor Swift,Welcome To New York,1,0,2,6,
+1989,Taylor Swift,Blank Space,2,0.076923077,3,7,
+1989,Taylor Swift,Style,3,0.153846154,4,9,
+1989,Taylor Swift,Out Of The Woods,4,0.230769231,4,10,
+1989,Taylor Swift,All You Had To Do Was Stay,5,0.307692308,2,7,
+1989,Taylor Swift,Shake It Off,6,0.384615385,1,7,
+1989,Taylor Swift,I Wish You Would,7,0.461538462,2,7,
+1989,Taylor Swift,Bad Blood,8,0.538461538,0,5,
+1989,Taylor Swift,Wildest Dreams,9,0.615384615,4,9,
+1989,Taylor Swift,How You Get The Girl,10,0.692307692,2,7,
+1989,Taylor Swift,This Love,11,0.769230769,4,10,
+1989,Taylor Swift,I Know Places,12,0.846153846,3,8,
+1989,Taylor Swift,Clean,13,0.923076923,4,10,
+1989,Taylor Swift,You Are in Love,14,1,4,10,
+St Vincent,St Vincent,Rattlesnake,1,0,2,7,
+St Vincent,St Vincent,Birth In Reverse,2,0.1,3,8,
+St Vincent,St Vincent,Prince Johnny,3,0.2,4,9,
+St Vincent,St Vincent,Huey Newton,4,0.3,2,6,
+St Vincent,St Vincent,Digital Witness,5,0.4,4,8,
+St Vincent,St Vincent,I Prefer Your Love,6,0.5,3,6,
+St Vincent,St Vincent,Regret,7,0.6,2,6,
+St Vincent,St Vincent,Bring Me Your Loves,8,0.7,1,4,
+St Vincent,St Vincent,Psychopath,9,0.8,2,8,
+St Vincent,St Vincent,Every Tear Disappears,10,0.9,3,4,
+St Vincent,St Vincent,Severed Crossed Finger,11,1,4,10,
+Strange Mercy,St Vincent,Chloe In The Afternoon,1,0,3,6,
+Strange Mercy,St Vincent,Cruel,2,0.1,4,8,
+Strange Mercy,St Vincent,Cheerleader,3,0.2,4,10,
+Strange Mercy,St Vincent,Surgeon,4,0.3,4,9,
+Strange Mercy,St Vincent,Northern Lights,5,0.4,2,8,
+Strange Mercy,St Vincent,Strange Mercy,6,0.5,4,10,
+Strange Mercy,St Vincent,Neutered Fruit,7,0.6,2,9,
+Strange Mercy,St Vincent,Champagne Year,8,0.7,2,8,
+Strange Mercy,St Vincent,Dilettante,9,0.8,3,8,
+Strange Mercy,St Vincent,Hysterical Strength,10,0.9,2,8,
+Strange Mercy,St Vincent,Year of the Tiger,11,1,4,10,
+Steel Train,Steel Train,Bullet,1,0,4,9,"<p>In the album opener, Steel Train channels some serious Bruce Springsteen.</p>"
+Steel Train,Steel Train,Turnpike Ghost,2,0.090909091,3,10,
+Steel Train,Steel Train,You and I Undercover,3,0.181818182,4,9,
+Steel Train,Steel Train,You are Dangerous,4,0.272727273,2,7,
+Steel Train,Steel Train,S.O.G. Burning in Hell,5,0.363636364,2,8,
+Steel Train,Steel Train,Touch Me Bad,6,0.454545455,4,10,
+Steel Train,Steel Train,Behavior,7,0.545454545,4,8,
+Steel Train,Steel Train,Children in the 90s (I'm Not the Same),8,0.636363636,4,9,
+Steel Train,Steel Train,Soldier in the Army,9,0.727272727,3,9,
+Steel Train,Steel Train,Bloody Lips,10,0.818181818,2,8,
+Steel Train,Steel Train,The Speedway Motor Racers Club,11,0.909090909,2,7,
+Steel Train,Steel Train,Fall Asleep,12,1,4,10,
+Trampoline,Steel Train,I Feel Weird,1,0,4,10,
+Trampoline,Steel Train,Black Eye,2,0.090909091,2,8,
+Trampoline,Steel Train,Kill Monsters In The Rain,3,0.181818182,3,8,
+Trampoline,Steel Train,Dakota,4,0.272727273,3,8,
+Trampoline,Steel Train,Alone On The Sea,5,0.363636364,2,8,
+Trampoline,Steel Train,Firecracker,6,0.454545455,3,10,
+Trampoline,Steel Train,A Magazine,7,0.545454545,3,8,
+Trampoline,Steel Train,Diamonds In The Sky,8,0.636363636,2,7,
+Trampoline,Steel Train,Leave You Traveling,9,0.727272727,4,6,
+Trampoline,Steel Train,I've Let You Go,10,0.818181818,2,6,
+Trampoline,Steel Train,School Is For Losers,11,0.909090909,1,4,
+Trampoline,Steel Train,Women I Belong To,12,1,4,10,
+Turn Out The Lights,Julien Baker,Over,1,0,2,5,
+Turn Out The Lights,Julien Baker,Appointments,2,0.181818182,3,7,
+Turn Out The Lights,Julien Baker,Turn Out The Lights,3,0.272727273,3,7,
+Turn Out The Lights,Julien Baker,Shadowboxing,4,0.363636364,3,7,
+Turn Out The Lights,Julien Baker,Sour Breath,5,0.454545455,4,8,
+Turn Out The Lights,Julien Baker,Televangelist,6,0.545454545,2,5,
+Turn Out The Lights,Julien Baker,Everything to Help You Sleep,7,0.636363636,2,5,
+Turn Out The Lights,Julien Baker,Happy to Be Here,8,0.727272727,4,10,
+Turn Out The Lights,Julien Baker,Hurt Less,9,0.818181818,4,9,
+Turn Out The Lights,Julien Baker,Even,10,0.909090909,3,9,
+Turn Out The Lights,Julien Baker,Claws in Your Back,11,1,3,7,
+High As Hope,Florence + the Machine,June,1,0,3,6,
+High As Hope,Florence + the Machine,Hunger,2,0.111111111,4,8,
+High As Hope,Florence + the Machine,South London Forever,3,0.222222222,3,7,
+High As Hope,Florence + the Machine,Big God,4,0.333333333,4,6,
+High As Hope,Florence + the Machine,Sky Full of Song,5,0.444444444,4,7,
+High As Hope,Florence + the Machine,Grace,6,0.555555556,3,6,
+High As Hope,Florence + the Machine,Patricia,7,0.666666667,3,5,
+High As Hope,Florence + the Machine,100 Years,8,0.777777778,3,5,
+High As Hope,Florence + the Machine,The End of Love,9,0.888888889,3,6,
+High As Hope,Florence + the Machine,No Choir,10,1,4,7,
+Love Monster,Amy Shark,I Got You,1,0,3,7,
+Love Monster,Amy Shark,Adore,2,0.076923077,4,9,
+Love Monster,Amy Shark,All Loved Up,3,0.153846154,4,9,
+Love Monster,Amy Shark,I Said Hi,4,0.230769231,4,8,
+Love Monster,Amy Shark,The Idiot,5,0.307692308,2,6,
+Love Monster,Amy Shark,Never Coming Back,6,0.384615385,3,7,
+Love Monster,Amy Shark,Leave Us Alone,7,0.461538462,3,7,
+Love Monster,Amy Shark,Psycho,8,0.538461538,4,9,
+Love Monster,Amy Shark,Don't Turn Around,9,0.615384615,4,8,
+Love Monster,Amy Shark,Middle of the Night,10,0.692307692,2,6,
+Love Monster,Amy Shark,Mess Her Up,11,0.769230769,3,7,
+Love Monster,Amy Shark,The Slow Song,12,0.846153846,4,8,
+Love Monster,Amy Shark,I'm A Liar,13,0.923076923,2,6,
+Love Monster,Amy Shark,You Think I Think I Sound Like God,14,1,3,7,
+Interventions & Lullabies,The Format,The First Single (You Know Me),1,0,4,8,
+Interventions & Lullabies,The Format,"Wait, Wait, Wait",2,0.090909091,2,5,
+Interventions & Lullabies,The Format,Give It Up,3,0.181818182,3,6,
+Interventions & Lullabies,The Format,Tie The Rope,4,0.272727273,3,7,
+Interventions & Lullabies,The Format,Tune Out,5,0.363636364,1,2,
+Interventions & Lullabies,The Format,"I'm Ready, I Am",6,0.454545455,2,4,
+Interventions & Lullabies,The Format,On Your Porch,7,0.545454545,4,10,
+Interventions & Lullabies,The Format,Sore Thumb,8,0.636363636,1,2,
+Interventions & Lullabies,The Format,A Mess To Be Made,9,0.727272727,4,9,
+Interventions & Lullabies,The Format,Let's Make This Moment A Crime,10,0.818181818,1,2,
+Interventions & Lullabies,The Format,Career Day,11,0.909090909,1,4,
+Interventions & Lullabies,The Format,A Save Situation,12,1,1,2,
+Night Thinker EP,Amy Shark,Weekends,3,N/A,4,10,
+Red,Taylor Swift,State of Grace,1,0,3,7,
+Red,Taylor Swift,Red,2,0.066666667,4,9,
+Red,Taylor Swift,Treacherous,3,0.133333333,2,6,
+Red,Taylor Swift,I Knew You Were Trouble.,4,0.2,3,8,
+Red,Taylor Swift,All Too Well,5,0.266666667,4,10,
+Red,Taylor Swift,22,6,0.333333333,2,7,
+Red,Taylor Swift,I Almost Do,7,0.4,2,6,
+Red,Taylor Swift,We Are Never Ever Getting Back Together,8,0.466666667,4,9,
+Red,Taylor Swift,Stay Stay Stay,9,0.533333333,2,5,
+Red,Taylor Swift,The Last Time,10,0.6,2,5,
+Red,Taylor Swift,Holy Ground,11,0.666666667,2,6,
+Red,Taylor Swift,Sad Beautiful Tragic,12,0.733333333,1,7,
+Red,Taylor Swift,The Lucky One,13,0.8,1,4,
+Red,Taylor Swift,Everything Has Changed,14,0.866666667,1,3,
+Red,Taylor Swift,Starlight,15,0.933333333,1,3,
+Red,Taylor Swift,Begin Again,16,1,4,9,
+Fearless,Taylor Swift,Fearless,1,0,4,7,
+Fearless,Taylor Swift,Fifteen,2,0.083333333,4,7,
+Fearless,Taylor Swift,Love Story,3,0.166666667,4,8,
+Fearless,Taylor Swift,Hey Stephen,4,0.25,3,6,
+Fearless,Taylor Swift,White Horse,5,0.333333333,2,4,
+Fearless,Taylor Swift,You Belong With Me,6,0.416666667,4,8,
+Fearless,Taylor Swift,Breathe,7,0.5,2,4,
+Fearless,Taylor Swift,Tell Me Why,8,0.583333333,1,3,
+Fearless,Taylor Swift,You're Not Sorry,9,0.666666667,1,3,
+Fearless,Taylor Swift,The Way I Loved You,10,0.75,3,6,
+Fearless,Taylor Swift,Forever & Always,11,0.833333333,1,4,
+Fearless,Taylor Swift,The Best Day,12,0.916666667,4,9,
+Fearless,Taylor Swift,Change,13,1,1,4,
+Taylor Swift,Taylor Swift,Tim McGraw,1,0,2,6,
+Taylor Swift,Taylor Swift,Picture to Burn,2,0.076923077,1,3,
+Taylor Swift,Taylor Swift,Teardrops On My Guitar,3,0.153846154,3,8,
+Taylor Swift,Taylor Swift,A Place in this World,4,0.230769231,1,2,
+Taylor Swift,Taylor Swift,Cold As You,5,0.307692308,2,5,
+Taylor Swift,Taylor Swift,The Outside,6,0.384615385,1,4,
+Taylor Swift,Taylor Swift,Tied Together with a Smile,7,0.461538462,1,4,
+Taylor Swift,Taylor Swift,Stay Beautiful,8,0.538461538,1,3,
+Taylor Swift,Taylor Swift,Should've Said No,9,0.615384615,2,5,
+Taylor Swift,Taylor Swift,Mary's Song (Oh My My My),10,0.692307692,1,3,
+Taylor Swift,Taylor Swift,Our Song,11,0.769230769,4,8,
+Taylor Swift,Taylor Swift,I'm Only Me When I�m With You,12,0.846153846,1,3,
+Taylor Swift,Taylor Swift,Invisible,13,0.923076923,1,3,
+Taylor Swift,Taylor Swift,A Perfectly Good Heart,14,1,1,3,
+Speak Now,Taylor Swift,Mine,1,0,4,10,
+Speak Now,Taylor Swift,Sparks Fly,2,0.076923077,3,7,
+Speak Now,Taylor Swift,Back To December,3,0.153846154,4,8,
+Speak Now,Taylor Swift,Speak Now,4,0.230769231,3,6,
+Speak Now,Taylor Swift,Dear John,5,0.307692308,3,7,
+Speak Now,Taylor Swift,Mean,6,0.384615385,3,7,
+Speak Now,Taylor Swift,The Story of Us,7,0.461538462,4,7,
+Speak Now,Taylor Swift,Never Grow Up,8,0.538461538,4,9,
+Speak Now,Taylor Swift,Enchanted,9,0.615384615,3,7,
+Speak Now,Taylor Swift,Better Than Revenge,10,0.692307692,2,3,
+Speak Now,Taylor Swift,Innocent,11,0.769230769,2,3,
+Speak Now,Taylor Swift,Haunted,12,0.846153846,2,3,
+Speak Now,Taylor Swift,Last Kiss,13,0.923076923,3,6,
+Speak Now,Taylor Swift,Long Live,14,1,4,7,
+Actor,St Vincent,The Strangers,1,0,1,3,
+Actor,St Vincent,Save Me From What I Want,2,0.1,1,5,
+Actor,St Vincent,The Neighbors,3,0.2,1,3,
+Actor,St Vincent,Actor Out Of Work,4,0.3,4,9,
+Actor,St Vincent,Black Rainbow,5,0.4,1,3,
+Actor,St Vincent,Laughing With A Mouth Of Blood,6,0.5,4,8,"<p>""Laughing With A Mouth Of Blood"" was one of the first tracks on <i>Actor</i> that grabbed my attention and wouldn't leave my mind after I listened to it for the first time. It's hard to say what exactly the song is about, but it captures a specific feeling that I was feeling a lot of at that moment in my life.</p>"
+Actor,St Vincent,Marrow,7,0.6,1,5,
+Actor,St Vincent,The Bed,8,0.7,1,3,
+Actor,St Vincent,The Party,9,0.8,3,6,
+Actor,St Vincent,Just The Same But Brand New,10,0.9,4,8,
+Actor,St Vincent,The Sequel,11,1,1,3,
+Sprained Ankle,Julien Baker,Blacktop,1,0,3,4,
+Sprained Ankle,Julien Baker,Sprained Ankle,2,0.125,3,5,
+Sprained Ankle,Julien Baker,Brittle Boned,3,0.25,3,4,
+Sprained Ankle,Julien Baker,Everybody Does,4,0.375,3,5,
+Sprained Ankle,Julien Baker,Good News,5,0.5,3,5,
+Sprained Ankle,Julien Baker,Something,6,0.625,3,5,
+Sprained Ankle,Julien Baker,Rejoice,7,0.75,4,10,
+Sprained Ankle,Julien Baker,Vessels,8,0.875,0,5,
+Sprained Ankle,Julien Baker,Go Home,9,1,0,5,

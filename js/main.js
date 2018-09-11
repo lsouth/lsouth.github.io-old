@@ -2,17 +2,15 @@ function renderBarChart(albumID){
     var colorCode = "";
     d3.csv('timeline.csv',function(d){
       d.forEach(function(t){
-        console.log(t.title + " == " + albumID + "? " + (t.title == albumID))
         if(t.title == albumID){
           colorCode = t.color;
         }
       })
       readAlbumData(albumID, colorCode);
     });
-
   }
+
  function readAlbumData(albumID, colorCode){
-   console.log(colorCode)
    d3.csv("albums.csv", function(data){
      albumData = [];
      data.forEach(function(d){
@@ -45,21 +43,21 @@ function renderBarChart(albumID){
      var albums = ['Gone Now', 'Strange Desire','Melodrama','Masseduction','Some Nights','Aim and Ignite','reputation','St Vincent','Steel Train'];
      var colors = ['#e53b19',  '#047bd6',       '#6c46c4',  '#ff3877',     '#ffd396',    '#e2db04',       '#737773',   '#fceaf8',   '#b1d8d8'];
      var color = d3.scaleOrdinal().domain(albums).range(colors);
-
+/*
      var tip = d3.tip()
                  .attr('class','d3-tip')
                  .direction('s')
                  .html(function(d){
                    return d["Track Title"] + "<br> Rating: " + d["rating_rel"];
                  });
-
+*/
      var xAxis = d3.axisBottom(xScale);
      var yAxis = d3.axisLeft(yScale).ticks(4);
 
      svg = d3.select("#album-vis").append('svg').attr('width',fullWidth).attr('height', fullHeight);
      //svg.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
      svg.append('g').attr('transform', 'translate(20,10)').call(yAxis);
-     svg.call(tip);
+     //svg.call(tip);
 
      svg.selectAll('rect')
          .data(albumData)
@@ -82,8 +80,8 @@ function renderBarChart(albumID){
          })
          .attr('width', xScale.bandwidth())
          .style('fill',colorCode)
-         .on('mouseover', tip.show)
-         .on('mouseout',tip.hide);
+         //.on('mouseover', tip.show)
+         //.on('mouseout',tip.hide);
    });
 
  }
@@ -110,7 +108,26 @@ function addLatestPosts(){
   $("#latest-posts").append($postlist);
 }
 
+function addTrackListing(albumID){
+  $("#tracks").append("<h4>Track Listing:</h4>");
+  d3.csv('albums.csv', function(d){
+    d.forEach(function(t){
+      if(t.Album == albumID){
+        var html_string = "<b>" + t["Track Number"] + ". " + t["Track Title"] + "</b><br>"
+        $("#tracks").append(html_string);
+        if(t.comments != ""){
+          $("#tracks").append(t.comments);
+        }
+      }
+    })
+  })
+}
+
 $("#about-me").append("<h3>About Me</h3> <p>My friends get tired of hearing me rant about music, so I figured I would do that here instead of subjecting them to it!</p>")
 
-addTags();
-addLatestPosts();
+function renderPage(albumID){
+  addTags();
+  addLatestPosts();
+  renderBarChart(albumID);
+  addTrackListing(albumID);
+}

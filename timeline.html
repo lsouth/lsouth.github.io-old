@@ -20,12 +20,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
     <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
     <script src="js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js"></script>
+    <script src="js/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    <script type="text/javascript" src="js/line-graph.js"></script>
+
   </head>
 
 <body>
@@ -55,34 +59,76 @@
  </div>
 </header>
 <div class="container" style="padding-bottom: 20px;">
-<div class="row">
-  <div class="col-lg-10">
-  <div class="card" id="timeline"></div>
+    <div class="row">
+    <div class="col-lg-4 text-center">
+      <div class="card">
+      <div class="btn-group-vertical" role="group" aria-label="Select graph view">
+        <button type="button" class="btn order-btn btn-primary btn-sm" id="order-year-btn">Order by year</button>
+        <button type="button" class="btn order-btn  btn-sm" id="order-rating-btn">Order by rating</button>
+      </div>
+      <div class="card-body" id="review-link-card" style="font-size: 10pt; display: inline-flex;">
+          Select an album to learn more.
+          <br/>
+      </div>
+      <div class="form-check" id="artist-selection"></div>
+    </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card" id="linegraph"></div>
+    </div>
+    </div>
+  <div class="col-lg-12 card">
+    <!--<div class="row">
+      <div class="col-lg-6"> -->
+    <!--  </div> -->
+    <!--  <div class="col-lg-6"> -->
+        <div id="timeline"></div>
+    <!--  </div> -->
   </div>
   <script>
     var elem = "#timeline";
 
     var props = {
       width: 1000,
-      height: 800,
+      height: 300,
       class: "timeline-point",
-      marginTop: 100,
+      marginTop: 40,
       marginRight: 100,
-      marginBottom: 100,
+      marginBottom: 40,
       marginLeft: 100,
       xTicks: 10,
-      yTicks: 0
+      yTicks: 0,
+      orderByDate: true,
+      bigCircleMult: 0.038,
+      smallCircleMult: 0.03
     }
 
     $(elem).bind("touchstart",function(){});
+
+    $("#order-year-btn").click(function(){
+      $("#order-rating-btn").removeClass("btn-primary");
+      $(this).addClass("btn-primary");
+      if(!props.orderByDate){
+        props.orderByDate = true;
+        redraw();
+      }
+    })
+    $("#order-rating-btn").click(function(){
+      $("#order-year-btn").removeClass("btn-primary");
+      $(this).addClass("btn-primary");
+      if(props.orderByDate){
+        props.orderByDate = false;
+        redraw();
+      }
+    })
 
     // component start
     var Timeline = {};
 
     Timeline.create = function(elem, props){
       props.width = window.innerWidth * 0.9;
-      //props.height = window.innerHeight;
       props.width = $(elem).width();
+
       // build chart foundation
       var svg = d3.select(elem).selectAll("svg").data([null])
 
@@ -136,7 +182,14 @@
 
     Timeline.getDomain = function(props) {
       var domain = {};
-      domain.x = props.xDomain || d3.extent(props.data, function(d) { return d.date; });
+      domain.x = props.xDomain || d3.extent(props.data, function(d) {
+        if(props.orderByDate){
+          return d.date;
+        }
+        else{
+          return [0,10];
+        }
+       });
       return domain;
     };
 
@@ -149,9 +202,15 @@
       var width = props.width - props.marginRight - props.marginLeft;
       var height = props.height - props.marginTop - props.marginBottom;
 
-      var x = d3.scaleTime()
-        .range([0, width])
-        .domain(domain.x);
+      var x = d3.scaleLinear()
+                .range([0,width])
+                .domain([0,10]);
+
+      if(props.orderByDate){
+        x = d3.scaleTime()
+         .range([0, width])
+         .domain(domain.x);
+      }
 
       var artists = [];
       for (i in props.data){
@@ -177,10 +236,23 @@
     }
 
     Timeline.axes = function(props, scales) {
-
-      var xAxis = d3.axisBottom(scales.x)
-        .ticks(numTicks(props.width))
-        .tickFormat(d3.timeFormat("%B %Y"));
+      var xAxis = d3.axisBottom(scales.x).ticks(10);
+      if(props.orderByDate){
+          xAxis.ticks(numTicks(props.width))
+               .tickFormat(d3.timeFormat("%B %Y"));
+          d3.select("#svg-elem").append("text")
+               .attr("class", "x-axis-label")
+               .attr("x", props.width / 2)
+               .attr("y", props.height - 5)
+               .text("Release date");
+      }
+      else{
+        d3.select("#svg-elem").append("text")
+                .attr("class", "x-axis-label")
+                .attr("x", props.width / 2)
+                .attr("y", props.height - 5)
+                .text("Rating");
+      }
 
       var yAxis = d3.axisLeft(scales.y);
 
@@ -190,7 +262,7 @@
       }
     };
 
-    Timeline.drawPoints = function(elem, props, scales, prevScales, dispatcher){
+    Timeline.drawPoints = function(elem, props, scales){
       var g = d3.select(elem).selectAll(".point-container");
       var artists = [];
       for (i in props.data){
@@ -200,24 +272,25 @@
             }
       }
 
+      var orderFactor = props.orderByDate ? "date" : "average_rating";
+
       var line_data = {};
       for(var i in artists){
         for(var j in props.data){
           var name = artists[i];
           if(props.data[j]["artist_id"] == name){
             if(line_data[name] === undefined){
-              line_data[name] = {"min": props.data[j]["date"], "max": props.data[j]["date"]}
+              line_data[name] = {"min": props.data[j][orderFactor], "max": props.data[j][orderFactor]}
             }
-            else if(line_data[name]["min"] > props.data[j]["date"]){
-              line_data[name]["min"] = props.data[j]["date"];
+            else if(line_data[name]["min"] > props.data[j][orderFactor]){
+              line_data[name]["min"] = props.data[j][orderFactor];
             }
-            else if(line_data[name]["max"] < props.data[j]["date"]){
-              line_data[name]["max"] = props.data[j]["date"];
+            else if(line_data[name]["max"] < props.data[j][orderFactor]){
+              line_data[name]["max"] = props.data[j][orderFactor];
             }
           }
         }
       }
-
       var line = d3.line()
                       .x(function(d) { return d.x; })
                       .y(function(d) { return d.y; });
@@ -225,8 +298,37 @@
       var artist_list = [];
       var keys = Object.keys(line_data);
       for(var i = 0; i < keys.length; i++){
-        artist_list.push({id : keys[i],values :[{x : scales.x(line_data[keys[i]]["min"]), y : scales.y(keys[i])},{x : scales.x(line_data[keys[i]]["max"]), y : scales.y(keys[i])}]});
+        artist_list.push({
+          id : keys[i],
+          values :[
+            { x : scales.x(line_data[keys[i]]["min"]),
+              y : scales.y(keys[i])
+            },
+            { x : scales.x(line_data[keys[i]]["max"]),
+              y : scales.y(keys[i])
+            }]
+          });
       }
+
+      var defs = d3.select("body").append("defs");
+      var linearGradient = defs.append("linearGradient")
+                                .attr("id","lg")
+                                .attr("x1","0%")
+                                .attr("y1","0%")
+                                .attr("x2","100%")
+                                .attr("y2","0%");
+
+      //append a new stop element for each color in the gradient.
+      //  offset = where along the directional vector this color should be its purest form.
+      linearGradient.append("stop")
+                    .attr("offset","0%")
+                    .attr("stop-color","#ffa474")
+                    .attr("stop-opacity","1");
+
+      linearGradient.append("stop")
+                    .attr("offset","100%")
+                    .attr("stop-color","#8b0000")
+                    .attr("stop-opacity","1");
 
       var artist = g.selectAll(".artist")
                       .data(artist_list)
@@ -235,9 +337,10 @@
                       .attr("class","artist");
 
       var path = artist.append("path")
-              .attr("class","line")
-              .attr("d", function(d) { return line(d.values);})
-              .style("stroke", "black");
+              .attr("d", function(d) {return line(d.values);})
+              .attr("stroke", "url(#lg)")
+              .attr("fill","none");
+              //.style("stroke","black");
 
       path.transition()
               .attr("d", function(d) { return line(d.values);});
@@ -257,28 +360,30 @@
             .attr("height", 1)
             .attr("width", 1)
             .append("image")
-              .attr("x","-20")
-              .attr("y","-15")
-              .attr("height", props.width / 8)
-              .attr("width",props.width / 8)
+              .attr("x","0")
+              .attr("y","0")
+              .attr("height", props.width / 13)
+              .attr("width",props.width / 13)
               .attr("href", function(d){return d.image});
 
      var point = g.selectAll('.point')
                    .data(props.data);
 
       var timeFormat = d3.timeFormat("%B %e, %Y");
+      var area = props.width;
 
       point.enter()
             .append("circle")
               .attr("class","point")
               .style("z-index","100")
+              .attr("id",function(d){return "circle-" + (d.title.toLowerCase().split(" ")[0])})
               .attr("cx", function(d){
                 return scales.x(d.date);
               })
               .attr("cy", function(d){
                 return scales.y(d.artist_id);
               })
-              .attr("r", props.width / 25)
+              .attr("r", "3%")
               .style("fill", function(d){
                 return ("url(#" + d.id + ")");
               })
@@ -289,33 +394,20 @@
                 if(d.review_link != "N/A"){
                   d3.select(this).style("cursor","pointer");
                 }
-                d3.select("#svg-elem").append("text")
-                                       .attr("x", props.width / 2 - 30)
-                                       .attr("y", props.height - 30)
-                                       .attr("id", "t" + d.id)
-                                       .style("font-family","arial")
-                                       .style("font-size","14")
-                                       .style("font-weight","bold")
-                                       .text(d.title + ": " + timeFormat(d.date));
+                var albumInfo = d.title + " by " + d.artist_id;
+                //$("#review-link-card").text(albumInfo);
                 if(d.color != "N/A"){
-                  d3.select(this).transition().attr("r", props.width / 20).style("stroke-width","5").style("stroke",function(d){return d.color});
-                  if(d.review_link != "N/A"){
-                    d3.select("#svg-elem").append("text")
-
-                                            .attr("x", props.width / 2 - 25)
-                                            .attr("y", props.height - 10)
-                                            .attr("id", "t2" + d.id)
-                                            .style("font-family","arial")
-                                            .style("font-size","14")
-                                            .style("font-weight","bold")
-                                            .text("Click to read my review!");
-                  }
+                  d3.select(this).transition().attr("r", "5%").style("stroke-width","4").style("stroke",function(d){return d.color});
+                  d3.selectAll(".rating-line").transition().style("stroke-width","1");
+                  d3.select("#line-" + d.title.toLowerCase().split(" ")[0]).transition().style("stroke-width","4");
                 }
               })
               .on("mouseout", function(d){
-                d3.select("#t" + d.id).remove();
-                d3.select("#t2" + d.id).remove();
-                d3.select(this).transition().attr("r", props.width / 25).style("stroke-width","0");
+                //d3.select("#t" + d.id).remove();
+                //$("#review-link-card").text("Select an album to learn more.");
+                d3.selectAll(".rating-line").transition().style("stroke-width","2");
+                //$("#review-card-line2").text("");
+                d3.select(this).transition().attr("r", "3%").style("stroke-width","0");
               })
               .on("click", function(d){
                 if(d.review_link == "N/A"){
@@ -327,12 +419,12 @@
      point.transition()
           .attr("cx", function(d){
             this.parentNode.appendChild(this);
-            return scales.x(d.date);
+            return props.orderByDate ? scales.x(d.date) : scales.x(d.average_rating);
           })
           .attr("cy", function(d){
             return scales.y(d.artist_id);
           })
-          .attr("r", props.width / 25);
+          .attr("r", "3%");
 
      point.exit().remove();
      image.exit().remove();
@@ -344,15 +436,16 @@
            .duration(1000)
            .call(axes.xAxis);
 
-     d3.select(elem).selectAll('g.y.axis')
-           .transition()
-           .duration(1000)
+      d3.select(elem).selectAll('g.y.axis')
+    //       .transition()
+      //     .duration(1000)
            .call(axes.yAxis);
     };
 
     var redraw = function(){
       //$(".artist-line").remove();
-      $(".x.axis").remove();
+      //$(".x.axis").remove();
+      $(".x-axis-label").remove();
       $(".y.axis").remove();
       $('.svg-image').remove();
       $('.artist').remove();
