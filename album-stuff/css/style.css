@@ -1,0 +1,12 @@
+@font-face {
+  font-family: GaramondThreeItalic;
+  src: url("fonts/GaramondThreeItalic.otf");
+}
+
+.gonenow{
+  font-family: GaramondThreeItalic;
+}
+
+.melodrama{
+  font-family: 'EB Garamond', serif;
+}

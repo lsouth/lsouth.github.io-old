@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-6">
+        <br>
+        <h4 class="melodrama">Melodrama: a visualization</h4>
+        <div class="col-md-12">
+          <div id="melodrama-div"></div>
+        </div>
+        <h4 id="melodrama-selection" class="melodrama"></h4>
+      </div>
+      <div class="col-md-6">
+        <br>
+        <h4 class="gonenow"> Gone Now: a visualization</h4>
+        <div class="col-md-12">
+        <div id="gonenow-div"></div>
+        </div>
+        <h4 id="gonenow-selection" class="gonenow"></h4>
+      </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="js/album-visualization.js"></script>
+<script type="text/javascript">
+  //renderAlbumVisualization("melodrama.csv","people.json");
+  renderAlbumArc("gonenow.csv","people.json","melodrama-div");
+  renderAlbumArc("melodrama.csv","people.json", "gonenow-div");
+</script>

@@ -1,0 +1,60 @@
+[
+  {
+    "title":"Green Light",
+    "track_num": 1,
+    "lyrics": "Lorde, Jack Antonoff",
+    "music": "Joel Little",
+    "producers":"Lorde, Jack Antonoff, Frank Dukes",
+    "additional_producers": "Kuk Harrell",
+    "start":"0:00",
+    "end": "3:54"
+  },
+  {
+    "title":"Sober",
+    "track_num": 2,
+    "lyrics": "Lorde",
+    "music": "Jack Antonoff",
+    "producers":"Lorde, Jack Antonoff, Malay",
+    "additional_producers": "Kuk Harrell"
+  },
+  {
+    "title":"Homemade Dynamite",
+    "track_num": 3,
+    "lyrics": "Lorde, Tove Lo",
+    "music": "Jakob Jerlstrom, Ludvig Soderberg",
+    "producers":"Lorde, Frank Dukes",
+    "additional_producers": "Kuk Harrell"
+  },
+  {
+    "title":"The Louvre",
+    "track_num": 4,
+    "lyrics": "Lorde",
+    "music": "Jack Antonoff",
+    "producers":"Lorde, Jack Antonoff",
+    "additional_producers": "Flume, S1"
+  },
+  {
+    "title":"Liability",
+    "track_num": 5,
+    "lyrics": "Lorde, Jack Antonoff",
+    "music": "Lorde, Jack Antonoff",
+    "producers":"Lorde, Jack Antonoff",
+    "additional_producers": ""
+  },
+  {
+    "title":"Hard Feelings/Loveless",
+    "track_num": 6,
+    "lyrics": "Lorde, Jack Antonoff",
+    "music": "Lorde, Jack Antonoff",
+    "producers":"Lorde, Jack Antonoff, Frank Dukes, Malay",
+    "additional_producers": ""
+  },
+  {
+    "title":"Sober II (Melodrama)",
+    "track_num": 6,
+    "lyrics": "Lorde",
+    "music": "Lorde, Jack Antonoff",
+    "producers":"Lorde, Jack Antonoff, Frank Dukes, Malay",
+    "additional_producers": "S1, Kuk Harrell"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "name":"Jack Antonoff",
+    "img":"img/jack.jpg",
+    "lyrics_credits": [1,5,6],
+    "music_credits": [1,2,4,5,6,7,8,9,10,11],
+    "producer_credits": [1,2,4,5,6,7,8,9,10,11],
+    "id": 1,
+    "color":"#002E9D"
+  },
+  {
+    "name":"Lorde",
+    "img":"img/lorde.jpg",
+    "lyrics_credits": [1,2,3,4,5,6,7,8,9,10,11],
+    "music_credits": [1,2,3,4,5,6,7,8,9,10,11],
+    "producer_credits": [1,2,3,4,5,6,7,8,9,10,11],
+    "id": 2,
+    "color":"#410629"
+  },
+  {
+    "name":"Joel Little",
+    "img":"img/joel.jpg",
+    "lyrics_credits": [],
+    "music_credits": [1],
+    "producer_credits": [9],
+    "id": 3,
+    "color": "#5F092F"
+  },
+  {
+    "name":"Tove Lo",
+    "img":"img/tove.jpg",
+    "lyrics_credits": [3],
+    "music_credits": [],
+    "producer_credits": [],
+    "id": 4,
+    "color": "#D0512F"
+  },
+  {
+    "name":"Frank Dukes",
+    "img":"img/frank_dukes.jpg",
+    "lyrics_credits": [3],
+    "music_credits": [],
+    "producer_credits": [1,3,6],
+    "id": 5,
+    "color": "#D0512F"
+  }
+]
