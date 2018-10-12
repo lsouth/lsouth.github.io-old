@@ -11,19 +11,17 @@ var line_props = {
 var LineGraph = {};
 var line_elem = "#linegraph";
 
-LineGraph.drawLines = function(svg, g, scales, selectedArtists){
+LineGraph.drawLines = function(svg, g, scales){
   $(".rating-line").remove();
   $(".rating-point").remove();
   $(".album-line").remove();
   var pointsG = g.append("g").attr("id","song-points-g");
 
   var points = pointsG.selectAll(".rating-point")
-                  .data(pointList.filter(function(d){
-                    return selectedArtists.includes(d.artist)
-                  }))
+                  .data(pointList)
                   .enter()
                   .append("line")
-                  .attr("class",function(d){return ("rating-point point-" + d.id.toLowerCase().split(" ")[0]);})
+                  .attr("class",function(d){return ("rating-point point-" + d.id.toLowerCase().split(" ")[0] + " artist-" + d.artist.toLowerCase().split(" ")[0]);})
                   .attr("x1",function(d){
                     return scales.x(d.track);
                   })
@@ -64,14 +62,12 @@ LineGraph.drawLines = function(svg, g, scales, selectedArtists){
     });
 
   var albums = g.selectAll(".album-line")
-                  .data(trackRatingsData.filter(function(d){
-                    return selectedArtists.includes(d.artist);
-                  }))
+                  .data(trackRatingsData)
                   .enter().append("g")
                   .attr("class","album-line");
 
   albums.append("path")
-        .attr("class", function(d){return d.artist.toLowerCase() + "-artist line rating-line"})
+        .attr("class", function(d){return "artist-" + d.artist.toLowerCase().split(" ")[0] + " line rating-line"})
         .attr("id",function(d){return "line-" + d.id.toLowerCase().split(" ")[0]})
         .style("stroke-width","2")
         .attr("d",function(d){
@@ -91,7 +87,7 @@ LineGraph.drawLines = function(svg, g, scales, selectedArtists){
           d3.selectAll(".rating-line").transition().style("stroke-width","2");
           d3.selectAll(".rating-point").transition().style("stroke-width","2");
           var lowerID = d.id.toLowerCase().split(" ")[0];
-          d3.select("#circle-" + lowerID).transition().style("stroke-width","0").attr("r","3%");
+          d3.select("#" + lowerID).transition().style("stroke-width","0").attr("r","3%");
           $("#review-link-card").text("Select an album to learn more.");
         });
 
@@ -139,7 +135,7 @@ LineGraph.create = function(line_elem, line_props){
   var albumNames = [];
   for(i in line_props.data){
     var name = line_props.data[i]["Album"];
-    if(!albumNames.includes(name) && name !== undefined && name != "skip" && line_props.data[i]["track_num_scaled"] !== "N/A"){
+    if(!albumNames.includes(name) && name !== undefined && name != "skip" && line_props.data[i]["track_num_scaled"] != "N/A"){
       albumNames.push(name);
     }
   }
@@ -162,9 +158,7 @@ LineGraph.create = function(line_elem, line_props){
     });
   }
 
-  var artists = props.data.map(function(d) {return d.artist_id;}).filter(function(d,i,self){return self.indexOf(d) == i;})
-
-
+  var artists = line_props.data.map(function(d) {console.log(d);return d.Artist;}).filter(function(d,i,self){return self.indexOf(d) == i;})
   d3.select("#artist-selection")
       .selectAll(".artist-checkbox")
       .data(artists.filter(function(d){return d != "skip"}))
@@ -173,15 +167,20 @@ LineGraph.create = function(line_elem, line_props){
       .style("font-size","10pt")
       .append("input")
       .attr("type", "checkbox")
-      .attr("checked","true")
+      .attr("checked","checked")
+      .attr("class","form-check-input artist-checkbox")
       .attr("id",function(d){return d.toLowerCase().split(" ")[0] + "-checkbox";})
-      .on("change", function(){
-        selectedArtists = artists.filter(function(d){
-          var selector = d.toLowerCase().split(" ")[0] + "-checkbox";
-          return d == "skip" || document.getElementById(selector).checked;
-        });
-        LineGraph.drawLines(svg, g, scales, selectedArtists)})
-      .attr("class","form-check-input artist-checkbox");
+      .on("change", function(d){
+        if(d3.select(this).attr("checked") == "checked"){
+          d3.selectAll(".artist-" + d.toLowerCase().split(" ")[0]).style("visibility","hidden");
+          d3.select(this).attr("checked","unchecked");
+        }
+        else{
+          d3.selectAll(".artist-" + d.toLowerCase().split(" ")[0]).style("visibility","visible");
+          d3.select(this).attr("checked","checked");
+        }
+        //d3.select(d.toLowerCase().split(" ")[0] + "-checkbox").style("visibility","hidden").attr("checked",);
+      });
 
   d3.selectAll("label")
       .data(artists.filter(function(d){return d != "skip"}))
@@ -189,11 +188,7 @@ LineGraph.create = function(line_elem, line_props){
       .append("text")
       .text(function(d){return d;});
 
-  var selectedArtists = artists.filter(function(d){
-      var selector = d.toLowerCase().split(" ")[0] + "-checkbox";
-      return d == "skip" || document.getElementById(selector).checked;
-  });
-  LineGraph.drawLines(svg, g, scales, selectedArtists);
+  LineGraph.drawLines(svg, g, scales);
 }
 
 

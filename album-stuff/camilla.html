@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+</head>
+
+<body class="gonenow text-center">
+  <div class="container">
+    <div id="checkbox-div"></div>
+  </div>
+  <div id="goodbye-div"></div>
+  <h4 id="selection"></h4>
+</body>
+<script type="text/javascript">
+  var props = {
+    width: 1000,
+    height: 600,
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    line1x: -300,
+    line2x: 300
+  }
+
+  function addDurations(time1, time2){
+    var minutes1 = parseInt(time1.split(":")[0]);
+    var seconds1 = parseInt(time1.split(":")[1]);
+    var minutes2 = parseInt(time2.split(":")[0]);
+    var seconds2 = parseInt(time2.split(":")[1]);
+    var minutesTotal = minutes1 + minutes2;
+    var secondsTotal = seconds1 + seconds2;
+    if(secondsTotal > 59){
+      minutesTotal++;
+      secondsTotal -= 60;
+    }
+    return minutesTotal + ":" + secondsTotal
+  }
+
+  var svg = d3.select("#goodbye-div").append("svg").attr("width", props.width).attr("height",props.height);
+  var g = svg.append("g").attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
+
+  var time = d3.timeParse("%M:%S");
+  var categoryColor = d3.scaleOrdinal(d3.schemeCategory20);
+  var scale = d3.scaleTime().domain([time("00:00"),time("40:38")]).range([(-props.width / 2) + props.marginLeft, (props.width / 2) - props.marginRight]);
+
+  g.selectAll("line")
+    .data([null])
+    .enter()
+    .append("line")
+    .attr("x1", -props.width / 2 + props.marginLeft)
+    .attr("x2", props.width / 2 - props.marginRight)
+    .attr("y1", 0)
+    .attr("y2", 0)
+    .style("stroke","black");
+
+  d3.csv("gonenow-phrases.csv", function(csv_data){
+    d3.csv("gonenow.csv", function(gn_csv){
+      var lineData = [];
+      var previous = -60;
+      csv_data.forEach(function(d,i){
+        if(d.speaker == "camilla"){
+          var start = scale(time(addDurations(d.start, gn_csv[d.track_num-1].start)));
+          var end = scale(time(addDurations(d.end, gn_csv[d.track_num-1].start)));
+          console.log(start, end)
+          lineData.push({x: start, y: previous});
+          lineData.push({x: start, y: 0});
+          lineData.push({x: end, y: previous * -1});
+          previous = previous * -1;
+        }
+      });
+
+      var lineGenerator = d3.line().x(function(d){return d.x}).y(function(d){return d.y}).curve(d3.curveBasis);
+      g.selectAll(".camilla-line")
+        .data(lineData)
+        .enter()
+        .append("path")
+        .attr("class","camilla-line")
+        //.attr("cx", function(d){return d.x})
+        //.attr("cy", function(d){return d.y})
+        //.attr("r", 3)
+        .attr("d", lineGenerator(lineData));
+
+      g.selectAll(".phrase-line")
+        .data(csv_data.filter(function(d){return true;}))
+        .enter()
+        .append("line")
+        .attr("class",function(d){return "phrase-line phrase-" + d.category;})
+        .attr("x1", function(d){
+          return scale(time(addDurations(d.start, gn_csv[d.track_num-1].start)));
+        })
+        .attr("x2", function(d){
+          return scale(time(addDurations(d.end, gn_csv[d.track_num-1].start)));
+        })
+        .attr("y1", function(d){
+          return -40;
+        })
+        .attr("y2", function(d){
+          return 40;
+        })
+        .style("stroke", function(d){return categoryColor(d.category)})
+        .on("mouseover", function(d){
+          $("#selection").text(d.phrase);
+        })
+
+        var categories = csv_data.map(function(d){return d.category;}).filter(function(d,i,self){
+          return self.indexOf(d) == i;
+        });
+        d3.select("#checkbox-div").selectAll(".checkbox")
+          .data(categories)
+          .enter()
+            .append("label")
+            .attr("class","checkbox-inline gonenow")
+            .text(function(d){return d;})
+              .append("input")
+              .attr("type","checkbox")
+              .attr("id", function(d){return "checkbox-" + d;})
+              .attr("checked","checked")
+              .on("change", function(d){
+                  if(d3.select(this).attr("checked") == "checked"){
+                    d3.selectAll(".phrase-" + d).attr("visibility","hidden")
+                    d3.select(this).attr("checked","unchecked");
+                  }
+                  else{
+                    d3.selectAll(".phrase-" + d).attr("visibility","visible")
+                    d3.select(this).attr("checked","checked");
+                  }
+        });
+    });
+  });
+
+
+
+</script>

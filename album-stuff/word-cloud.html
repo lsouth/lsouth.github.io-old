@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+  </head>
+
+<body>
+      <div class="container" id="word-cloud">
+        </div>
+</body>
+
+<script type="text/javascript">
+      d3.csv("gonenow-phrases.csv", function(lyrics_data){
+        allWords = [];
+        lyrics_data.forEach(function(line){
+          line.split(" ");
+          allWords.push({li})
+        })
+      });
+</script>

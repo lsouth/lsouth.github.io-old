@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+  </head>
+
+<body>
+      <div class="container.fluid">
+            <div class="col-md">
+              <h4 class="strangedesire text-center"> Strange Desire: a visualization</h4>
+              <div id="strangedesire-div"></div>
+              <p id="strangedesire-selection" class="strangedesire text-center"></p>
+            </div>
+            <div class="col-md">
+              <h4 class="gonenow text-center"> Gone Now: a visualization</h4>
+              <div id="gonenow-div"></div>
+              <p id="gonenow-selection" class="gonenow text-center"></p>
+            </div>
+            <div class="col-md">
+              <h4 class="melodrama text-center"> Melodrama: a visualization</h4>
+              <div id="melodrama-div"></div>
+              <p id="melodrama-selection" class="melodrama text-center"></p>
+            </div>
+        </div>
+</body>
+
+<script type="text/javascript" src="js/album-visualization.js"></script>
+<script type="text/javascript">
+  drawHorizontalLineVis("strangedesire.csv","strangedesire-lyrics.csv","strangedesire-div");
+  drawHorizontalLineVis("gonenow.csv","gonenow-phrases.csv","gonenow-div");
+  drawHorizontalLineVis("melodrama.csv","melodrama-lyrics.csv", "melodrama-div");
+</script>

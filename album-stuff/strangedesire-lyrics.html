@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+  <title>Strange Desire</title>
+</head>
+
+<body class="strangedesire text-center">
+  <header>
+    <div class="container">
+        <h3>Strange Desire</h3>
+    </div>
+  </header>
+  <main>
+    <div id="goodbye-div"></div>
+  </main>
+</body>
+<script type="text/javascript">
+  var props = {
+    width: 1200,
+    height: 10000,
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    line1x: -300,
+    line2x: 300
+  }
+
+  function addDurations(time1, time2){
+    var minutes1 = parseInt(time1.split(":")[0]);
+    var seconds1 = parseInt(time1.split(":")[1]);
+    var minutes2 = parseInt(time2.split(":")[0]);
+    var seconds2 = parseInt(time2.split(":")[1]);
+    var minutesTotal = minutes1 + minutes2;
+    var secondsTotal = seconds1 + seconds2;
+    if(secondsTotal > 59){
+      minutesTotal++;
+      secondsTotal -= 60;
+    }
+    return minutesTotal + ":" + secondsTotal
+  }
+
+  var svg = d3.select("#goodbye-div").append("svg").attr("width", props.width).attr("height",props.height);
+  var g = svg.append("g").attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
+
+  var time = d3.timeParse("%M:%S");
+  var categoryColor = d3.scaleOrdinal(d3.schemeCategory20);
+
+  g.selectAll("line")
+    .data([null])
+    .enter()
+    .append("line")
+    .attr("y1", -props.height / 2 + props.marginLeft)
+    .attr("y2", props.height / 2 - props.marginRight)
+    .attr("x1", 0)
+    .attr("x2", 0)
+    .style("stroke","black");
+
+  d3.csv("strangedesire-lyrics.csv", function(phrases_data){
+    d3.csv("strangedesire.csv", function(song_data){
+      var scale = d3.scaleTime().domain([time("00:00"),time(song_data[song_data.length - 1].cumulative_duration)]).range([(-props.height / 2) + props.marginLeft, (props.height / 2) - props.marginRight]);
+
+        g.selectAll(".phrase-div")
+          .data(phrases_data)
+          .enter()
+          .append("text")
+          .text(function(d){
+            return d.phrase;
+          })
+          .attr("x",function(d){
+            if(d.speaker == "jack"){
+              return 50;
+            }
+            return -500;
+          })
+          .attr("y",function(d){
+            var trackStart = song_data[d.track_num-1].start;
+            var startScaled = scale(time(addDurations(d.start, trackStart)));
+            var endScaled = scale(time(addDurations(d.end, trackStart)));
+            return (startScaled + endScaled) / 2;
+          })
+          .style("fill", function(d){return categoryColor(d.category)});
+
+        g.selectAll(".song-division")
+          .data(song_data)
+          .enter()
+          .append("line")
+          .attr("class","song-division")
+          .attr("y1", function(d){return scale(time(d.cumulative_duration))})
+          .attr("y2", function(d){return scale(time(d.cumulative_duration))})
+          .attr("x1", -20)
+          .attr("x2", 20)
+          .style("stroke","black")
+
+        g.selectAll(".song-label")
+            .data(song_data)
+            .enter()
+            .append("text")
+            .attr("x",function(d){return (-1 * scale(time(d.start)) - 200);})
+            .attr("y", -20)
+            .style("transform","rotate(270deg)")
+            .text(function(d){console.log(d);return d.track_title})
+    });
+  });
+
+</script>

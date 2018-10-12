@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+</head>
+
+<body class="gonenow text-center">
+  <div class="container">
+  <h3>Goodbye</h3>
+</div>
+  <div id="goodbye-div"></div>
+  <h4 id="selection"></h4>
+</body>
+<script type="text/javascript">
+  var props = {
+    width: 800,
+    height: 600,
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    line1x: -300,
+    line2x: 300
+  }
+
+  var svg = d3.select("#goodbye-div").append("svg").attr("width", props.width).attr("height",props.height);
+  var g = svg.append("g").attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
+
+  var time = d3.timeParse("%M:%S");
+  var categoryColor = d3.scaleOrdinal(d3.schemeCategory20);
+  var scale = d3.scaleTime().domain([time("00:00"),time("02:57")]).range([(-props.height / 2) + props.marginTop, (props.height / 2) - props.marginBottom]);
+
+  g.selectAll("line")
+    .data([null, null])
+    .enter()
+    .append("line")
+    .attr("x1", function(d,i){return -300 + i * 600})
+    .attr("x2",function(d,i){return -300 + i * 600})
+    .attr("y1", -props.height / 2 + props.marginTop)
+    .attr("y2",props.height / 2 + props.marginBottom)
+    .style("stroke","black");
+
+  d3.csv("goodbye.csv", function(csv_data){
+    console.log(csv_data)
+    g.selectAll(".phrase-line")
+      .data(csv_data)
+      .enter()
+      .append("line")
+      .attr("class","phrase-line")
+      .attr("x1", function(d){
+        console.log(d.phrase)
+        return (d.speaker == "jack" ? props.line1x : props.line2x) - 20;
+      })
+      .attr("x2", function(d){
+        return (d.speaker == "jack" ? props.line1x : props.line2x) + 20;
+      })
+      .attr("y1", function(d){
+        return scale(time(d.start));
+      })
+      .attr("y2", function(d){
+        return scale(time(d.end));
+      })
+      .style("stroke", function(d){return categoryColor(d.category)})
+      .on("mouseover", function(d){
+        $("#selection").text(d.phrase);
+      })
+  })
+
+</script>

@@ -3,10 +3,48 @@
   src: url("fonts/GaramondThreeItalic.otf");
 }
 
+p{
+  font-size: 14pt;
+}
+
+.pureheroine{
+  font-family: 'Raleway', sans-serif;
+}
+
 .gonenow{
   font-family: GaramondThreeItalic;
 }
 
 .melodrama{
   font-family: 'EB Garamond', serif;
+}
+
+.strangedesire{
+  font-family: 'Oswald', sans-serif;
+  font-weight: lighter;
+}
+
+h3.gonenow{
+  margin: 30px auto 0;
+  display: inline-block;
+  text-align: center;
+  position:relative;
+}
+
+path.camilla-line{
+  fill: none;
+  stroke: red;
+  stroke-width: 1;
+}
+
+h3:before{
+    background: transparent url(../img/dot.png) 0 0 no-repeat;
+    background-size: 100% 100%;
+    content: '';
+    display: block;
+    height: 30px;
+    left: -65px;
+    position: absolute;
+    top: 0;
+    width: 30px;
 }
