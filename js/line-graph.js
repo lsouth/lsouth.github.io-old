@@ -88,6 +88,7 @@ LineGraph.drawLines = function(svg, g, scales){
           d3.selectAll(".rating-point").transition().style("stroke-width","2");
           var lowerID = d.id.toLowerCase().split(" ")[0];
           d3.select("#" + lowerID).transition().style("stroke-width","0").attr("r","3%");
+          d3.select("#circle-" + lowerID).transition().style("stroke-width","2").attr("r","3%").style("stroke","none");
           $("#review-link-card").text("Select an album to learn more.");
         });
 
@@ -158,7 +159,7 @@ LineGraph.create = function(line_elem, line_props){
     });
   }
 
-  var artists = line_props.data.map(function(d) {console.log(d);return d.Artist;}).filter(function(d,i,self){return self.indexOf(d) == i;})
+  var artists = line_props.data.map(function(d) {return d.Artist;}).filter(function(d,i,self){return self.indexOf(d) == i;})
   d3.select("#artist-selection")
       .selectAll(".artist-checkbox")
       .data(artists.filter(function(d){return d != "skip"}))
