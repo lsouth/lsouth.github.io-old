@@ -220,17 +220,6 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
         })
         .on("click", function(d){
             if(lineForm){
-              g.selectAll(".song-division")
-                    .data(csv_data)
-                    .enter()
-                    .append("line")
-                    .attr("class","song-division")
-                    .attr("x1",function(d){return xScale(time(d.start));})
-                    .attr("x2",function(d){return xScale(time(d.start));})
-                    .attr("y1",-5)
-                    .attr("y2",5)
-                    .style("stroke","black");
-
               d3.selectAll(".song-line-" + className)
                 .transition()
                 .duration(100)
@@ -268,9 +257,19 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
             else{
               d3.selectAll(".song-line-" + className)
                 .transition()
-                .attr("d", function(d){return lineGenerator(d.data.values)})
+                .attr("d", function(d){console.log(lineGenerator(d.data.values));return lineGenerator(d.data.values)})
                 .style("stroke", "black")
-                .style("stroke-width", "1");
+                .style("stroke-width", "2");
+                g.selectAll(".song-division")
+                      .data(csv_data)
+                      .enter()
+                      .append("line")
+                      .attr("class","song-division")
+                      .attr("x1",function(d){return xScale(time(d.start));})
+                      .attr("x2",function(d){return xScale(time(d.start));})
+                      .attr("y1",-5)
+                      .attr("y2",5)
+                      .style("stroke","black");
               d3.selectAll(".phrase-" + className)
                   .transition()
                   .attr("x1", function(d){
