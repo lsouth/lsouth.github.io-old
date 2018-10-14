@@ -5,18 +5,36 @@
   <script src="js/d3.min.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
-  <title>Strange Desire</title>
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+  <title>Melodrama</title>
 </head>
 
-<body class="strangedesire text-center">
+<body>
   <header>
+    <div class="container.fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">Laura South</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="projects.html">Recent Projects</a>
+          <a class="nav-item nav-link active" href="timeline.html">Music</a>
+        </div>
+      </div>
+   </nav>
+ </div>
+</header>
+  <main class="melodrama text-center">
     <div class="container">
-        <h3>Strange Desire</h3>
+      <br>
+      <div class="card">
+        <h3>Melodrama</h3>
+        <div id="melodrama-div"></div>
+      </div>
     </div>
-  </header>
-  <main>
-    <div id="goodbye-div"></div>
   </main>
 </body>
 <script type="text/javascript">
@@ -45,11 +63,14 @@
     return minutesTotal + ":" + secondsTotal
   }
 
-  var svg = d3.select("#goodbye-div").append("svg").attr("width", props.width).attr("height",props.height);
+  var svg = d3.select("#melodrama-div").append("svg").attr("width", props.width).attr("height",props.height);
   var g = svg.append("g").attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
 
   var time = d3.timeParse("%M:%S");
   var categoryColor = d3.scaleOrdinal(d3.schemeCategory20);
+  var categories = ["misc","morning","ribbon","melodrama","teeth","seasons","breathing","car","violent","sober","perfect","liability"]
+  var colors =     ["#0B2B81","#F44355","#036DD0","#D26B7D","#FAAF4F","#0634B8","#93C5D3","#32A8EA","#D1A240","#00bf5c","#cc006c","#c28fd6"]
+  var colorScale = d3.scaleOrdinal().domain(categories).range(colors);
 
   g.selectAll("line")
     .data([null])
@@ -61,8 +82,8 @@
     .attr("x2", 0)
     .style("stroke","black");
 
-  d3.csv("strangedesire-lyrics.csv", function(phrases_data){
-    d3.csv("strangedesire.csv", function(song_data){
+  d3.csv("melodrama-lyrics.csv", function(phrases_data){
+    d3.csv("melodrama.csv", function(song_data){
       var scale = d3.scaleTime().domain([time("00:00"),time(song_data[song_data.length - 1].cumulative_duration)]).range([(-props.height / 2) + props.marginLeft, (props.height / 2) - props.marginRight]);
 
         g.selectAll(".phrase-div")
@@ -73,7 +94,7 @@
             return d.phrase;
           })
           .attr("x",function(d){
-            if(d.speaker == "jack"){
+            if(d.speaker == "ella"){
               return 50;
             }
             return -500;
@@ -84,7 +105,7 @@
             var endScaled = scale(time(addDurations(d.end, trackStart)));
             return (startScaled + endScaled) / 2;
           })
-          .style("fill", function(d){return categoryColor(d.category)});
+          .style("fill", function(d){return categoryColor(d.category)});//colorScale(d.category)});
 
         g.selectAll(".song-division")
           .data(song_data)
@@ -104,8 +125,10 @@
             .attr("x",function(d){return (-1 * scale(time(d.start)) - 200);})
             .attr("y", -20)
             .style("transform","rotate(270deg)")
-            .text(function(d){console.log(d);return d.track_title})
+            .text(function(d){return d.track_title})
     });
   });
+
+
 
 </script>

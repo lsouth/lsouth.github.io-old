@@ -198,7 +198,7 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
       var arcGenerator = d3.arc().innerRadius((props.width / 2) - 20).outerRadius((props.width / 2) - 15);
       var g = d3.select("#svg-" + className).append("g").attr("id","g-"+className).attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
       //g.append("circle").attr("cx","0").attr("cy","0").attr("r","10").text("View lyrics page");
-      g.append("text").attr("text-anchor","middle").attr("dx","0").attr("dy","-5").on("click",function(){window.location = "/album-stuff/" + className + "-lyrics.html"}).text("View lyrics page");
+      //g.append("text").attr("text-anchor","middle").attr("dx","0").attr("dy","-5").on("click",function(){window.location = "/album-stuff/" + className + "-lyrics.html"}).text("View lyrics page");
 
       var lineGenerator = d3.line().x(function(d){return xScale(time(d.x))}).y(function(d){return d.y;});
 
@@ -219,6 +219,7 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
           d3.select("#" + className + "-selection").text("");
         })
         .on("click", function(d){
+          console.log(lineForm);
             if(lineForm){
               d3.selectAll(".song-line-" + className)
                 .transition()
@@ -228,6 +229,8 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
                 .style("fill", "black")
                 .style("stroke-width","1")
                 .style("stroke","white");
+              g.selectAll(".song-division")
+                .remove();
               lineForm = false;
               d3.selectAll(".phrase-" + className)
                   .transition()
@@ -257,9 +260,9 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
             else{
               d3.selectAll(".song-line-" + className)
                 .transition()
-                .attr("d", function(d){console.log(lineGenerator(d.data.values));return lineGenerator(d.data.values)})
+                .attr("d", function(d){return lineGenerator(d.data.values)})
                 .style("stroke", "black")
-                .style("stroke-width", "2");
+                .style("stroke-width", "3");
                 g.selectAll(".song-division")
                       .data(csv_data)
                       .enter()

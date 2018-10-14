@@ -1,22 +1,40 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <head>
   <script src="js/jquery-2.1.4.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/d3.min.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
-  <title>Gone Now</title>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+  <title>Strange Desire</title>
 </head>
 
-<body class="gonenow text-center">
+<body>
   <header>
+    <div class="container.fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">Laura South</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="projects.html">Recent Projects</a>
+          <a class="nav-item nav-link active" href="timeline.html">Music</a>
+        </div>
+      </div>
+   </nav>
+ </div>
+</header>
+  <main class="strangedesire text-center">
     <div class="container">
-      <h3 class="gonenow">Gone Now</h3>
+      <br>
+      <div class="card">
+        <h3>Strange Desire</h3>
+        <div id="strangedesire-div"></div>
+      </div>
     </div>
-  </header>
-  <main>
-    <div id="goodbye-div"></div>
   </main>
 </body>
 <script type="text/javascript">
@@ -45,17 +63,11 @@
     return minutesTotal + ":" + secondsTotal
   }
 
-  var svg = d3.select("#goodbye-div").append("svg").attr("width", props.width).attr("height",props.height);
+  var svg = d3.select("#strangedesire-div").append("svg").attr("width", props.width).attr("height",props.height);
   var g = svg.append("g").attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
 
   var time = d3.timeParse("%M:%S");
   var categoryColor = d3.scaleOrdinal(d3.schemeCategory20);
-  var categories = ["alone","grateful","misc","imtd","dttm","bed","thunder","sunday","pray",
-                    "weight","goodmorning","favor","dream","light","goodbye","lies","stranger","htykm","home",
-                    "els","amh","lgm","walk","clean","niu"];
-  var colors = ["#F64747","#67221B","#2a7ab0","#005051","#634806","#7E7E7E","#34515E","#D25852","#765AB0","#F62459","#436E43","#6B8E23","#4b5555"]
-  var colorScale = d3.scaleOrdinal().domain(categories).range(colors);
-  var scale = d3.scaleTime().domain([time("00:00"),time("40:38")]).range([(-props.height / 2) + props.marginLeft, (props.height / 2) - props.marginRight]);
 
   g.selectAll("line")
     .data([null])
@@ -67,13 +79,11 @@
     .attr("x2", 0)
     .style("stroke","black");
 
-
-
-  d3.csv("gonenow-phrases.csv", function(phrases_data){
-    d3.csv("gonenow.csv", function(song_data){
+  d3.csv("strangedesire-lyrics.csv", function(phrases_data){
+    d3.csv("strangedesire.csv", function(song_data){
       var scale = d3.scaleTime().domain([time("00:00"),time(song_data[song_data.length - 1].cumulative_duration)]).range([(-props.height / 2) + props.marginLeft, (props.height / 2) - props.marginRight]);
 
-        g.append("g").attr("id","lyrics-g").selectAll(".phrase-div")
+        g.selectAll(".phrase-div")
           .data(phrases_data)
           .enter()
           .append("text")
@@ -83,9 +93,6 @@
           .attr("x",function(d){
             if(d.speaker == "jack"){
               return 50;
-            }
-            if(d.category == "grateful"){
-              return -500;
             }
             return -500;
           })
@@ -97,20 +104,8 @@
           })
           .style("fill", function(d){return categoryColor(d.category)});
 
-          g.selectAll(".song-label")
-            .data(song_data)
-            .enter()
-            .append("text")
-            .attr("x",function(d){
-              var offset = (-1 * scale(time(d.start)) - 150);
-              return d.track_num == "11" ? offset - 150 : offset;
-            })
-            .attr("y", -20)
-            .style("transform","rotate(270deg)")
-            .text(function(d){return d.track_title})
-
         g.selectAll(".song-division")
-          .data(song_data.filter(function(d){return d.track_num != "12"}))
+          .data(song_data)
           .enter()
           .append("line")
           .attr("class","song-division")
@@ -119,9 +114,16 @@
           .attr("x1", -20)
           .attr("x2", 20)
           .style("stroke","black")
+
+        g.selectAll(".song-label")
+            .data(song_data)
+            .enter()
+            .append("text")
+            .attr("x",function(d){return (-1 * scale(time(d.start)) - 200);})
+            .attr("y", -20)
+            .style("transform","rotate(270deg)")
+            .text(function(d){console.log(d);return d.track_title})
     });
   });
-
-
 
 </script>

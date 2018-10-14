@@ -164,8 +164,8 @@
 4,1:33,1:36,ella,dance,Broadcast the boom-boom-boom and make 'em all dance to it,present
 4,1:37,1:41,ella,misc,"Our thing progresses, I call and you come through",present
 4,1:41,1:45,ella,misc,Blow all my friendships to sit in hell with you,present
-4,1:45,1:49,ella,louvre,"But we're the greatest, they'll hang us in the Louvre",future
-4,1:49,1:52,ella,louvre,"Down the back, but who cares? Still the Louvre",future
+4,1:45,1:49,ella,misc,"But we're the greatest, they'll hang us in the Louvre",future
+4,1:49,1:52,ella,misc,"Down the back, but who cares? Still the Louvre",future
 4,1:53,1:55,ella,misc,"Okay, I know that you are not my type",present
 4,1:55,1:55,backup,misc,Still I fall,present
 4,1:57,1:59,ella,misc,"I'm just a sucker, let you fill my mind",present
@@ -250,7 +250,8 @@
 6,3:34,3:38,ella,misc,I'll start letting go of little things 'til I'm so far away from you,present
 6,3:39,3:40,ella,misc,"Far away from you, yeah",present
 6,4:02,4:04,paul,misc,What is this tape? This is my favorite tape,unknown
-6,4:29,4:33,ella,misc,"Bet you wanna rip my heart out, bet you wanna skip my calls now",present
+6,4:29,4:30,ella,misc,Bet you wanna rip my heart out,present
+6,4:31,4:33,ella,misc,Bet you wanna skip my calls now,present
 6,4:34,4:35,ella,misc,Well guess what? I like that,present
 6,4:37,4:41,ella,misc,"Cause I'm gonna mess your life up, gonna wanna tape my mouth shut",present
 6,4:41,4:41,backup,misc,"Lookout, lovers",present
@@ -258,7 +259,8 @@
 6,4:48,4:51,ella,misc,We're L.O.V.E.L.E.S.S. generation,present
 6,4:53,4:57,ella,misc,All fucking with our lover's heads,present
 6,4:58,4:58,backup,misc,Generation,present
-6,5:08,5:13,ella,misc,"Bet you wanna rip my heart out, bet you wanna skip my calls now",present
+6,5:08,5:10,ella,misc,Bet you wanna rip my heart out,present
+7,5:11,5:13,ella,misc,Bet you wanna skip my calls now,present
 6,5:13,5:15,ella,misc,Well guess what? I like that,present
 6,5:16,5:20,ella,misc,"Cause I'm gonna mess your life up, gonna wanna tape my mouth shut",present
 6,5:21,5:21,backup,misc,"Lookout, lovers",present
