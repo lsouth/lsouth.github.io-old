@@ -2,13 +2,13 @@
 1,0:00,0:02,jack,misc,"Woke up, I'm in the in-between honey",no
 1,0:03,0:05,jack,misc,"Woke up, I'm in the in-between honey",no
 1,0:06,0:08,jack,misc,"Woke up, I'm in the in-between honey",no
-1,0:09,0:11,jack,misc,"Woke up, I'm in the in-between honey",
+1,0:09,0:11,jack,misc,"Woke up, I'm in the in-between honey",no
 1,0:04,0:06,camilla,misc,And I miss seeing more and more everytime,no
 1,0:07,0:09,camilla,grateful,"I wanna be grateful, I wanna be grateful",no
 1,0:10,0:11,camilla,misc, I don't think I can talk about that,no
 1,0:12,0:15,jack,misc,"All the hope I had when I was young, I hope I wasn't wrong",yes
 1,0:18,0:20,jack,imtd,I miss those days,yes
-1,0:22,0:23,jack,dttm,So I sing a don't take the money song,
+1,0:22,0:23,jack,dttm,So I sing a don't take the money song,yes
 1,0:25,0:27,jack,misc,That's why I'm up in my room tonight,yes
 1,0:28,0:31,jack,misc,Whistling wind out my teeth cause somebody didn't fix them nice,yes
 1,0:32,0:34,jack,misc,"Well, some things just don't turn out right",yes
@@ -19,7 +19,8 @@
 1,0:50,0:51,jack,misc,That's why I'm out in the street tonight ,yes
 1,0:53,0:55,jack,misc,Whistling wind out my teeth cause somebody didn't fix them nice,yes
 1,0:57,0:59,jack,misc,You know some things just don't turn out right,yes
-1,1:04,1:09,jack,thunder,Rolling thunder had cursed my bedroom,yes
+1,1:04,1:06,jack,thunder,Rolling thunder,yes
+1,1:07,1:09,jack,bed,had cursed my bedroom,yes
 1,1:10,1:12,jack,misc,"Heard from your mother, she don't recognize you",yes
 1,1:15,1:21,jack,sunday,And Mickey Mantle left on a Sunday,yes
 1,1:22,1:27,jack,pray,And now all the neighborhood rushes home to pray,yes
@@ -106,8 +107,8 @@
 3,0:43,0:47,jack,htykm,Some times I hate that you know me so well,yes
 3,0:48,0:52,jack,htykm,Some times I hate that you know me so well,no
 3,0:52,0:56,jack,misc,Some days I wish that I wasn't myself,yes
-3,0:58,1:02,jack,htykm,And I hate that you know me so well,yes
-3,1:01,1:03,jack,misc,Wash the fears from my hands off,yes
+3,0:57,1:00,jack,htykm,And I hate that you know me so well,yes
+3,1:01,1:02,jack,misc,Wash the fears from my hands off,yes
 3,1:03,1:05,jack,misc,Count mistakes on the sidewalk,yes
 3,1:06,1:08,jack,misc,"Act like I've been up all night, and you know what? I hate it",yes
 3,1:10,1:13,jack,dream,"I keep talking about eighteen, cause I can't let go of the same dream",yes
@@ -160,6 +161,7 @@
 4,2:00,2:03,jack,pray,"I pray for everything we lost, buy back the secrets",no
 4,2:04,2:08,jack,dttm,"Your hand forever's all I want, don't take the money",no
 4,2:09,2:10,jack,dttm,Don't take the money,no
+4,2:10,2:12,backup,misc,"I'm in love and you've got me, runaway",no
 4,2:13,2:16,jack,misc,"When you're looking at your shadow, standing on the edge of yourself",yes
 4,2:17,2:21,jack,dttm,"Praying on the darkness, just don't take the money",yes
 4,2:21,2:25,jack,weight,"Dreaming of it easy, waking up without weight now",yes
@@ -171,6 +173,7 @@
 4,2:39,2:42,lorde,dttm,"Your hand forever's all I want, don't take the money",no
 4,2:39,2:42,jack,dttm,"Your hand forever's all I want, don't take the money",no
 4,2:43,2:45,jack,dttm,Don't take the money,no
+4,2:44,2:46,backup,misc,"I'm in love and you've got me, runaway",no
 4,2:48,2:51,jack,misc,"You steal the air out of my lungs, you make me feel it",no
 4,2:52,2:55,jack,pray,"I pray for everything we lost, buy back the secrets",no
 4,2:56,2:59,jack,dttm,"Your hand forever's all I want, don't take the money",no
@@ -193,13 +196,13 @@
 5,0:48,0:51,jack,misc,"I wanna wake up and remember, so take my clothes, that's better",yes
 5,0:52,0:55,jack,alone,I think pain is waiting alone at the corner,yes
 5,0:55,0:58,jack,home,"Tryna get myself back home, yeah",yes
-5,0:59,1:03,jack,misc,"Looking like everybody, knowing everybody lost somebody",sorta
+5,0:59,1:03,jack,els,"Looking like everybody, knowing everybody lost somebody",sorta
 5,1:04,1:09,jack,home,"I'm standing here in the cold air, I gotta get myself back home soon",yes
-5,1:09,1:13,jack,misc,"I'm looking like everybody, knowing everybody lost somebody",sorta
+5,1:09,1:13,jack,els,"I'm looking like everybody, knowing everybody lost somebody",sorta
 5,1:22,1:24,jack,els,Everybody lost somebody,no
 5,1:32,1:35,jack,els,Everybody lost somebody,no
 5,1:35,1:37,jack,misc,"I waited 'til the night was over, cursed the sun for coming up below her",yes
-5,1:39,1:43,jack,misc,"Cashed the checks I had, I didn't owe 'em",yes
+5,1:39,1:42,jack,misc,"Cashed the checks I had, I didn't owe 'em",yes
 5,1:43,1:45,jack,misc,"Standing on the corner, God I wonder when I'll give myself a break",yes
 5,1:45,1:45,backup,misc,Hey,no
 5,1:46,1:49,jack,misc,But there's nothing I wouldn't do to settle up with heaven,yes
@@ -419,7 +422,7 @@
 10,0:01,0:02,jack,misc,She puts on a black dress,yes
 10,0:04,0:05,jack,clean,I clean my glasses and phone,yes
 10,0:09,0:11,jack,misc,Frankie says its worthless,yes
-10,0:12,0:15,jack,home,To stop and build a home,
+10,0:12,0:15,jack,home,To stop and build a home,yes
 10,0:16,0:20,jack,misc,But as for me I've waited longer than I've been clear,yes
 10,0:21,0:24,jack,clean,And I can't keep it clean anymore,yes
 10,0:26,0:29,jack,misc,Since nothing has changed me quite like you,yes
@@ -474,7 +477,8 @@
 11,3:00,3:02,jack,goodbye,Goodbye to the kids downstairs,no
 11,3:03,3:06,jack,favor,And everybody who lent me a favor,yes
 11,3:06,3:10,camilla,misc,I want more and more and it feels very strange,no
-11,3:07,3:12,jack,goodbye,Goodbye to the dream I had where I thought that I could save us,no
+11,3:07,3:09,jack,goodbye,Goodbye to the dream I had ,no
+11,3:10,3:13,jack,misc,Where I thought that I could save us,no
 11,3:14,3:16,jack,goodbye,Goodbye to the kids I'd have,no
 11,3:15,3:17,camilla,home,I've gotta get myself back home soon,no
 11,3:17,3:19,jack,favor,Everybody who lent me a favor,yes
