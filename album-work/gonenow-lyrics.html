@@ -3,12 +3,21 @@
   <script src="js/jquery-2.1.4.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/d3.min.js"></script>
+  <script src="js/graph-scroll.js"></script>
+
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,400i" rel="stylesheet">
   <title>Gone Now</title>
 </head>
+
+<style>
+#tracklist{
+  position: sticky;
+  top: 200px;
+}
+</style>
 
 <body>
   <header>
@@ -30,15 +39,24 @@
  </div>
 </header>
 <br>
+
   <main class="gonenow text-center">
-    <div class="container">
-      <div class="card">
-        <h3 class="gonenow">Gone Now</h3>
-        <div id="gonenow-lyrics"></div>
+    <div class="container" id="container">
+      <div class="row">
+        <!--<div class="col-md-3">
+          <div class="card" id="tracklist"></div>
+        </div>-->
+        <div class="col-md">
+          <div class="card">
+            <h3 class="gonenow">Gone Now</h3>
+            <div id="gonenow-lyrics"></div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
 </body>
+
 <script type="text/javascript">
   var props = {
     width: 1200,
@@ -64,7 +82,7 @@
     }
     return minutesTotal + ":" + secondsTotal
   }
-
+  props.width = $("#gonenow-lyrics").width();
   var svg = d3.select("#gonenow-lyrics").append("svg").attr("width", props.width).attr("height",props.height);
   var g = svg.append("g").attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
 
@@ -75,7 +93,6 @@
                     "els","amh","lgm","walk","clean","niu"];
   var colors = ["#F64747","#67221B","#2a7ab0","#005051","#634806","#7E7E7E","#34515E","#D25852","#765AB0","#F62459","#436E43","#6B8E23","#4b5555"]
   var colorScale = d3.scaleOrdinal().domain(categories).range(colors);
-  var scale = d3.scaleTime().domain([time("00:00"),time("40:38")]).range([(-props.height / 2) + props.marginLeft, (props.height / 2) - props.marginRight]);
 
   g.selectAll("line")
     .data([null])
@@ -91,7 +108,7 @@
 
   d3.csv("gonenow-phrases.csv", function(phrases_data){
     d3.csv("gonenow.csv", function(song_data){
-      var scale = d3.scaleTime().domain([time("00:00"),time(song_data[song_data.length - 1].cumulative_duration)]).range([(-props.height / 2) + props.marginLeft, (props.height / 2) - props.marginRight]);
+      var yScale = d3.scaleTime().domain([time("00:00"),time(song_data[song_data.length - 1].cumulative_duration)]).range([(-props.height / 2) + props.marginLeft, (props.height / 2) - props.marginRight]);
 
         g.append("g").attr("id","lyrics-g").selectAll(".phrase-div")
           .data(phrases_data)
@@ -104,15 +121,12 @@
             if(d.speaker == "jack"){
               return 50;
             }
-            if(d.category == "grateful"){
-              return -500;
-            }
             return -500;
           })
           .attr("y",function(d){
             var trackStart = song_data[d.track_num-1].start;
-            var startScaled = scale(time(addDurations(d.start, trackStart)));
-            var endScaled = scale(time(addDurations(d.end, trackStart)));
+            var startScaled = yScale(time(addDurations(d.start, trackStart)));
+            var endScaled = yScale(time(addDurations(d.end, trackStart)));
             return (startScaled + endScaled) / 2;
           })
           .style("fill", function(d){return categoryColor(d.category)});
@@ -122,7 +136,7 @@
             .enter()
             .append("text")
             .attr("x",function(d){
-              var offset = (-1 * scale(time(d.start)) - 150);
+              var offset = (-1 * yScale(time(d.start)) - 150);
               return d.track_num == "11" ? offset - 150 : offset;
             })
             .attr("y", -20)
@@ -134,11 +148,19 @@
           .enter()
           .append("line")
           .attr("class","song-division")
-          .attr("y1", function(d){return scale(time(d.cumulative_duration))})
-          .attr("y2", function(d){return scale(time(d.cumulative_duration))})
+          .attr("y1", function(d){return yScale(time(d.cumulative_duration))})
+          .attr("y2", function(d){return yScale(time(d.cumulative_duration))})
           .attr("x1", -20)
           .attr("x2", 20)
-          .style("stroke","black")
+          .style("stroke","black");
+
+        var tracks = d3.select("#tracklist");
+        tracks.selectAll(".song-title")
+                .data(song_data)
+                .enter()
+                .append("text")
+                .text(d => d.track_title);
+
     });
   });
 

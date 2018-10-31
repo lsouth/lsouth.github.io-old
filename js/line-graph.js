@@ -171,7 +171,7 @@ LineGraph.create = function(line_elem, line_props){
       .attr("checked","checked")
       .attr("class","form-check-input artist-checkbox")
       .attr("id",function(d){return d.toLowerCase().split(" ")[0] + "-checkbox";})
-      .on("change", function(d){
+      .on("click", function(d){
         if(d3.select(this).attr("checked") == "checked"){
           d3.selectAll(".artist-" + d.toLowerCase().split(" ")[0]).style("visibility","hidden");
           d3.select(this).attr("checked","unchecked");

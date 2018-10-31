@@ -77,7 +77,7 @@ function drawHorizontalLineVis(albumCSV, phrasesCSV, divID){
   var g = d3.select("#svg-" + className).append("g").attr("id","g-"+className).attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
 
   d3.csv(albumCSV, function(csv_data){
-    var xScale = d3.scaleTime().domain([time("0:00"),time(csv_data[csv_data.length - 1].cumulative_duration)]).range([-props.width / 2 + props.marginLeft, props.width / 2 - props.marginRight]);
+    const xScale = d3.scaleTime().domain([time("0:00"),time(csv_data[csv_data.length - 1].cumulative_duration)]).range([-props.width / 2 + props.marginLeft, props.width / 2 - props.marginRight]);
     d3.csv(phrasesCSV, function(phrases_data){
       var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
       var categories = ["alone","grateful","misc","imtd","dttm","bed","thunder","sunday","pray",
@@ -176,6 +176,7 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
           .text("Hover over a line to see lyrics.");
           */
   props.width = $("#" + className + "-vis").width();
+  var outerRadius = Math.min(props.width, props.height) * 0.5
   var svg = d3.select("#" + className + "-vis").append("svg").attr("id","svg-" + className).attr("width", props.width).attr("height",props.height);
   var time = d3.timeParse("%M:%S");
   var lineForm = false;
@@ -185,17 +186,20 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
     var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
     d3.csv(phrasesCSV, function(phrases_data){
       var pieScale = d3.scaleTime().domain([time("00:00"),time(csv_data[csv_data.length - 1].end)]).range([0, 100]);
-      var xScale = d3.scaleTime().domain([time("00:00"),time(csv_data[csv_data.length - 1].end)]).range([(-props.width / 2)+20, (props.width / 2)-20]);
+      var xScale = d3.scaleTime()
+                      .domain([time("00:00"),time(csv_data[csv_data.length - 1].end)])
+                      .range([-props.width / 2 + props.marginLeft, props.width / 2 - props.marginRight]);
+      const circleScale = d3.scaleLinear()
+                              .domain([-props.width / 2 + props.marginLeft, props.width / 2 - props.marginRight])
+                              .range([2 * Math.PI / 3 - 0.35,7 * Math.PI / 3 + 0.35]);
       var categoryScale = d3.scaleBand().domain(phrases_data.map(function(d){return d.category})).range([-200, 200]).paddingOuter(0.5);
-      var speakerScale = d3.scaleBand().domain(phrases_data.map(function(d){return d.speaker})).range([-100, 100]).paddingOuter(0.5);
       var speakerColor = d3.scaleOrdinal().domain(["jack","camilla","lena","evan"]).range(["#959595","#EE4222","#175ed1","#363636"]);
       csv_data.forEach(function(d){
         d.values = [{x: d.start, y: 0},{x: d.end, y: 0}];
       });
-      console.log(csv_data)
       var pieGenerator = d3.pie().value(function(d){return pieScale(time(d.duration))}).sort(null).startAngle(0.05 * Math.PI).endAngle(1.95*Math.PI);
       var arcData = pieGenerator(csv_data);
-      var arcGenerator = d3.arc().innerRadius((props.width / 2) - 20).outerRadius((props.width / 2) - 15);
+      var arcGenerator = d3.arc().innerRadius(outerRadius - 40).outerRadius(outerRadius - 35);
       var g = d3.select("#svg-" + className).append("g").attr("id","g-"+className).attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
       //g.append("circle").attr("cx","0").attr("cy","0").attr("r","10").text("View lyrics page");
       //g.append("text").attr("text-anchor","middle").attr("dx","0").attr("dy","-5").on("click",function(){window.location = "/album-stuff/" + className + "-lyrics.html"}).text("View lyrics page");
@@ -299,9 +303,7 @@ function renderAlbumArc(albumCSV, phrasesCSV, parentDiv, albumTitle){
             }
         });
 
-          var circleScale = d3.scaleLinear().domain([-props.width / 2, props.width / 2]).range([2 * Math.PI / 3 - 0.35,7 * Math.PI / 3 + 0.35]);
-          var radiusPointEstimate = -1 * (props.width * 0.4);
-          var radiusScale = d3.scaleBand().domain(phrases_data.map(function(d){return d.category})).range([radiusPointEstimate - 20,radiusPointEstimate + 40]);
+          const radiusScale = d3.scaleBand().domain(phrases_data.map(function(d){return d.category})).range([-1 * (outerRadius - 70), -1 * (outerRadius - 10)]);
           g.append("g").attr("id","circle-g")
               .selectAll(".phrase-marker")
               .data(phrases_data)
