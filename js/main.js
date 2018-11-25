@@ -44,12 +44,12 @@ function renderBarChart(albumID){
      var colors = ['#e53b19',  '#047bd6',       '#6c46c4',  '#ff3877',     '#ffd396',    '#e2db04',       '#737773',   '#fceaf8',   '#b1d8d8'];
      var color = d3.scaleOrdinal().domain(albums).range(colors);
 
-     var tip = d3.tip()
+     /*var tip = d3.tip()
                  .attr('class','d3-tip')
                  .direction('s')
                  .html(function(d){
                    return d["title"] + "<br> Rating: " + d["rating_rel"];
-                 });
+                 });*/
 
      var xAxis = d3.axisBottom(xScale);
      var yAxis = d3.axisLeft(yScale).ticks(4);
@@ -57,7 +57,7 @@ function renderBarChart(albumID){
      svg = d3.select("#album-vis").append('svg').attr('width',fullWidth).attr('height', fullHeight);
      //svg.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
      svg.append('g').attr('transform', 'translate(20,10)').call(yAxis);
-     svg.call(tip);
+     //svg.call(tip);
 
      svg.selectAll('rect')
          .data(albumData)

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+  <title>Album Ratings</title>
+</head>
+
+<body>
+  <header>
+    <div class="container.fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">Laura South</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/index.html">Home</a>
+          <a class="nav-item nav-link" href="/projects.html">Recent Projects</a>
+          <a class="nav-item nav-link" href="/timeline.html">Music</a>
+          <a class="nav-item nav-link active" href="/album-work/">Album Visualizations</a>
+        </div>
+      </div>
+   </nav>
+   </div>
+  </header>
+
+  <div class="container">
+    <svg id="scatterplot" width="500" height="400"></svg>
+  </div>
+
+</body>
+</html>
+
+<script>
+  const width = 400, height = 400;
+  const svg = d3.select("#scatterplot").attr("width",width).attr("height",height);
+  const g = svg.append("g").attr("transform","translate(" + width / 2 + ", " + height/2 + ")");
+
+  const parseTime = d3.timeParse("%m/%d/%Y");
+
+  d3.csv("albums.csv", function(albums){
+    albums.forEach(function(d){
+      d.parsed_date = parseTime(d.date);
+    })
+    const ratingsScale = d3.scaleLinear().domain([0,10]).range([-height/2, height/2]);
+    const timeScale = d3.scaleTime().domain(d3.extent(albums, function(d){return d.parsed_date;})).range([-width/2,width/2]);
+    g.selectAll("point")
+      .data(albums)
+      .enter()
+      .append("circle")
+      .attr("r",2)
+      .attr("cx",function(d){return timeScale(d);})
+      .attr("cy",function(d){return ratingsScale(d);});
+  });
+</script>

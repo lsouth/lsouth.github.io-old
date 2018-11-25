@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Laura South">
     <meta name="author" content="Laura South">
-    <title>Laura South</title>
+    <title>High As Hope Review</title>
     <link href="favicon.ico" rel=icon>
     <!-- Bootstrap CSS file -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -23,10 +23,12 @@
     <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 
     <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/d3.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>-->
   </head>
 
   <body>
@@ -53,13 +55,35 @@
 <div class="row">
   <div class="col-lg-8">
     <div class="card">
-      <h2>Album Review: Some Nights by fun.</h2>
-      <img class="album-art" src="img/somenights.jpg" width="100%" alt="some nights cover art"></img>
+      <h2>Album Review: High as Hope by Florence + the Machine</h2>
+      <img class="album-art" src="img/highashope.jpg" width="100%" alt="high as hope cover art"></img>
+      <p>
+      I came very close to disregarding this album when after two full listens nothing had caught my attention. The only reason I went back for a third listen was that moment in “Hunger”, where Florence growls “the way you use your body, baby, come on and work it for me”. That caught my attention and kept me from skipping over the rest of the material. I’m very glad it did, because I’ve enjoyed High as Hope much more on my later listens. It’s funny how one little moment can be interesting enough that it opens a door to the rest of the body of work. I still don’t know this album as well as several of the others I’ve reviewed this summer, but there’s something interesting about writing about art as you are learning about it, rather than once you already know every word and every melodic line by heart – so we’re trying something new.
+      </p>
+      <p>
+      Florence’s writing is very poetic. Most of her songs feel like they could easily be published in print if she weren’t a musician. I like that this album pulses with big emotion, which is taken to another level entirely by Florence Welch’s powerful voice. I think my favorite tracks at this point are “Hunger” and “Sky Full Of Song”.</p>
+
+      <p>I just realized that I sort of lied at the beginning of this review. “Hunger” was not the first track that caught my attention – after my first listen I added the last song on the album, a hushed ballad called “No Choir”, to my general listening playlist. The first verse caught me off-guard with its quiet imagery:</p>
+      <p class="lyrics">
+      And it’s hard to write about being happy<br>
+      Because the older I get<br>
+      I find that happiness is an extremely uneventful subject<br>
+      And there would be no great choirs to sing<br>
+      No chorus would come in<br>
+      About two people sitting doing nothing.<br>
+      </p>
+      <p>
+      This verse is beautiful, particularly if you consider that Florence + the Machine’s most successful songs were known for their wild, crashing choruses full of choirs and vivid instrumentation. It’s a bold, interesting move to end this album with an almost silent song explaining why she’s moved beyond the musical style that was at least partially responsible for her commercial success.
+      </p>
+
+      <p>
+      My only complaint is that this album feels too short, at only ten songs.
+      </p>
     <div id="album-vis">
         <div id="tracks"></div>
         <h4>Visualization</h4>
     </div>
-    </div> <!-- end some nights entry -->
+    </div> <!-- end high as hope entry -->
     <br>
      <ul class="pagination justify-content-center">
        <li class="page-item">
@@ -86,6 +110,6 @@
 </footer>
 <script type="text/javascript" src="js/main.js"></script>
 <script>
-  renderPage("Some Nights");
+  renderPage("High As Hope");
 </script>
 </body>

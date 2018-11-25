@@ -1,7 +1,7 @@
 
 var line_props = {
   width : 1000,
-  height : 250,
+  height : 300,
   marginTop : 20,
   marginRight : 20,
   marginBottom : 20,
@@ -21,7 +21,13 @@ LineGraph.drawLines = function(svg, g, scales){
                   .data(pointList)
                   .enter()
                   .append("line")
-                  .attr("class",function(d){return ("rating-point point-" + d.id.toLowerCase().split(" ")[0] + " artist-" + d.artist.toLowerCase().split(" ")[0]);})
+                  .attr("class",function(d){
+                    return ("rating-point point-" + d.id.toLowerCase().split(" ")[0] + " artist-" + d.artist.toLowerCase().split(" ")[0]);
+                  })
+                  .style("visibility", function(d){
+                    return true;
+                    //return d3.select("#" + d.artist.toLowerCase().split(" ")[0] +"-checkbox").attr("checked") ? "visible" : "hidden";
+                  })
                   .attr("x1",function(d){
                     return scales.x(d.track);
                   })
@@ -40,7 +46,7 @@ LineGraph.drawLines = function(svg, g, scales){
                   .on("mouseover", function(d){
                     d3.selectAll(".rating-line").transition().style("stroke-width","1");
                     d3.selectAll(".rating-point").transition().style("stroke-width","0.5");
-                    var lowerID = d.id.toLowerCase().split(" ")[0];
+                    var lowerID = d.id.toLowerCase().split(" ")[0].replace(".","");
                     d3.selectAll(".point-" + lowerID).transition().style("stroke-width","3");
                     d3.select("#line-" + lowerID).transition().style("stroke-width","4");
                     d3.select("#circle-" + lowerID).transition().style("stroke-width","4").attr("r","5%").style("stroke",albumColorScale(d.id));
@@ -70,6 +76,10 @@ LineGraph.drawLines = function(svg, g, scales){
         .attr("class", function(d){return "artist-" + d.artist.toLowerCase().split(" ")[0] + " line rating-line"})
         .attr("id",function(d){return "line-" + d.id.toLowerCase().split(" ")[0]})
         .style("stroke-width","2")
+        .style("visibility", function(d){
+          return true;
+          //return d3.select("#" + d.artist.toLowerCase().split(" ")[0] +"-checkbox").attr("checked") ? "visible" : "hidden";
+        })
         .attr("d",function(d){
           return albumLine(d.values);
         })
@@ -172,9 +182,9 @@ LineGraph.create = function(line_elem, line_props){
       .attr("class","form-check-input artist-checkbox")
       .attr("id",function(d){return d.toLowerCase().split(" ")[0] + "-checkbox";})
       .on("click", function(d){
-        if(d3.select(this).attr("checked") == "checked"){
+        if(d3.select(this).attr("checked")){
           d3.selectAll(".artist-" + d.toLowerCase().split(" ")[0]).style("visibility","hidden");
-          d3.select(this).attr("checked","unchecked");
+          d3.select(this).attr("checked",null);
         }
         else{
           d3.selectAll(".artist-" + d.toLowerCase().split(" ")[0]).style("visibility","visible");

@@ -83,7 +83,7 @@
 
     var props = {
       width: 1000,
-      height: 300,
+      height: 400,
       class: "timeline-point",
       marginTop: 40,
       marginRight: 100,
@@ -387,8 +387,6 @@
                 if(d.review_link != "N/A"){
                   d3.select(this).style("cursor","pointer");
                 }
-                var albumInfo = d.title + " by " + d.artist_id;
-                //$("#review-link-card").text(albumInfo);
                 if(d.color != "N/A"){
                   d3.select(this).transition().attr("r", "5%").style("stroke-width","4").style("stroke",function(d){return d.color});
                   d3.selectAll(".rating-line").transition().style("stroke-width","1");
@@ -396,10 +394,7 @@
                 }
               })
               .on("mouseout", function(d){
-                //d3.select("#t" + d.id).remove();
-                //$("#review-link-card").text("Select an album to learn more.");
                 d3.selectAll(".rating-line").transition().style("stroke-width","2");
-                //$("#review-card-line2").text("");
                 d3.select(this).transition().attr("r", "3%").style("stroke-width","0");
               })
               .on("click", function(d){

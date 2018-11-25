@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+  <title>Squares</title>
+</head>
+
+<body>
+  <header>
+    <div class="container.fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">Laura South</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/index.html">Home</a>
+          <a class="nav-item nav-link" href="/projects.html">Recent Projects</a>
+          <a class="nav-item nav-link" href="/timeline.html">Music</a>
+          <a class="nav-item nav-link active" href="/album-work/">Album Visualizations</a>
+        </div>
+      </div>
+   </nav>
+   </div>
+  </header>
+      <div class="container">
+        <br>
+        <div class="row">
+        <div class="col-md">
+            <div class="card">
+              <h4 class="strangedesire text-center"> Strange Desire</h4>
+              <div id="strangedesire-div"></div>
+              <p id="strangedesire-selection" class="strangedesire text-center">Hover over a line to see lyrics.</p>
+            </div>
+          </div>
+          <br>
+        <div class="col-md">
+            <div class="card">
+              <h4 class="gonenow text-center"> Gone Now</h4>
+              <div id="gonenow-div"></div>
+              <p id="gonenow-selection" class="gonenow text-center">Hover over a line to see lyrics.</p>
+            </div>
+          </div>
+          <br>
+          <div class="col-md">
+            <div class="card">
+              <h4 class="melodrama text-center"> Melodrama</h4>
+              <div id="melodrama-div"></div>
+              <p id="melodrama-selection" class="melodrama text-center">Hover over a line to see lyrics.</p>
+            </div>
+      </div>
+    </div>
+    </div>
+      <br>
+</body>
+
+<script type="text/javascript" src="js/album-visualization.js"></script>
+<script type="text/javascript">
+  function drawSquare(album_csv, lyrics_csv, div){
+    var className = album_csv.substr(0,album_csv.length - 4);
+    var margin = { top: 0, left: 20, bottom: 40, right: 10 };
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+    var parentDiv = d3.select("#" + div);
+    var width = $("#" + div).width();
+    var squareWidth = 10;
+    var squarePadding = 2;
+    var numPerRow = width / (squareWidth + squarePadding);
+    d3.csv(album_csv, function(song_data){
+        var svg = parentDiv.append("svg").attr("width", width).attr("height", width);
+        var g = svg.append("g");
+        d3.csv(lyrics_csv, function(lyrics_data){
+            lyrics_data.forEach(function(d,i){
+              d.col = i % numPerRow;
+              d.x = d.col * (squareWidth + squarePadding);
+              d.row = Math.floor(i / numPerRow);
+              d.y = d.row * (squareWidth + squarePadding);
+              return d;
+            });
+            var squares = g.selectAll(".square").data(lyrics_data);
+            var squaresE = squares.enter().append("rect").classed("square",true);
+            squares = squares.merge(squaresE)
+                              .attr("width", squareWidth)
+                              .attr("height", squareWidth)
+                              .attr("fill", function(d){return color(d.timeframe)})
+                              .attr("x", function(d){return d.x;})
+                              .attr("y", function(d){return d.y;})
+                              .on("mouseover", function(d){
+                                d3.select("#" + className + "-selection").text(d.phrase);
+                              });
+        }); // end lyrics csv
+      }); // end album csv
+  }
+  drawSquare("strangedesire.csv","strangedesire-lyrics.csv","strangedesire-div");
+  drawSquare("gonenow.csv","gonenow-phrases.csv","gonenow-div");
+  drawSquare("melodrama.csv","melodrama-lyrics.csv", "melodrama-div");
+</script>

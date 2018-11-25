@@ -8,7 +8,7 @@
   <link href="css/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
-  <title>Squares</title>
+  <title>Big Circle</title>
 </head>
 
 <body>
@@ -37,67 +37,48 @@
             <div class="card">
               <h4 class="strangedesire text-center"> Strange Desire</h4>
               <div id="strangedesire-div"></div>
-              <p id="strangedesire-selection" class="strangedesire text-center">Hover over a line to see lyrics.</p>
             </div>
           </div>
-          <br>
-        <div class="col-md">
-            <div class="card">
-              <h4 class="gonenow text-center"> Gone Now</h4>
-              <div id="gonenow-div"></div>
-              <p id="gonenow-selection" class="gonenow text-center">Hover over a line to see lyrics.</p>
-            </div>
-          </div>
-          <br>
-          <div class="col-md">
-            <div class="card">
-              <h4 class="melodrama text-center"> Melodrama</h4>
-              <div id="melodrama-div"></div>
-              <p id="melodrama-selection" class="melodrama text-center">Hover over a line to see lyrics.</p>
-            </div>
-      </div>
-    </div>
     </div>
       <br>
 </body>
 
 <script type="text/javascript" src="js/album-visualization.js"></script>
 <script type="text/javascript">
-  function drawSquare(album_csv, lyrics_csv, div){
+  function drawBigCircle(album_csv, lyrics_csv, div){
     var className = album_csv.substr(0,album_csv.length - 4);
     var margin = { top: 0, left: 20, bottom: 40, right: 10 };
     var color = d3.scaleOrdinal(d3.schemeCategory20);
     var parentDiv = d3.select("#" + div);
     var width = $("#" + div).width();
-    var squareWidth = 10;
-    var squarePadding = 2;
-    var numPerRow = width / (squareWidth + squarePadding);
+    var height = width;
+
     d3.csv(album_csv, function(song_data){
         var svg = parentDiv.append("svg").attr("width", width).attr("height", width);
-        var g = svg.append("g");
+        var g = svg.append("g").attr("transform","translate(" + width / 2 + ", " + height / 2 + ")");
+        g.append("circle")
+          .attr("r", (width - margin.left - margin.right) / 4)
+          .attr("stroke","black")
+          .attr("fill","white");
         d3.csv(lyrics_csv, function(lyrics_data){
-            lyrics_data.forEach(function(d,i){
-              d.col = i % numPerRow;
-              d.x = d.col * (squareWidth + squarePadding);
-              d.row = Math.floor(i / numPerRow);
-              d.y = d.row * (squareWidth + squarePadding);
-              return d;
-            });
-            var squares = g.selectAll(".square").data(lyrics_data);
-            var squaresE = squares.enter().append("rect").classed("square",true);
-            squares = squares.merge(squaresE)
-                              .attr("width", squareWidth)
-                              .attr("height", squareWidth)
-                              .attr("fill", function(d){return color(d.category)})
-                              .attr("x", function(d){return d.x;})
-                              .attr("y", function(d){return d.y;})
-                              .on("mouseover", function(d){
-                                d3.select("#" + className + "-selection").text(d.phrase);
-                              });
+              var group = g.append("g")
+                        .selectAll("g")
+                        .data(lyrics_data)
+                        .enter()
+                        .append("g");
+
+              group.append("text")
+                      .each(d => { d.angle = (d.startAngle + d.endAngle) / 2; })
+                      .attr("dy", ".35em")
+                      .attr("transform", d => `
+                        rotate(${(d.angle * 180 / Math.PI - 90)})
+                        translate(${innerRadius + 26})
+                        ${d.angle > Math.PI ? "rotate(180)" : ""}
+                      `)
+                      .attr("text-anchor", d => d.angle > Math.PI ? "end" : null)
+                      .text(d => debate_data.nodes[d.index].label);
         }); // end lyrics csv
       }); // end album csv
   }
-  drawSquare("strangedesire.csv","strangedesire-lyrics.csv","strangedesire-div");
-  drawSquare("gonenow.csv","gonenow-phrases.csv","gonenow-div");
-  drawSquare("melodrama.csv","melodrama-lyrics.csv", "melodrama-div");
+  drawBigCircle("strangedesire.csv","strangedesire-lyrics.csv","strangedesire-div");
 </script>
