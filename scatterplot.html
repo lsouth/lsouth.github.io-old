@@ -12,6 +12,13 @@
   <title>Album Ratings</title>
 </head>
 
+<style>
+.checkbox {
+  column-count: 2;
+  display:inline-block;
+}
+</style>
+
 <body>
   <header>
     <div class="container.fluid">
@@ -32,32 +39,115 @@
    </div>
   </header>
 
-  <div class="container">
-    <svg id="scatterplot" width="500" height="400"></svg>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card" id="scatterplot"></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" id="selection"></div>
+      </div>
+    </div>
   </div>
 
 </body>
 </html>
 
 <script>
-  const width = 400, height = 400;
-  const svg = d3.select("#scatterplot").attr("width",width).attr("height",height);
+  const elem = d3.select("#scatterplot");
+  const width = $("#scatterplot").width(), height = 500;
+  const svg = elem.append("svg").attr("width", width).attr("height",height);
   const g = svg.append("g").attr("transform","translate(" + width / 2 + ", " + height/2 + ")");
 
   const parseTime = d3.timeParse("%m/%d/%Y");
+  const trackScale = d3.scaleLinear().domain([0,1]).range([(-width/2)+20,(width/2)-20])
+  const trackAxis = d3.axisBottom(trackScale).ticks(0);
+  const ratingsScale = d3.scaleLinear().domain([0,10]).range([(height/2)-20, (-height/2)+20]);
+  const yAxis = d3.axisLeft(ratingsScale).ticks(10);
+
+  const line = d3.line().x(function(d){return trackScale(d.track);}).y(function(d){return ratingsScale(d.rating);}).curve(d3.curveCardinal);
 
   d3.csv("albums.csv", function(albums){
-    albums.forEach(function(d){
+    /*albums.forEach(function(d){
       d.parsed_date = parseTime(d.date);
-    })
-    const ratingsScale = d3.scaleLinear().domain([0,10]).range([-height/2, height/2]);
-    const timeScale = d3.scaleTime().domain(d3.extent(albums, function(d){return d.parsed_date;})).range([-width/2,width/2]);
-    g.selectAll("point")
+    });*/
+
+    const domain = d3.extent(albums, function(d){return d.parsed_date;});
+    const timeScale = d3.scaleTime().domain(domain).range([(-width/2)+20,(width/2)-20]);
+    const timeAxis = d3.axisBottom(timeScale).tickFormat(d3.timeFormat("%B %Y"));
+
+    g.append("g").attr("transform","translate(0," + (height/2 - 20) + ")").call(trackAxis);
+    g.append("g").attr("transform","translate(" + (-width/2 + 20) + ",0)").call(yAxis);
+
+    const pointsG = g.append("g").attr("id","points");
+
+    pointsG.selectAll("point")
       .data(albums)
       .enter()
       .append("circle")
+      .attr("class",function(d){return "point-" + d.album_id;})
       .attr("r",2)
-      .attr("cx",function(d){return timeScale(d);})
-      .attr("cy",function(d){return ratingsScale(d);});
+      .attr("cx",function(d){return trackScale(d.track_num_scaled);})
+      .attr("cy",function(d){return ratingsScale(d.rating_abs);})
+      .attr("fill", "gray");
+
+    const albumNames = [...new Set(albums.map(function(d){return d.album_title;}))];
+    const lineData = [];
+
+    albumNames.forEach(function(a){
+      const tracks = albums.filter(function(d){return d.album_title == a;});
+      lineData.push({
+        "album": a,
+        "album_id": tracks[0].album_id,
+        "artist": tracks[0].artist,
+        "color" : tracks[0].color,
+        "values": tracks.map(function(t){
+          return {
+            rating : t.rating_abs,
+            title : t.title,
+            track : t.track_num_scaled,
+            color : t.color
+          }
+        })
+      });
+    });
+
+    g.selectAll(".album")
+      .data(lineData)
+      .enter()
+      .append("path")
+      .attr("id", function(d){console.log(d);return "path-" + d.album_id})
+      .attr("d", function(d){return line(d.values)})
+      .attr("stroke", "gray")
+      .attr("fill","none")
+      .style("stroke-opacity","0.2");
+
+    const selection = d3.select("#selection").append("div").attr("class","checkbox");
+
+    selection.selectAll(".checkbox")
+              .data(lineData)
+              .enter()
+              .append("label")
+              .style("white-space","nowrap")
+              .style("font-size","11pt")
+              .attr("class","checkbox")
+              .append("input")
+              .attr("type","checkbox")
+              .on("change", function(d){
+                if(!d3.select(this).attr("checked")){
+                  d3.selectAll(".point-" + d.album_id).transition().attr("fill",d.color);
+                  d3.select("#path-" + d.album_id).transition().attr("stroke",d.color).style("stroke-width","2").style("stroke-opacity","1");
+                  d3.select(this).attr("checked","checked");
+                }
+                else{
+                  d3.selectAll(".point-" + d.album_id).transition().attr("fill","gray");
+                  d3.select("#path-" + d.album_id).transition().attr("stroke","gray").style("stroke-width","1").style("stroke-opacity","0.2");
+                  d3.select(this).attr("checked",null);
+                }
+              });
+
+    selection.selectAll("label")
+              .append("text")
+              .text(function(d){return d.album;})
   });
 </script>

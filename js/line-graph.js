@@ -145,7 +145,7 @@ LineGraph.create = function(line_elem, line_props){
 
   var albumNames = [];
   for(i in line_props.data){
-    var name = line_props.data[i]["Album"];
+    var name = line_props.data[i]["album_title"];
     if(!albumNames.includes(name) && name !== undefined && name != "skip" && line_props.data[i]["track_num_scaled"] != "N/A"){
       albumNames.push(name);
     }
@@ -155,21 +155,21 @@ LineGraph.create = function(line_elem, line_props){
   trackRatingsData = [];
   for(i in albumNames){
     var name = albumNames[i];
-    albumTracks = line_props.data.filter(function(d){return d.Album == name});
+    albumTracks = line_props.data.filter(function(d){return d.album_title == name});
     trackRatingsData.push({
       id : name,
-      artist : albumTracks[0].Artist,
+      artist : albumTracks[0].artist,
       values : albumTracks.map(function(d){
         return {rating : d.rating_abs, track : d.track_num_scaled};
       })
     })
 
     pointList = line_props.data.map(function(d){
-      return {artist: d.Artist, id: d.Album, rating : d.rating_abs, track : d.track_num_scaled};
+      return {artist: d.artist, id: d.album_title, rating : d.rating_abs, track : d.track_num_scaled};
     });
   }
 
-  var artists = line_props.data.map(function(d) {return d.Artist;}).filter(function(d,i,self){return self.indexOf(d) == i;})
+  var artists = line_props.data.map(function(d) {return d.artist;}).filter(function(d,i,self){return self.indexOf(d) == i;})
   d3.select("#artist-selection")
       .selectAll(".artist-checkbox")
       .data(artists.filter(function(d){return d != "skip"}))
