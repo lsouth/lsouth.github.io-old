@@ -17,6 +17,12 @@
   column-count: 2;
   display:inline-block;
 }
+.point{
+  visibility: hidden;
+}
+.line{
+  visibility: hidden;
+}
 </style>
 
 <body>
@@ -85,11 +91,12 @@
       .data(albums)
       .enter()
       .append("circle")
-      .attr("class",function(d){return "point-" + d.album_id;})
+      .attr("class",function(d){return "point point-" + d.album_id;})
+      .attr("stroke",function(d){return d.color;})
       .attr("r",2)
       .attr("cx",function(d){return trackScale(d.track_num_scaled);})
       .attr("cy",function(d){return ratingsScale(d.rating_abs);})
-      .attr("fill", "gray");
+      .attr("fill", function(d){return d.color;});
 
     const albumNames = [...new Set(albums.map(function(d){return d.album_title;}))];
     const lineData = [];
@@ -116,11 +123,30 @@
       .data(lineData)
       .enter()
       .append("path")
-      .attr("id", function(d){console.log(d);return "path-" + d.album_id})
+      .attr("id", function(d){return "path-" + d.album_id})
+      .attr("class","line")
       .attr("d", function(d){return line(d.values)})
-      .attr("stroke", "gray")
+      .attr("stroke",function(d){return d.color;})
+      .style("stroke-width","2")
+      .style("stroke-opacity","1")
+      //.attr("stroke", "gray")
       .attr("fill","none")
-      .style("stroke-opacity","0.2");
+      //.style("stroke-width","2")
+      //.style("stroke-opacity","0.2")
+      .on("mouseover",function(d){
+        d3.selectAll(".point-" + d.album_id).style("visibility","visible")//.transition().attr("fill",d.color).attr("r","3");
+        d3.select("#path-" + d.album_id).style("visibility","visible")//.transition().attr("stroke",d.color).style("stroke-width","2").style("stroke-opacity","1");
+      })
+      .on("mouseout",function(d){
+        if(!d3.select("#checkbox-" + d.album_id).attr("checked")){
+          d3.selectAll(".point-" + d.album_id).style("visibility","hidden")//.transition().attr("fill","gray").attr("r","2");
+          d3.select("#path-" + d.album_id).style("visibility","hidden")//.transition().attr("stroke","gray").style("stroke-width","2").style("stroke-opacity","0.2");
+        }
+      })
+      .on("click", function(d){
+        selectLine(d);
+        d3.select("#checkbox-" + d.album_id).attr("checked","checked");
+      });
 
     const selection = d3.select("#selection").append("div").attr("class","checkbox");
 
@@ -133,21 +159,30 @@
               .attr("class","checkbox")
               .append("input")
               .attr("type","checkbox")
+              .attr("id",function(d){return "checkbox-" + d.album_id;})
               .on("change", function(d){
                 if(!d3.select(this).attr("checked")){
-                  d3.selectAll(".point-" + d.album_id).transition().attr("fill",d.color);
-                  d3.select("#path-" + d.album_id).transition().attr("stroke",d.color).style("stroke-width","2").style("stroke-opacity","1");
+                  selectLine(d);
                   d3.select(this).attr("checked","checked");
                 }
                 else{
-                  d3.selectAll(".point-" + d.album_id).transition().attr("fill","gray");
-                  d3.select("#path-" + d.album_id).transition().attr("stroke","gray").style("stroke-width","1").style("stroke-opacity","0.2");
+                  deselectLine(d);
                   d3.select(this).attr("checked",null);
                 }
               });
 
     selection.selectAll("label")
               .append("text")
-              .text(function(d){return d.album;})
+              .text(function(d){return d.album});
+
+    function selectLine(d){
+      d3.selectAll(".point-" + d.album_id).style("visibility","visible")//.transition().attr("fill",d.color).attr("r","3");
+      d3.select("#path-" + d.album_id).style("visibility","visible")//.transition().attr("stroke",d.color).style("stroke-width","2").style("stroke-opacity","1");
+    }
+
+    function deselectLine(d){
+      d3.selectAll(".point-" + d.album_id).style("visibility","hidden");
+      d3.select("#path-" + d.album_id).style("visibility","hidden");
+    }
   });
 </script>

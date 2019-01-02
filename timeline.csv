@@ -2,14 +2,14 @@ image,title,id,date,artist_id,review_link,color,average_rating
 ,skip,0,1/1/2006,skip,N/A,N/A,0
 img/marryme.jpg,Marry Me,1,7/10/2007,St Vincent,N/A,#c7ddd6,4
 img/actor.jpg,Actor,2,5/4/2009,St Vincent,N/A,#ffaa72,4.45
-img/strangemercy.jpg,Strange Mercy,3,9/12/2011,St Vincent,strange-mercy.html,#ccd2dd,8.54
+img/strangemercy.jpg,Strange Mercy,3,9/12/2011,St Vincent,strange-mercy.html,#ccd2dd,8.45
 img/stvincent-square.jpg,St Vincent,4,2/24/2014,St Vincent,st-vincent.html,#fceaf8,6.9
 img/masseduction-square.png,Masseduction,5,10/13/2017,St Vincent,masseduction.html,#ff3877,7.46
-img/taylorswift.png,Taylor Swift,6,10/24/2006,Taylor Swift,N/A,#4acee0,4.28
+img/taylorswift.png,Taylor Swift,6,10/24/2006,Taylor Swift,N/A,#4acee0,4.57
 img/fearless.png,Fearless,7,11/11/2008,Taylor Swift,N/A,#fff7bc,5.61
-img/speaknow.png,Speak Now,8,10/25/2010,Taylor Swift,N/A,#df6dff,6.42
+img/speaknow.png,Speak Now,8,10/25/2010,Taylor Swift,N/A,#df6dff,6.28
 img/red.png,Red,9,10/22/2012,Taylor Swift,N/A,#bc1818,6.5
-img/1989.png,1989,10,10/27/2014,Taylor Swift,N/A,#d7c7ea,8
+img/1989.png,1989,10,10/27/2014,Taylor Swift,1989.html,#d7c7ea,7.92
 img/reputation-square.jpg,reputation,11,11/10/2017,Taylor Swift,reputation.html,#737773,7.53
 img/trampoline.jpg,Trampoline,12,10/16/2007,Steel Train,N/A,#c1bc91,7.75
 img/steeltrain-square.jpg,Steel Train,13,6/29/2010,Steel Train,steel-train.html,#b1d8d8,8.86
@@ -19,12 +19,14 @@ img/aimandignite-square.jpg,Aim and Ignite,16,8/25/2009,fun,aim-and-ignite.html,
 img/somenights-square.jpg,Some Nights,17,2/21/2012,fun,some-nights.html,#ffd396,8.18
 img/gonenow-square.jpg,Gone Now,18,6/2/2017,Bleachers,gone-now.html,#e53b19,9.17
 img/strangedesire-square.jpg,Strange Desire,19,7/10/2014,Bleachers,strange-desire.html,#047bd6,9.27
-img/lovemonster-square.jpg,Love Monster,20,7/13/2018,Amy Shark,love-monster.html,#d6bd00,6.36
-img/highashope-square.png,High As Hope,21,6/29/2018,Florence + the Machine,high-as-hope.html,#bfc997,6.3
+img/lovemonster-square.jpg,Love Monster,20,7/13/2018,Amy Shark,love-monster.html,#d6bd00,4.85
+img/highashope-square.png,High As Hope,21,6/29/2018,Florence + the Machine,high-as-hope.html,#bfc997,5.7
 img/turnoutthelights-square.jpg,Turn Out The Lights,22,10/27/2017,Julien Baker,N/A,#491149,7.18
-img/sprained-ankle-square.jpg,Sprained Ankle,23,10/23/2015,Julien Baker,N/A,#7eacc9,5.33
-img/lustforlife.png,Lust For Life,24,7/21/2017,Lana Del Rey,N/A, #982323,6.4
-img/ultraviolence.jpg,Ultraviolence,25,6/13/2014,Lana Del Rey,N/A,#79868a,7.09
-img/bethecowboy.jpg,Be The Cowboy,26,8/17/2018,Mitski,N/A,#df998d,5.2
+img/sprained-ankle-square.jpg,Sprained Ankle,23,10/23/2015,Julien Baker,N/A,#7eacc9,6.33
+img/lustforlife.png,Lust For Life,24,7/21/2017,Lana Del Rey,lust-for-life.html, #982323,6.52
+img/ultraviolence.jpg,Ultraviolence,25,6/13/2014,Lana Del Rey,ultraviolence.html,#79868a,7.09
+img/bethecowboy.jpg,Be The Cowboy,26,8/17/2018,Mitski,be-the-cowboy.html,#df998d,5.78
 img/borntodie.jpg,Born To Die,27,1/27/2012,Lana Del Rey,N/A,#74a8eb,5.83
-img/honeymoon.png,Honeymoon,28,9/18/2015,Lana Del Rey,N/A,#c93737,2
+img/honeymoon.png,Honeymoon,28,9/18/2015,Lana Del Rey,N/A,#c93737,3.64
+img/troublewillfindme.jpg,Trouble Will Find Me,29,5/17/2013,The National,N/A,#718991,5.77
+img/paradise-square.jpg,Paradise,30,11/9/2012,Lana Del Rey,N/A,#f2cc67,5.5

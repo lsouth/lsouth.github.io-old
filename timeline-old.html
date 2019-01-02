@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120444378-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-120444378-1');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Laura South">
+    <meta name="author" content="Laura South">
+    <title>Laura South</title>
+    <link href="favicon.ico" rel=icon>
+    <!-- Bootstrap CSS file -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    <script type="text/javascript" src="js/line-graph.js"></script>
+
+  </head>
+
+<body>
+  <header>
+    <div class="container.fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">Laura South</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="projects.html">Recent Projects</a>
+          <a class="nav-item nav-link active" href="timeline.html">Music</a>
+          <a class="nav-item nav-link" href="/album-work/">Album Visualizations</a>
+        </div>
+      </div>
+   </nav>
+ </div>
+</header>
+<div class="container" style="padding-bottom: 20px;">
+    <div class="row">
+    <div class="col-lg-4 text-center">
+      <div class="card">
+      <div class="btn-group-vertical" role="group" aria-label="Select graph view">
+        <button type="button" class="btn order-btn btn-primary btn-sm" id="order-year-btn">Order by year</button>
+        <button type="button" class="btn order-btn  btn-sm" id="order-rating-btn">Order by rating</button>
+      </div>
+      <div class="card-body" id="review-link-card" style="font-size: 10pt; display: inline-flex;">
+          Select an album to learn more.
+          <br/>
+      </div>
+      <div class="form-check" id="artist-selection"></div>
+    </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card" id="linegraph"></div>
+    </div>
+    </div>
+  <div class="col-lg-12 card">
+    <!--<div class="row">
+      <div class="col-lg-6"> -->
+    <!--  </div> -->
+    <!--  <div class="col-lg-6"> -->
+        <div id="timeline"></div>
+    <!--  </div> -->
+  </div>
+  <script>
+    var elem = "#timeline";
+
+    var props = {
+      width: 1000,
+      height: 400,
+      class: "timeline-point",
+      marginTop: 40,
+      marginRight: 100,
+      marginBottom: 40,
+      marginLeft: 100,
+      xTicks: 10,
+      yTicks: 0,
+      orderByDate: true,
+      bigCircleMult: 0.038,
+      smallCircleMult: 0.03
+    }
+
+    $(elem).bind("touchstart",function(){});
+
+    $("#order-year-btn").click(function(){
+      $("#order-rating-btn").removeClass("btn-primary");
+      $(this).addClass("btn-primary");
+      if(!props.orderByDate){
+        props.orderByDate = true;
+        redraw();
+      }
+    })
+    $("#order-rating-btn").click(function(){
+      $("#order-year-btn").removeClass("btn-primary");
+      $(this).addClass("btn-primary");
+      if(props.orderByDate){
+        props.orderByDate = false;
+        redraw();
+      }
+    })
+
+    // component start
+    var Timeline = {};
+
+    Timeline.create = function(elem, props){
+      props.width = window.innerWidth * 0.9;
+      props.width = $(elem).width();
+
+      // build chart foundation
+      var svg = d3.select(elem).selectAll("svg").data([null])
+
+      svg = svg.enter().append("svg")
+                    .attr("id","svg-elem")
+                    .attr("width", props.width)
+                    .attr("height", props.height)
+                    .style("background-color","white")
+                    .merge(svg);
+
+      var g = svg.selectAll(".point-container").data([null]);
+      g = g.enter()
+           .append("g")
+           .attr("class","point-container")
+           .merge(g)
+           .attr("transform", "translate(" + props.marginLeft + "," + props.marginTop + ")");
+
+      var g = svg.selectAll("line-container").data([null]);
+      g = g.enter()
+           .append('g')
+           .attr('class', 'line-container')
+           .merge(g)
+           .attr("transform", "translate(" + props.marginLeft + "," + props.marginTop + ")");
+
+      var xAxisG = g.append("g")
+                    .attr("class","x axis")
+                    .attr("transform", "translate(0," + (props.height - props.marginTop - props.marginBottom) + ")");
+      var yAxisG = g.append('g')
+                    .attr("class", "y axis")
+                    .attr("transform","translate(20,0)");
+
+      xAxisG.exit().remove();
+      yAxisG.exit().remove();
+      g.exit().remove();
+      svg.exit().remove();
+
+      this.update(elem, props);
+    }
+
+    Timeline.update = function(elem, props){
+      d3.select("#svg-elem")
+          .attr("width", props.width)
+          .attr("height", props.height);
+      var domain = this.getDomain(props);
+      var scales = this.scales(elem, props, domain);
+
+      this.drawPoints(elem, props, scales);
+    }
+
+    var parseTime = d3.timeParse("%m/%d/%Y");
+
+    Timeline.getDomain = function(props) {
+      var domain = {};
+      domain.x = props.xDomain || d3.extent(props.data, function(d) {
+        if(props.orderByDate){
+          return d.date;
+        }
+        else{
+          return [0,10];
+        }
+       });
+      return domain;
+    };
+
+    Timeline.scales = function(elem, props, domain) {
+
+      if (!domain) {
+        return null;
+      }
+
+      var width = props.width - props.marginRight - props.marginLeft;
+      var height = props.height - props.marginTop - props.marginBottom;
+
+      var x = d3.scaleLinear()
+                .range([0,width])
+                .domain([0,10]);
+
+      if(props.orderByDate){
+        x = d3.scaleTime()
+         .range([0, width])
+         .domain(domain.x);
+      }
+
+      var artists = [];
+      for (i in props.data){
+        var temp = props.data[i]["artist_id"];
+        if(!artists.includes(temp) && temp !== undefined && temp != "skip"){
+          artists.push(temp)
+        }
+      }
+
+      artists.sort(function(a,b){
+        return a.toLowerCase() - b.toLowerCase();
+      });
+
+      var y = d3.scaleBand()
+        .range([height, 0])
+        .domain(artists);
+
+      return {x: x, y: y};
+    };
+
+    var numTicks = function(width){
+      return width / 120;
+    }
+
+    Timeline.axes = function(props, scales) {
+      var xAxis = d3.axisBottom(scales.x).ticks(10);
+      if(props.orderByDate){
+          xAxis.ticks(numTicks(props.width))
+               .tickFormat(d3.timeFormat("%B %Y"));
+          d3.select("#svg-elem").append("text")
+               .attr("class", "x-axis-label")
+               .attr("x", props.width / 2)
+               .attr("y", props.height - 5)
+               .text("Release date");
+      }
+      else{
+        d3.select("#svg-elem").append("text")
+                .attr("class", "x-axis-label")
+                .attr("x", props.width / 2)
+                .attr("y", props.height - 5)
+                .text("Rating");
+      }
+
+      var yAxis = d3.axisLeft(scales.y);
+
+      return {
+        xAxis: xAxis,
+        yAxis: yAxis
+      }
+    };
+
+    Timeline.drawPoints = function(elem, props, scales){
+      var g = d3.select(elem).selectAll(".point-container");
+      var artists = [];
+      for (i in props.data){
+          var name = props.data[i]["artist_id"];
+            if(!artists.includes(name) && name !== undefined && name != "skip"){
+              artists.push(name);
+            }
+      }
+
+      var orderFactor = props.orderByDate ? "date" : "average_rating";
+
+      var line_data = {};
+      for(var i in artists){
+        for(var j in props.data){
+          var name = artists[i];
+          if(props.data[j]["artist_id"] == name){
+            if(line_data[name] === undefined){
+              line_data[name] = {"min": props.data[j][orderFactor], "max": props.data[j][orderFactor]}
+            }
+            else if(line_data[name]["min"] > props.data[j][orderFactor]){
+              line_data[name]["min"] = props.data[j][orderFactor];
+            }
+            else if(line_data[name]["max"] < props.data[j][orderFactor]){
+              line_data[name]["max"] = props.data[j][orderFactor];
+            }
+          }
+        }
+      }
+      var line = d3.line()
+                      .x(function(d) { return d.x; })
+                      .y(function(d) { return d.y; });
+
+      var artist_list = [];
+      var keys = Object.keys(line_data);
+      for(var i = 0; i < keys.length; i++){
+        artist_list.push({
+          id : keys[i],
+          values :[
+            { x : scales.x(line_data[keys[i]]["min"]),
+              y : scales.y(keys[i])
+            },
+            { x : scales.x(line_data[keys[i]]["max"]),
+              y : scales.y(keys[i])
+            }]
+          });
+      }
+
+      var artist = g.selectAll(".artist")
+                      .data(artist_list)
+                      .enter()
+                      .append("g")
+                      .attr("class","artist");
+
+      var path = artist.append("path")
+              .attr("d", function(d) {return line(d.values);})
+              .attr("stroke", "url(#lg)")
+              .attr("fill","none");
+              //.style("stroke","black");
+
+      path.transition()
+              .attr("d", function(d) { return line(d.values);});
+
+      artist.exit().remove();
+      path.exit().remove();
+
+      var image = g.selectAll('.image')
+                    .data(props.data);
+
+      image.enter()
+            .append("pattern")
+            .attr("id", function(d){return d.id})
+            .attr("class","svg-image")
+            .attr("x",0)
+            .attr("y",0)
+            .attr("height", 1)
+            .attr("width", 1)
+            .append("image")
+              .attr("x","0")
+              .attr("y","0")
+              .attr("height", props.width / 13)
+              .attr("width",props.width / 13)
+              .attr("href", function(d){return d.image});
+
+     var point = g.selectAll('.point')
+                   .data(props.data);
+
+      var timeFormat = d3.timeFormat("%B %e, %Y");
+      var area = props.width;
+
+      point.enter()
+            .append("circle")
+              .attr("class","point")
+              .style("z-index","100")
+              .attr("id",function(d){return "circle-" + (d.title.toLowerCase().split(" ")[0])})
+              .attr("cx", function(d){
+                return scales.x(d.date);
+              })
+              .attr("cy", function(d){
+                return scales.y(d.artist_id);
+              })
+              .attr("r", "3%")
+              .style("fill", function(d){
+                return ("url(#" + d.id + ")");
+              })
+              .on("mouseover", function(d){
+                if(d.title == "skip"){
+                  return;
+                }
+                if(d.review_link != "N/A"){
+                  d3.select(this).style("cursor","pointer");
+                }
+                if(d.color != "N/A"){
+                  d3.select(this).transition().attr("r", "5%").style("stroke-width","4").style("stroke",function(d){return d.color});
+                  d3.selectAll(".rating-line").transition().style("stroke-width","1");
+                  d3.select("#line-" + d.title.toLowerCase().split(" ")[0]).transition().style("stroke-width","4");
+                }
+              })
+              .on("mouseout", function(d){
+                d3.selectAll(".rating-line").transition().style("stroke-width","2");
+                d3.select(this).transition().attr("r", "3%").style("stroke-width","0");
+              })
+              .on("click", function(d){
+                if(d.review_link == "N/A"){
+                  return;
+                }
+                window.location.href = d.review_link;
+              });
+
+     point.transition()
+          .attr("cx", function(d){
+            this.parentNode.appendChild(this);
+            return props.orderByDate ? scales.x(d.date) : scales.x(d.average_rating);
+          })
+          .attr("cy", function(d){
+            return scales.y(d.artist_id);
+          })
+          .attr("r", "3%");
+
+     point.exit().remove();
+     image.exit().remove();
+
+     // update the axes
+     var axes = this.axes(props, scales);
+     d3.select(elem).selectAll('g.x.axis')
+           .transition()
+           .duration(1000)
+           .call(axes.xAxis);
+
+      d3.select(elem).selectAll('g.y.axis')
+    //       .transition()
+      //     .duration(1000)
+           .call(axes.yAxis);
+    };
+
+    var redraw = function(){
+      //$(".artist-line").remove();
+      //$(".x.axis").remove();
+      $(".x-axis-label").remove();
+      $(".y.axis").remove();
+      $('.svg-image').remove();
+      $('.artist').remove();
+      $('.line-container').remove();
+      //$('.point').remove();
+      d3.csv('timeline.csv', function(d){
+        props.data = d;
+        props.data.forEach(function(d){
+          d.date = parseTime(d.date);
+        });
+        Timeline.create(elem, props);
+      });
+    }
+
+    $(document).ready(function(){
+        redraw();
+        window.addEventListener("resize",redraw);
+      });
+  </script>
+</body>

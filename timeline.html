@@ -1,38 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120444378-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-120444378-1');
-    </script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Laura South">
-    <meta name="author" content="Laura South">
-    <title>Laura South</title>
-    <link href="favicon.ico" rel=icon>
-    <!-- Bootstrap CSS file -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<head>
+  <link href="favicon.ico" rel=icon>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,400i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro:400,400i" rel="stylesheet">
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/d3.min.js"></script>
+</head>
 
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
-    <script type="text/javascript" src="js/line-graph.js"></script>
-
-  </head>
-
-<body>
+<body style="background-color: white;">
   <header>
     <div class="container.fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -51,406 +31,187 @@
    </nav>
  </div>
 </header>
-<div class="container" style="padding-bottom: 20px;">
+  <div class="container-fluid">
     <div class="row">
-    <div class="col-lg-4 text-center">
-      <div class="card">
-      <div class="btn-group-vertical" role="group" aria-label="Select graph view">
-        <button type="button" class="btn order-btn btn-primary btn-sm" id="order-year-btn">Order by year</button>
-        <button type="button" class="btn order-btn  btn-sm" id="order-rating-btn">Order by rating</button>
+      <div class="col-md-2" style="margin-top: 30px; float: right; height:100px;">
+      <!--  <div class="btn-group btn-group-toggle" data-toggle="buttons"> -->
+          <label class="btn btn-secondary active">
+            <button type="radio" id="default-btn" autocomplete="off" onClick="removeOrdering(csvdata)"> No ordering</button>
+          </label>
+          <label class="btn btn-secondary">
+            <button type="radio" id="date-btn" autocomplete="off" onClick="orderByDate(csvdata);"> Date</button>
+          </label>
+          <label class="btn btn-secondary">
+            <button type="radio" id="rating-btn" autocomplete="off" onClick="orderByRating(csvdata);"> Rating</button>
+          </label>
+      <!--  </div>  -->
+        <svg id="summary" height = "400"></svg>
       </div>
-      <div class="card-body" id="review-link-card" style="font-size: 10pt; display: inline-flex;">
-          Select an album to learn more.
-          <br/>
+      <div class="col-md-10" style="margin-top: 60px;">
+        <svg id="graph" width="900" height="600"></svg>
       </div>
-      <div class="form-check" id="artist-selection"></div>
-    </div>
-    </div>
-    <div class="col-lg-8">
-      <div class="card" id="linegraph"></div>
-    </div>
-    </div>
-  <div class="col-lg-12 card">
-    <!--<div class="row">
-      <div class="col-lg-6"> -->
-    <!--  </div> -->
-    <!--  <div class="col-lg-6"> -->
-        <div id="timeline"></div>
-    <!--  </div> -->
+      </div>
   </div>
-  <script>
-    var elem = "#timeline";
-
-    var props = {
-      width: 1000,
-      height: 400,
-      class: "timeline-point",
-      marginTop: 40,
-      marginRight: 100,
-      marginBottom: 40,
-      marginLeft: 100,
-      xTicks: 10,
-      yTicks: 0,
-      orderByDate: true,
-      bigCircleMult: 0.038,
-      smallCircleMult: 0.03
-    }
-
-    $(elem).bind("touchstart",function(){});
-
-    $("#order-year-btn").click(function(){
-      $("#order-rating-btn").removeClass("btn-primary");
-      $(this).addClass("btn-primary");
-      if(!props.orderByDate){
-        props.orderByDate = true;
-        redraw();
-      }
-    })
-    $("#order-rating-btn").click(function(){
-      $("#order-year-btn").removeClass("btn-primary");
-      $(this).addClass("btn-primary");
-      if(props.orderByDate){
-        props.orderByDate = false;
-        redraw();
-      }
-    })
-
-    // component start
-    var Timeline = {};
-
-    Timeline.create = function(elem, props){
-      props.width = window.innerWidth * 0.9;
-      props.width = $(elem).width();
-
-      // build chart foundation
-      var svg = d3.select(elem).selectAll("svg").data([null])
-
-      svg = svg.enter().append("svg")
-                    .attr("id","svg-elem")
-                    .attr("width", props.width)
-                    .attr("height", props.height)
-                    .style("background-color","white")
-                    .merge(svg);
-
-      var g = svg.selectAll(".point-container").data([null]);
-      g = g.enter()
-           .append("g")
-           .attr("class","point-container")
-           .merge(g)
-           .attr("transform", "translate(" + props.marginLeft + "," + props.marginTop + ")");
-
-      var g = svg.selectAll("line-container").data([null]);
-      g = g.enter()
-           .append('g')
-           .attr('class', 'line-container')
-           .merge(g)
-           .attr("transform", "translate(" + props.marginLeft + "," + props.marginTop + ")");
-
-      var xAxisG = g.append("g")
-                    .attr("class","x axis")
-                    .attr("transform", "translate(0," + (props.height - props.marginTop - props.marginBottom) + ")");
-      var yAxisG = g.append('g')
-                    .attr("class", "y axis")
-                    .attr("transform","translate(20,0)");
-
-      xAxisG.exit().remove();
-      yAxisG.exit().remove();
-      g.exit().remove();
-      svg.exit().remove();
-
-      this.update(elem, props);
-    }
-
-    Timeline.update = function(elem, props){
-      d3.select("#svg-elem")
-          .attr("width", props.width)
-          .attr("height", props.height);
-      var domain = this.getDomain(props);
-      var scales = this.scales(elem, props, domain);
-
-      this.drawPoints(elem, props, scales);
-    }
-
-    var parseTime = d3.timeParse("%m/%d/%Y");
-
-    Timeline.getDomain = function(props) {
-      var domain = {};
-      domain.x = props.xDomain || d3.extent(props.data, function(d) {
-        if(props.orderByDate){
-          return d.date;
-        }
-        else{
-          return [0,10];
-        }
-       });
-      return domain;
-    };
-
-    Timeline.scales = function(elem, props, domain) {
-
-      if (!domain) {
-        return null;
-      }
-
-      var width = props.width - props.marginRight - props.marginLeft;
-      var height = props.height - props.marginTop - props.marginBottom;
-
-      var x = d3.scaleLinear()
-                .range([0,width])
-                .domain([0,10]);
-
-      if(props.orderByDate){
-        x = d3.scaleTime()
-         .range([0, width])
-         .domain(domain.x);
-      }
-
-      var artists = [];
-      for (i in props.data){
-        var temp = props.data[i]["artist_id"];
-        if(!artists.includes(temp) && temp !== undefined && temp != "skip"){
-          artists.push(temp)
-        }
-      }
-
-      artists.sort(function(a,b){
-        return a.toLowerCase() - b.toLowerCase();
-      });
-
-      var y = d3.scaleBand()
-        .range([height, 0])
-        .domain(artists);
-
-      return {x: x, y: y};
-    };
-
-    var numTicks = function(width){
-      return width / 120;
-    }
-
-    Timeline.axes = function(props, scales) {
-      var xAxis = d3.axisBottom(scales.x).ticks(10);
-      if(props.orderByDate){
-          xAxis.ticks(numTicks(props.width))
-               .tickFormat(d3.timeFormat("%B %Y"));
-          d3.select("#svg-elem").append("text")
-               .attr("class", "x-axis-label")
-               .attr("x", props.width / 2)
-               .attr("y", props.height - 5)
-               .text("Release date");
-      }
-      else{
-        d3.select("#svg-elem").append("text")
-                .attr("class", "x-axis-label")
-                .attr("x", props.width / 2)
-                .attr("y", props.height - 5)
-                .text("Rating");
-      }
-
-      var yAxis = d3.axisLeft(scales.y);
-
-      return {
-        xAxis: xAxis,
-        yAxis: yAxis
-      }
-    };
-
-    Timeline.drawPoints = function(elem, props, scales){
-      var g = d3.select(elem).selectAll(".point-container");
-      var artists = [];
-      for (i in props.data){
-          var name = props.data[i]["artist_id"];
-            if(!artists.includes(name) && name !== undefined && name != "skip"){
-              artists.push(name);
-            }
-      }
-
-      var orderFactor = props.orderByDate ? "date" : "average_rating";
-
-      var line_data = {};
-      for(var i in artists){
-        for(var j in props.data){
-          var name = artists[i];
-          if(props.data[j]["artist_id"] == name){
-            if(line_data[name] === undefined){
-              line_data[name] = {"min": props.data[j][orderFactor], "max": props.data[j][orderFactor]}
-            }
-            else if(line_data[name]["min"] > props.data[j][orderFactor]){
-              line_data[name]["min"] = props.data[j][orderFactor];
-            }
-            else if(line_data[name]["max"] < props.data[j][orderFactor]){
-              line_data[name]["max"] = props.data[j][orderFactor];
-            }
-          }
-        }
-      }
-      var line = d3.line()
-                      .x(function(d) { return d.x; })
-                      .y(function(d) { return d.y; });
-
-      var artist_list = [];
-      var keys = Object.keys(line_data);
-      for(var i = 0; i < keys.length; i++){
-        artist_list.push({
-          id : keys[i],
-          values :[
-            { x : scales.x(line_data[keys[i]]["min"]),
-              y : scales.y(keys[i])
-            },
-            { x : scales.x(line_data[keys[i]]["max"]),
-              y : scales.y(keys[i])
-            }]
-          });
-      }
-
-      var defs = d3.select("body").append("defs");
-      var linearGradient = defs.append("linearGradient")
-                                .attr("id","lg")
-                                .attr("x1","0%")
-                                .attr("y1","0%")
-                                .attr("x2","100%")
-                                .attr("y2","0%");
-
-      //append a new stop element for each color in the gradient.
-      //  offset = where along the directional vector this color should be its purest form.
-      linearGradient.append("stop")
-                    .attr("offset","0%")
-                    .attr("stop-color","#ffa474")
-                    .attr("stop-opacity","1");
-
-      linearGradient.append("stop")
-                    .attr("offset","100%")
-                    .attr("stop-color","#8b0000")
-                    .attr("stop-opacity","1");
-
-      var artist = g.selectAll(".artist")
-                      .data(artist_list)
-                      .enter()
-                      .append("g")
-                      .attr("class","artist");
-
-      var path = artist.append("path")
-              .attr("d", function(d) {return line(d.values);})
-              .attr("stroke", "url(#lg)")
-              .attr("fill","none");
-              //.style("stroke","black");
-
-      path.transition()
-              .attr("d", function(d) { return line(d.values);});
-
-      artist.exit().remove();
-      path.exit().remove();
-
-      var image = g.selectAll('.image')
-                    .data(props.data);
-
-      image.enter()
-            .append("pattern")
-            .attr("id", function(d){return d.id})
-            .attr("class","svg-image")
-            .attr("x",0)
-            .attr("y",0)
-            .attr("height", 1)
-            .attr("width", 1)
-            .append("image")
-              .attr("x","0")
-              .attr("y","0")
-              .attr("height", props.width / 13)
-              .attr("width",props.width / 13)
-              .attr("href", function(d){return d.image});
-
-     var point = g.selectAll('.point')
-                   .data(props.data);
-
-      var timeFormat = d3.timeFormat("%B %e, %Y");
-      var area = props.width;
-
-      point.enter()
-            .append("circle")
-              .attr("class","point")
-              .style("z-index","100")
-              .attr("id",function(d){return "circle-" + (d.title.toLowerCase().split(" ")[0])})
-              .attr("cx", function(d){
-                return scales.x(d.date);
-              })
-              .attr("cy", function(d){
-                return scales.y(d.artist_id);
-              })
-              .attr("r", "3%")
-              .style("fill", function(d){
-                return ("url(#" + d.id + ")");
-              })
-              .on("mouseover", function(d){
-                if(d.title == "skip"){
-                  return;
-                }
-                if(d.review_link != "N/A"){
-                  d3.select(this).style("cursor","pointer");
-                }
-                if(d.color != "N/A"){
-                  d3.select(this).transition().attr("r", "5%").style("stroke-width","4").style("stroke",function(d){return d.color});
-                  d3.selectAll(".rating-line").transition().style("stroke-width","1");
-                  d3.select("#line-" + d.title.toLowerCase().split(" ")[0]).transition().style("stroke-width","4");
-                }
-              })
-              .on("mouseout", function(d){
-                d3.selectAll(".rating-line").transition().style("stroke-width","2");
-                d3.select(this).transition().attr("r", "3%").style("stroke-width","0");
-              })
-              .on("click", function(d){
-                if(d.review_link == "N/A"){
-                  return;
-                }
-                window.location.href = d.review_link;
-              });
-
-     point.transition()
-          .attr("cx", function(d){
-            this.parentNode.appendChild(this);
-            return props.orderByDate ? scales.x(d.date) : scales.x(d.average_rating);
-          })
-          .attr("cy", function(d){
-            return scales.y(d.artist_id);
-          })
-          .attr("r", "3%");
-
-     point.exit().remove();
-     image.exit().remove();
-
-     // update the axes
-     var axes = this.axes(props, scales);
-     d3.select(elem).selectAll('g.x.axis')
-           .transition()
-           .duration(1000)
-           .call(axes.xAxis);
-
-      d3.select(elem).selectAll('g.y.axis')
-    //       .transition()
-      //     .duration(1000)
-           .call(axes.yAxis);
-    };
-
-    var redraw = function(){
-      //$(".artist-line").remove();
-      //$(".x.axis").remove();
-      $(".x-axis-label").remove();
-      $(".y.axis").remove();
-      $('.svg-image').remove();
-      $('.artist').remove();
-      $('.line-container').remove();
-      //$('.point').remove();
-      d3.csv('timeline.csv', function(d){
-        props.data = d;
-        props.data.forEach(function(d){
-          d.date = parseTime(d.date);
-        });
-        Timeline.create(elem, props);
-      });
-    }
-
-    $(document).ready(function(){
-        redraw();
-        window.addEventListener("resize",redraw);
-      });
-  </script>
 </body>
+
+<script>
+  let svg = d3.select("#graph")
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+  let summary = d3.select("#summary");
+  let margin = {top: 40, bottom: 40, left: 120, right: 40}
+
+  //let g = svg.append("g").attr("transform", "translate(" + ((width / 2) - margin.left - margin.right) + "," + ((height / 2) - margin.top - margin.bottom) + ")");
+  let timeAxisG = svg.append("g").attr("transform", "translate(0," + (height - margin.bottom) + ")").style("visibility","hidden");
+  let ratingsAxisG = svg.append("g").attr("transform", "translate(0," + (height - margin.bottom) + ")").style("visibility","hidden");
+  let artistAxisG = svg.append("g").attr("transform", "translate(" + margin.left + ",0)").style("visibility","hidden");
+
+  let parseTime = d3.timeParse("%m/%d/%Y");
+  let timeFormat = d3.timeFormat("%B %e, %Y");
+  let csvdata = null;
+  let ordered = false;
+
+  let timeScale = d3.scaleTime().range([margin.left, width- margin.right]);
+  let ratingsScale = d3.scaleLinear().range([margin.left, width - margin.right]).domain([0,10]);
+  console.log(ratingsScale.domain(), ratingsScale.range());
+  console.log(ratingsScale(0));
+  let artistScale = d3.scaleBand().range([height - margin.bottom, margin.top]);
+  let ratingsAxis = d3.axisBottom(ratingsScale);
+  let timeAxis = d3.axisBottom(timeScale);
+  let artistAxis = d3.axisLeft(artistScale);
+  let simulation = d3.forceSimulation();
+
+  d3.csv("timeline.csv", function(data){
+    csvdata = data;
+    csvdata.forEach(function(d){
+      d.date = parseTime(d.date);
+    });
+    timeScale.domain(d3.extent(csvdata, function(d){return d.date}));
+    artistScale.domain(csvdata.filter(function(d){return d.artist_id != "skip"}).map(function(d){return d.artist_id}));
+    timeAxisG.call(timeAxis);
+
+    svg.append("text")
+      .attr("x",width/2)
+      .attr("y",height)
+      .attr("id","x-axis-label");
+
+    svg.append("text")
+      .attr("x",40)
+      .attr("y",80)
+      .attr("id","y-axis-label");
+
+    ratingsAxisG.call(ratingsAxis);
+    artistAxisG.call(artistAxis);
+    svg.selectAll(".svg-image")
+        .data(csvdata)
+        .enter()
+        .append("pattern")
+        .attr("height", 1)
+        .attr("width", 1)
+        .attr("id",function(d){return d.id;})
+        .attr("class","svg-image")
+        .append("image")
+        .attr("height", 90)
+        .attr("width",90)
+        .attr("href", function(d){return d.image;});
+
+    let circles = svg.selectAll(".bubble")
+                    .data(csvdata.filter(function(d){return d.title != "skip"}))
+                    .enter()
+                    .append("circle")
+                    .attr("class","bubble")
+                    .attr("r","4%")
+                    .attr("fill",function(d){return "url(#" + d.id + ")"})
+                    .on("mouseover", function(d){
+                      if(d.review_link != "N/A"){
+                        d3.select(this).style("cursor","pointer");
+                      }
+                      if(d.color != "N/A"){
+                        d3.select(this).transition().attr("r", "6%").style("stroke-width","4").style("stroke",function(d){return d.color});
+                      }
+                      let x = d3.select(this).attr("cx");
+                      let y = d3.select(this).attr("cy");
+                      summary.append("text").attr("x",0).attr("y",100).attr("id","title").style("font-size","11pt").text(d.title + " by " + d.artist_id);
+                      summary.append("text").attr("x",0).attr("y",130).attr("id","rating").style("font-size","11pt").text("Album rating: " + d.average_rating + " / 10");
+                      summary.append("text").attr("x",0).attr("y",160).attr("id","date").style("font-size","11pt").text("Released " + timeFormat(d.date));
+                    })
+                    .on("mouseout", function(d){
+                      $("#title").remove();
+                      $("#rating").remove();
+                      $("#date").remove();
+                      d3.select(this).transition().attr("r", "4%").style("stroke-width","0");
+                    })
+                    .on("click", function(d){
+                      if(d.review_link == "N/A"){
+                        return;
+                      }
+                      window.location.href = d.review_link;
+                    });
+
+    simulation.nodes(csvdata);
+    simulation.force("charge",d3.forceManyBody().strength(-20));
+    simulation.force("center", d3.forceCenter(width/2,height/2));
+
+
+    simulation.on("tick",tickActions);
+
+    function tickActions(){
+      circles
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; })
+    }
+
+    //d3.select("#date-btn").on("click", orderByDate());
+    //d3.select("#rating-btn").on("click", orderByRating());
+  })
+
+  function removeOrdering(csvdata){
+    /*csvdata.forEach(function(album){
+      simulation.force("force-" + album.id, null);
+    });
+    artistScale.domain().map(function(artist){
+      simulation.force("force-" + artist, null);
+    });
+    artistAxisG.style("visibility","hidden");
+    ratingsAxisG.style("visibility","hidden");
+    timeAxisG.style("visibility","hidden");
+    svg.selectAll(".bubble").transition().attr("cx",width / 2).attr("cy",height / 2);
+    simulation.alphaTarget(0.2).restart();*/
+  }
+
+  function orderByDate(csvdata){
+    if(!ordered){
+      artistScale.domain().map(function(artist){
+        simulation.force("force-" + artist, d3.forceY(artistScale(artist)).strength(function(d){return d.artist_id == artist ? 0.5 : 0;}));
+      });
+      artistAxisG.style("visibility","visible");
+    }
+    console.log("ordering by date");
+    csvdata.forEach(function(album){
+      simulation.force("force-" + album.id, d3.forceX(timeScale(album.date)+500).strength(function(d){return d.id == album.id ? 0.5 : 0;}));
+    });
+    simulation.alphaTarget(0.2).restart();
+    timeAxisG.style("visibility","visible");
+    ratingsAxisG.style("visibility","hidden");
+    d3.select("#x-axis-label").text("Release Date")
+    ordered = true;
+  }
+
+  function orderByRating(csvdata){
+    if(!ordered){
+      artistScale.domain().map(function(artist){
+        simulation.force("force-" + artist, d3.forceY(artistScale(artist)).strength(function(d){return d.artist_id == artist ? 0.5 : 0;}));
+      });
+      artistAxisG.style("visibility","visible");
+    }
+    console.log("ordering by rating");
+    csvdata.forEach(function(album){
+      simulation.force("force-" + album.id, d3.forceX(ratingsScale(album.average_rating)+700).strength(function(d){return d.id == album.id ? 0.5 : 0;}));
+    });
+    simulation.alphaTarget(0.2).restart();
+    ratingsAxisG.style("visibility","visible");
+    timeAxisG.style("visibility","hidden");
+    d3.select("#x-axis-label").text("Rating")
+    ordered = true;
+  }
+</script>
