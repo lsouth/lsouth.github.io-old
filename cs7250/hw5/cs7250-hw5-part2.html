@@ -116,7 +116,7 @@ function ready(error, us) {
       .attr("y", 0)
       .attr("x", 9)
       .attr("dy", ".35em")
-      .attr("transform", "rotate(45)")
+      .attr("transform", "rotate(70)")
       .style("text-anchor", "start");
 
   svgBar.append("g").attr("class","y-axis").attr("transform","translate(30,0)").call(yAxis);
@@ -138,7 +138,14 @@ function ready(error, us) {
     .on("mouseout", function(d){
       d3.select(this).attr("stroke","none");
       d3.select("#state-" + d.id).attr("stroke","none");
-    });
+    })
+    .append("title")
+      .text(function(d) {
+        if(d.percent != null){
+          return d.percent + "%";
+        }
+        return "No data"
+      });;
 }
 
 function update(){
