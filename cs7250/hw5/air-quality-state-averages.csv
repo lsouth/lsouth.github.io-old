@@ -1,0 +1,52 @@
+StateId,StateName,ReportYear,PercentDaysBadAirQuality
+01,Alabama,2013,0
+02,Alaska,2013,7.2
+04,Arizona,2013,0.35
+05,Arkansas,2013,0.12
+06,California,2013,3.8
+08,Colorado,2013,0.26
+09,Connecticut,2013,0
+10,Delaware,2013,0
+11,D.C.,2013,0
+12,Florida,2013,0
+13,Georgia,2013,0.02
+15,Hawaii,2013,0
+16,Idaho,2013,4.44
+17,Illinois,2013,0.03
+18,Indiana,2013,0.11
+19,Iowa,2013,0.24
+20,Kansas,2013,0
+21,Kentucky,2013,0
+22,Louisiana,2013,0.07
+23,Maine,2013,0
+24,Maryland,2013,0
+25,Massachusetts,2013,0
+26,Michigan,2013,0.05
+27,Minnesota,2013,0
+28,Mississippi,2013,0.13
+29,Missouri,2013,0
+30,Montana,2013,1.75
+31,Nebraska,2013,0.172
+32,Nevada,2013,2.59
+33,New Hampshire,2013,0
+34,New Jersey,2013,0.09
+35,New Mexico,2013,0.47
+36,New York,2013,0
+37,North Carolina,2013,0.03
+38,North Dakota,2013,0
+39,Ohio,2013,0
+40,Oklahoma,2013,0
+41,Oregon,2013,5.06
+42,Pennsylvania,2013,0.95
+44,Rhode Island,2013,0
+45,South Carolina,2013,0
+46,South Dakota,2013,0
+47,Tennessee,2013,0.017
+48,Texas,2013,0.06
+49,Utah,2013,6.58
+50,Vermont,2013,0
+51,Virginia,2013,0.05
+53,Washington,2013,1.71
+54,West Virginia,2013,0
+55,Wisconsin,2013,0
+56,Wyoming,2013,0

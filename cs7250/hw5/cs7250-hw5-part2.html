@@ -1,0 +1,155 @@
+
+<head>
+
+</head>
+
+<body>
+  <h3 style="text-align: center;">What U.S. states had the most days with bad air quality in 2013?</h3>
+  <div>
+    <svg width="1200" height="600" id="map"></svg>
+  </div>
+  <div>
+    <svg width="1200" height="300" id="barchart"></svg>
+  </div>
+</body>
+<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/topojson.v2.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
+
+<script type="text/javascript">
+  let svgMap = d3.select("#map");
+  let svgBar = d3.select("#barchart");
+  let airQuality = d3.map();
+  let color = d3.scaleThreshold()
+    .domain(d3.range(0, 10))
+    .range(d3.schemeBlues[9]);
+  let path = d3.geoPath();
+  let year = "2013";
+
+  svgMap.append("g")
+  .attr("class", "legend")
+  .attr("transform", "translate(900,200)");
+
+var legend = d3.legendColor()
+  .labelFormat(d3.format(".2f"))
+  .labels(d3.legendHelpers.thresholdLabels)
+  .title("Percent of days PM2.5 levels over the National Ambient Air Quality Standard (NAAQS)")
+  .titleWidth(200)
+  .scale(color);
+
+  svgMap.select(".legend")
+    .call(legend);
+
+  d3.queue()
+    .defer(d3.json, "https://d3js.org/us-10m.v1.json")
+    .defer(d3.csv, "air-quality-state-averages.csv", function(d) {
+      let data = {
+        "percent": +d.PercentDaysBadAirQuality,
+        "name": d.StateName,
+        "id": d.StateId
+      };
+      airQuality.set(d.StateId, data);
+    })
+    .await(ready);
+
+function ready(error, us) {
+  if (error) throw error;
+  svgMap.append("g")
+      .attr("class", "states")
+      .selectAll("path")
+      .data(topojson.feature(us, us.objects.states).features)
+      .enter()
+      .append("path")
+      .attr("class","state")
+      .attr("id", d => "state-" + d.id)
+      .attr("fill","none")
+      .attr("fill", function(d) {
+          d.rate = airQuality.get(d.id).percent;
+          if(d.rate == null){
+            console.log(d.id);
+            return "gray";
+          }
+          return color(d.rate);
+      })
+      .attr("d", path)
+      .on("mouseover", function(d){
+        d3.select(this).attr("stroke","black").style("stroke-width","2");
+        d3.select("#rect-" + d.id).attr("stroke","black").style("stroke-width","2");
+      })
+      .on("mouseout", function(d){
+        d3.select(this).attr("stroke","none");
+        d3.select("#rect-" + d.id).attr("stroke","none");
+      })
+      .append("title")
+        .text(function(d) {
+          if(d.rate != null){
+            return d.rate + "%";
+          }
+          return "No data"
+        });
+
+  svgMap.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "states")
+      .attr("d", path)
+      .attr("stroke","gray")
+      .style("stroke-opacity",0.5)
+      .attr("fill","none");
+
+  barMargin = {left: 30, right: 0, top: 0, bottom: 20};
+  barHeight = 200;
+
+  let sorted = airQuality.values().slice();
+  sorted.sort((a,b) => b.percent - a.percent);
+  xScale = d3.scaleBand().domain(sorted.map(function(d){return d.name;})).range([barMargin.left,900]);
+  yScale = d3.scaleLinear().domain([0,10]).range([200,barMargin.bottom]);
+  xAxis = d3.axisBottom().ticks(0).scale(xScale)
+  yAxis = d3.axisLeft().scale(yScale);
+
+  svgBar.append("g")
+    .attr("class","x-axis")
+    .attr("transform","translate(0,200)")
+    .call(xAxis)
+    .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(45)")
+      .style("text-anchor", "start");
+
+  svgBar.append("g").attr("class","y-axis").attr("transform","translate(30,0)").call(yAxis);
+
+  svgBar.selectAll(".bar")
+    .data(sorted)
+    .enter()
+    .append("rect")
+    .attr("id",d => "rect-" + d.id)
+    .attr("x", d => xScale(d.name))
+    .attr("width", xScale.bandwidth())
+    .attr("y", d => yScale(d.percent))
+    .attr("height", d => 200 - yScale(d.percent))
+    .attr("fill", d => color(d.percent))
+    .on("mouseover", function(d){
+      d3.select(this).attr("stroke","black").style("stroke-width","2");
+      d3.select("#state-" + d.id).attr("stroke","black").style("stroke-width","2");
+    })
+    .on("mouseout", function(d){
+      d3.select(this).attr("stroke","none");
+      d3.select("#state-" + d.id).attr("stroke","none");
+    });
+}
+
+function update(){
+  svg.selectAll(".state")
+      .transition()
+      .attr("fill", function(d) {
+          d.rate = airQuality.get(d.id);
+          if(d.rate == null){
+            return "gray";
+          }
+          return color(d.rate);
+      });
+}
+</script>
