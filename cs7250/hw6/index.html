@@ -12,7 +12,7 @@
   </style>
 
   <body>
-    <h4 style="text-align: center">Andris Nelsons at the Boston Symphony Orchestra</h4>
+    <h4 style="text-align: center">Andris Nelsons' Repertoire at the Boston Symphony Orchestra (2011 - 2019)</h4>
     <svg id="svg"></svg>
   </body>
 
@@ -127,6 +127,7 @@
 
       axis.count.scale(scales.count);
       svg.append("g").attr("id","composer-count").attr("transform","translate(" + props.margin.left + ",20)").call(axis.count);
+      svg.append("g").attr("transform","translate(20,200)").append("text").text("Number of performances").attr("transform","rotate(270)").style("font-size","10pt")
 
       axis.composer.scale(scales.composer);
       svg.append("g")
@@ -139,6 +140,8 @@
         .attr("dy", ".35em")
         .attr("transform", "rotate(70)")
         .style("text-anchor", "start");
+
+      svg.append("text").text("Composer").attr("transform","translate(" + props.width/2 + ",350)").style("font-size","10pt")
 
       svg.append("g")
         .attr("id","bar-chart")
