@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="//d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+
+  <style>
+    body{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <body>
+    <h4 style="text-align: center">Andris Nelsons at the Boston Symphony Orchestra</h4>
+    <svg id="svg"></svg>
+  </body>
+
+
+  <script>
+    let props = {
+      height: 600,
+      width: window.innerWidth,
+      margin: {left: 50, right: 50, top: 20, bottom: 20}
+    }
+
+    props.width = props.width - props.margin.left - props.margin.right;
+
+    let scales = {
+      composer: d3.scaleBand().range([-(props.width/2) + props.margin.left, props.width/2 - props.margin.right]).padding(0.2),
+      count: d3.scaleLinear().range([200 + props.margin.top,props.margin.bottom]),
+      time: d3.scaleTime().range([-(props.width/2) + props.margin.left, props.width/2 - props.margin.right]),
+      color: d3.scaleOrdinal(d3.schemeCategory10)
+    }
+
+    let axis = {
+      composer: d3.axisBottom(),
+      count: d3.axisLeft(),//.tickFormat(d3.format(".0s")),
+      time: d3.axisBottom()
+    }
+
+    let svg = d3.select("#svg").attr("width",props.width + props.margin.left ).attr("height",props.height + props.margin.top);
+    let composer_map = d3.map();
+    let data = null;
+    let timeFormat = d3.timeFormat("%m/%d/%Y");
+    let parseTime = d3.timeParse("%m/%e/%Y");
+
+    d3.csv("cleaned-bso.csv").then(function(csv_data){
+      data = csv_data;
+      render();
+    });
+
+    function brushended() {
+      if (!d3.event.sourceEvent) return; // Only transition after input.
+      if (!d3.event.selection){
+        updateBarChart(scales.time.domain());
+        return;
+      }
+      let s = d3.event.selection || scales.time.range();
+      updateBarChart(s.map(scales.time.invert, scales.time))
+    }
+
+    function updateBarChart(selection){
+      filtered = data.filter(function(d){
+        return d.date > selection[0] && d.date < selection[1];
+      });
+      let new_map = d3.map();
+      composer_map.keys().forEach(function(key){
+        new_map.set(key, 0);
+      })
+
+      filtered.forEach(function(d){
+        let count = new_map.get(d.composer);
+        new_map.set(d.composer, ++count);
+      });
+
+      data.sort((a,b) => new_map.get(b.composer) - new_map.get(a.composer));
+
+      // update composer bar graph scales
+      scales.composer.domain(data.map(function(d){return d.composer;}));
+      scales.count.domain([0,d3.extent(new_map.values())[1]]);
+      console.log(scales.count.domain());
+
+      axis.composer.scale(scales.composer);
+      axis.count.scale(scales.count);
+
+      svg.select("#composer-axis").transition()
+        .call(axis.composer)
+          .selectAll("text")
+          .attr("y", 0)
+          .attr("x", 9)
+          .attr("dy", ".35em")
+          .attr("transform", "rotate(70)")
+          .style("text-anchor", "start");
+      svg.select("#composer-count").transition().call(axis.count);
+
+      svg.selectAll(".composer")
+        .transition()
+        .attr("x", d => scales.composer(d.composer))
+        .attr("y", d => scales.count(new_map.get(d.composer)))
+        .attr("height", d => scales.count.range()[0] - scales.count(new_map.get(d.composer)))
+        .selectAll("title")
+        .text(d => new_map.get(d.composer) + " performances of " + d.composer);
+    }
+
+    function render(){
+      // count occurances for each composer.
+      data.forEach(function(d){
+        let count = composer_map.get(d.composer);
+        composer_map.set(d.composer, count === undefined ? 1 : ++count);
+        d.date = parseTime(d.date);
+        d.highlight = false;
+      });
+
+      data.sort((a,b) => composer_map.get(b.composer) - composer_map.get(a.composer));
+
+      scales.composer.domain(data.map(function(d){return d.composer;}))
+
+      scales.count.domain([0,d3.extent(composer_map.values())[1]]);
+      scales.time.domain([parseTime("1/1/2011"),d3.extent(data, function(d){return d.date;})[1]]);
+      console.log(scales.time.domain());
+      let start = scales.time.domain()[0];
+      let end = scales.time.range()[1];
+
+      axis.time.scale(scales.time).ticks(10);
+      svg.append("g").attr("id","time-axis").attr("transform","translate(" + props.width/2 + "," + props.height + ")").call(axis.time);
+
+      axis.count.scale(scales.count);
+      svg.append("g").attr("id","composer-count").attr("transform","translate(" + props.margin.left + ",20)").call(axis.count);
+
+      axis.composer.scale(scales.composer);
+      svg.append("g")
+        .attr("id","composer-axis")
+        .attr("transform","translate(" + props.width/2 + "," + (scales.count.range()[0] + 20) + ")")
+        .call(axis.composer)
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 9)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(70)")
+        .style("text-anchor", "start");
+
+      svg.append("g")
+        .attr("id","bar-chart")
+        .attr("transform","translate(" + props.width/2 + "," + props.margin.top + ")")
+        .selectAll(".composer")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class","composer")
+        .attr("x", d => scales.composer(d.composer))
+        .attr("y", d => scales.count(composer_map.get(d.composer)))
+        .attr("width", scales.composer.bandwidth())
+        .attr("height", d => scales.count.range()[0] - scales.count(composer_map.get(d.composer)))
+        .style("fill", "black")//d => d.composer_gender == "m" ? "black" : "pink")
+        .on("click", function(d){
+          console.log(d.highlight);
+            d3.select(this).transition().style("fill",d => d.highlight ? "black" : "LightSeaGreen");
+            console.log(d.composer_id);
+            svg.selectAll(".composer-" + d.composer_id)
+        //      .style("visibility",d => d.highlight ? "visible" : "hidden")
+                .transition()
+                .style("stroke",d => d.highlight ? "black" : "LightSeaGreen")
+                .attr("y1",function(d){
+                  d.highlight = !d.highlight;
+                  return d.highlight ? -50 : -30;
+                })
+        })
+        .append("svg:title")
+        .text(d => composer_map.get(d.composer) + " performances of " + d.composer);
+
+      svg.append("g")
+        .attr("transform","translate(" + props.width/2 + "," + props.height + ")")
+        .attr("id","concert-g")
+        .selectAll(".concert")
+        .data(data)
+        .enter()
+        .append("line")
+        .attr("class", d => "composer-" + d.composer_id)
+        .attr("x1", d => scales.time(d.date))
+        .attr("x2", d => scales.time(d.date))
+        .attr("y1", -30)
+        .attr("y2", 0)
+      //  .style("stroke", d => d.nationality == "german" ? "red" : "black")
+        .style("stroke", "black")//d => d.composer_gender == "m" ? "black" : "pink")
+        .style("stroke-opacity",0.7)
+        .style("stroke-width",2);
+
+     svg.append("g")
+      .attr("transform","translate(" + props.width/2 + "," + props.height + ")")
+      .attr("class", "brush")
+      .call(d3.brushX()
+          .extent([[-props.width/2, -50], [props.width/2, 0]])
+          .on("end", brushended));
+    }
+  </script>
+</html>
