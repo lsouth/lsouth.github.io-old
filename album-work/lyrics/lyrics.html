@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+ <script src="js/jquery-2.1.4.min.js"></script>
+ <script src="js/bootstrap.min.js"></script>
+ <script src="js/d3.min.js"></script>
+ <script src="js/graph-scroll.js"></script>
+
+ <link href="css/bootstrap.min.css" rel="stylesheet">
+ <link href="css/style.css" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,400i" rel="stylesheet">
+ <title>Gone Now</title>
+</head>
+
+<style>
+body{
+  background-color: white;
+}
+text{
+  font-size: 10pt;
+}
+#gonenow-lyrics{
+  line-height: 90%;
+}
+</style>
+
+<body>
+ <main class="gonenow text-center">
+   <div class="container-fluid" id="container">
+     <div class="row">
+       <div class="col-md">
+           <h4 class="gonenow">Gone Now</h4>
+           <div id="gonenow-lyrics"></div>
+       </div>
+     </div>
+   </div>
+ </main>
+</body>
+
+<script type="text/javascript">
+ var props = {
+   width: 1200,
+   height: 10000,
+   marginTop: 20,
+   marginBottom: 20,
+   marginLeft: 20,
+   marginRight: 20,
+   line1x: -300,
+   line2x: 300
+ }
+
+ function addDurations(time1, time2){
+   var minutes1 = parseInt(time1.split(":")[0]);
+   var seconds1 = parseInt(time1.split(":")[1]);
+   var minutes2 = parseInt(time2.split(":")[0]);
+   var seconds2 = parseInt(time2.split(":")[1]);
+   var minutesTotal = minutes1 + minutes2;
+   var secondsTotal = seconds1 + seconds2;
+   if(secondsTotal > 59){
+     minutesTotal++;
+     secondsTotal -= 60;
+   }
+   return minutesTotal + ":" + secondsTotal
+ }
+ props.width = $("#gonenow-lyrics").width();
+ props.height = window.innerHeight;
+ //var svg = d3.select("#gonenow-lyrics").append("svg").attr("width", props.width).attr("height",props.height);
+ //var g = svg.append("g").attr("transform", "translate(" + props.width / 2 + "," + props.height / 2 + ")");
+
+ var time = d3.timeParse("%M:%S");
+
+ d3.csv("gonenow-phrases.csv", function(phrases_data){
+   phrases_data.forEach(function(d){
+     d3.select("#gonenow-lyrics")
+     .append("text")
+     .text(d.phrase + " | ")
+     .style("font-weight",d.category == "goodbye" ? "bold" : "normal");
+   })
+ });
+</script>

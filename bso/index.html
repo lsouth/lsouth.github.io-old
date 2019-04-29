@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<head>
+  <link href="css/style.css" rel="stylesheet">
+  <script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.js"></script>
+</head>
+
+<body>
+  <svg></svg>
+</body>
+
+<script>
+  let width = window.innerWidth - 100;
+  let height = window.innerHeight - 100;
+  let margin = {top: 20, bottom: 20, left: 10, right: 40};
+  let svg = d3.select("svg").attr("width",width).attr("height",height);
+
+  let scales = {
+    count: d3.scaleLinear().range([height - margin.top, margin.bottom]),
+    time: d3.scaleTime().range([-(width/2) + margin.left, width/2 - margin.right])
+  }
+
+  let time = {
+    parse: d3.timeParse("%m/%e/%Y"),
+    format: d3.timeFormat("%m/%d/%Y")
+  }
+
+  let axis = {
+    time: d3.axisBottom()
+  }
+
+  let performance_counts = d3.map();
+
+  d3.csv("cleaned-bso.csv").then(function(data){
+    data.forEach(function(d){
+      d.date = time.parse(d.date);
+      let count = performance_counts.get(d.date);
+      d.count = count === undefined ? 1 : ++count
+      console.log(d.count);
+      performance_counts.set(d.date, count === undefined ? 1 : ++count);
+    });
+
+    max_performances = Math.max.apply(null, performance_counts.values());
+    scales.count.domain([0,max_performances]);
+    scales.time.domain(d3.extent(data, function(d){return d.date;}));
+
+    axis.time.scale(scales.time).ticks(20);
+
+    svg.append("g")
+      .attr("transform","translate(" + (width/2 + margin.left) + "," + (height - margin.bottom) + ")").attr("id","time-axis").call(axis.time);
+
+    pointsG = svg.append("g").attr("transform","translate(" + (width/2 + margin.left) + ",0)");
+
+    pointsG.selectAll(".performance-circle")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("class","performance-circle")
+      .attr("cx", d => scales.time(d.date))
+      .attr("cy", d => scales.count(d.count))
+      .attr("fill","#94DFD5")
+      .attr("r",4)
+      .on("mouseover",function(d){
+        d3.select(this).attr("stroke","black");
+      })
+      .on("mouseout",function(d){
+        d3.select(this).attr("stroke","none");
+      })
+      .append("svg:title")
+      .text(function(d){return d.composer + ": " + d.work;})
+  });
+</script>

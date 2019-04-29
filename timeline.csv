@@ -2,15 +2,15 @@ image,title,id,date,artist_id,review_link,color,average_rating
 ,skip,0,1/1/2006,skip,N/A,N/A,0
 img/marryme.jpg,Marry Me,1,7/10/2007,St Vincent,N/A,#c7ddd6,4
 img/actor.jpg,Actor,2,5/4/2009,St Vincent,N/A,#ffaa72,4.45
-img/strangemercy.jpg,Strange Mercy,3,9/12/2011,St Vincent,strange-mercy.html,#ccd2dd,8.45
-img/stvincent-square.jpg,St Vincent,4,2/24/2014,St Vincent,st-vincent.html,#fceaf8,6.2
-img/masseduction-square.png,Masseduction,5,10/13/2017,St Vincent,masseduction.html,#ff3877,7.46
+img/strangemercy.jpg,Strange Mercy,3,9/12/2011,St Vincent,strange-mercy.html,#ccd2dd,8.27
+img/stvincent-square.jpg,St Vincent,4,2/24/2014,St Vincent,st-vincent.html,#fceaf8,6.36
+img/masseduction-square.png,Masseduction,5,10/13/2017,St Vincent,masseduction.html,#ff3877,5.85
 img/taylorswift.png,Taylor Swift,6,10/24/2006,Taylor Swift,N/A,#4acee0,4.57
 img/fearless.png,Fearless,7,11/11/2008,Taylor Swift,N/A,#fff7bc,5.61
 img/speaknow.png,Speak Now,8,10/25/2010,Taylor Swift,N/A,#df6dff,6.28
-img/red.png,Red,9,10/22/2012,Taylor Swift,N/A,#bc1818,6.5
+img/red.png,Red,9,10/22/2012,Taylor Swift,N/A,#bc1818,6.69
 img/1989.png,1989,10,10/27/2014,Taylor Swift,1989.html,#d7c7ea,7.92
-img/reputation-square.jpg,reputation,11,11/10/2017,Taylor Swift,reputation.html,#737773,7.53
+img/reputation-square.jpg,reputation,11,11/10/2017,Taylor Swift,reputation.html,#737773,7.6
 img/trampoline.jpg,Trampoline,12,10/16/2007,Steel Train,N/A,#c1bc91,7.75
 img/steeltrain-square.jpg,Steel Train,13,6/29/2010,Steel Train,steel-train.html,#b1d8d8,8.86
 img/pureheroine-square.png,Pure Heroine,14,9/27/2013,Lorde,pure-heroine.html,#bcbcbc,9
